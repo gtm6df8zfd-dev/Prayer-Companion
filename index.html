@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Prayer">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#7a1d2a">
+<link rel="apple-touch-icon" id="ati" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<title>Prayer Companion</title>
+<style>
+:root{--bg:#faf6ee;--card:#fff;--ink:#2b2420;--mute:#7a6e63;--acc:#8a2f3c;--line:#e6dccb;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1715;--card:#26201d;--ink:#f1e9de;--mute:#a99d90;--acc:#d9858f;--line:#3a312c;--on:#1b1715}}
+:root[data-theme="dark"]{--bg:#1b1715;--card:#26201d;--ink:#f1e9de;--mute:#a99d90;--acc:#d9858f;--line:#3a312c;--on:#1b1715}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+main{max-width:640px;margin:0 auto;padding:16px 16px 90px}
+h1{font-size:1.5rem;margin:8px 0 2px}
+.sub{color:var(--mute);font-size:.9rem;margin:0 0 14px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;padding:14px;background:none;border:0;color:var(--mute);font:inherit;font-size:1rem}
+nav button.on{color:var(--acc);font-weight:bold}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:10px 0}
+.card h2{margin:0 0 8px;font-size:1.1rem;color:var(--acc)}
+.card p{margin:0;white-space:pre-line}
+details.card summary{cursor:pointer;font-weight:bold;color:var(--acc);font-size:1.05rem}
+details.card p{margin-top:10px}
+button.b{background:var(--acc);color:var(--on);border:0;border-radius:12px;padding:14px 20px;font:inherit;font-size:1.05rem}
+button.g{background:none;color:var(--acc);border:1px solid var(--acc)}
+.row{display:flex;gap:10px;margin-top:12px}.row button{flex:1}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--acc);display:block}
+.dots i.f{background:var(--acc)}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0}
+.bar div{height:100%;background:var(--acc)}
+.tag{font-size:.8rem;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.big{font-size:1.2rem}
+.lat{font-style:italic}
+.tr{color:var(--mute);margin-top:10px!important;font-size:.95rem}
+.seg{display:flex;gap:6px;margin:0 0 12px}.seg button{flex:1;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.9rem}.seg button.on{background:var(--acc);color:var(--on);border-color:var(--acc)}
+:root{--bg:#f3ead6;--card:#fbf6ea;--ink:#2a1d1a;--mute:#6f6054;--acc:#7a1d2a;--gold:#a9822a;--line:#d9c9a3;--on:#fff8e8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1214;--card:#251a1c;--ink:#f3e8d4;--mute:#b3a48f;--acc:#d98a96;--gold:#d4aa4f;--line:#4a3a2c;--on:#1a1214}}
+:root[data-theme="dark"]{--bg:#1a1214;--card:#251a1c;--ink:#f3e8d4;--mute:#b3a48f;--acc:#d98a96;--gold:#d4aa4f;--line:#4a3a2c;--on:#1a1214}
+body{background:radial-gradient(circle at top,var(--card),var(--bg) 65%) fixed}
+h1{text-align:center;font-variant:small-caps;letter-spacing:.08em;color:var(--acc);font-weight:normal;font-size:1.7rem;margin-top:10px}
+h1::before{content:'✠︎';display:block;color:var(--gold);font-size:1.6rem;line-height:1.2}
+h1::after{content:'';display:block;height:1px;margin:10px auto 0;width:60%;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.sub{text-align:center;font-style:italic}
+.card{border:1px solid var(--gold);border-radius:6px;box-shadow:0 0 0 3px var(--card),0 0 0 4px var(--line)}
+.card h2{font-variant:small-caps;letter-spacing:.05em;font-weight:normal;font-size:1.2rem}
+button.b{border-radius:4px;letter-spacing:.04em}
+.tag{color:var(--gold);text-align:center}
+.tag::before,.tag::after{content:' ✢︎ ';opacity:.7}
+main::after{content:'✙︎';display:block;text-align:center;color:var(--gold);margin-top:24px;font-size:1.3rem}
+.dots i{border-color:var(--gold)}.dots i.f{background:var(--gold)}.bar div{background:var(--gold)}
+nav{border-top:1px solid var(--gold)}nav button.on{color:var(--acc);box-shadow:inset 0 2px 0 var(--gold)}
+summary{list-style:none}summary::-webkit-details-marker{display:none}summary::before{content:'✠︎  ';color:var(--gold)}
+.seg button{font-size:.78rem;padding:8px 2px}.seg button.on{background:var(--acc);border-color:var(--gold)}
+.note{border:1px dashed var(--gold);border-radius:6px;padding:8px 10px;font-size:.85rem;color:var(--mute);margin:0 0 12px}
+:root[data-s=violet]{--acc:#5a3a85}:root[data-s=green]{--acc:#2f6b3f}
+@media (prefers-color-scheme:dark){:root[data-s=violet]:not([data-theme=light]){--acc:#b79be3}:root[data-s=green]:not([data-theme=light]){--acc:#8fcf9e}}
+.srch,.inp{width:100%;padding:12px;border:1px solid var(--gold);border-radius:6px;background:var(--card);color:var(--ink);font:inherit;margin:8px 0}
+.sm{padding:8px 14px!important;font-size:.9rem!important}
+.fav{margin-top:12px;background:none;border:1px solid var(--gold);color:var(--acc);border-radius:4px;padding:8px 12px;font:inherit;font-size:.85rem}
+nav button{font-size:.9rem;padding:14px 4px}
+.item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+*{-webkit-tap-highlight-color:transparent}button{touch-action:manipulation;-webkit-user-select:none;user-select:none}
+body{overscroll-behavior-y:none}main{padding-bottom:110px}.row button{min-height:52px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pg>*{animation:fi .3s ease both}
+button{transition:transform .12s ease,opacity .12s ease,background-color .2s ease,color .2s ease}
+button:active{transform:scale(.97);opacity:.85}
+summary{cursor:pointer;padding:4px 0}
+.stick{position:sticky;bottom:calc(58px + env(safe-area-inset-bottom,0px));background:var(--bg);padding:10px 0;margin-top:0;z-index:5}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.gh{display:flex;justify-content:space-between;align-items:center;width:100%;margin:10px 0 0;padding:14px;background:var(--card);border:1px solid var(--gold);border-radius:6px;color:var(--acc);font:inherit;font-variant:small-caps;letter-spacing:.06em;font-size:1.05rem;text-align:left}
+.gh i{width:8px;height:8px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);margin:-3px 4px 0 10px;transition:transform .2s}
+.gh.open i{transform:rotate(-135deg);margin-top:3px}
+body{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;font-size:17px;-webkit-font-smoothing:antialiased;background:radial-gradient(1200px 600px at 50% -10%,var(--card),var(--bg) 70%) fixed}
+h1,.card h2,.gh,.big{font-family:'Cormorant Garamond',Georgia,serif}
+h1{font-weight:600;font-size:2rem;letter-spacing:.06em}
+.sub{font-size:.95rem}
+.card{border:1px solid var(--line);border-top:2px solid var(--gold);border-radius:12px;box-shadow:0 1px 2px rgba(60,30,20,.06),0 8px 24px rgba(60,30,20,.06);padding:18px}
+.card h2{font-size:1.35rem;font-weight:600}
+.card p{font-size:1.08rem;line-height:1.7}
+.card p.tr,.card p.note,p.note{font-size:.95rem}
+.card p.big,.big{font-size:1.3rem;font-weight:700}
+button.b{border-radius:10px;font-family:inherit;font-weight:600;letter-spacing:.03em;box-shadow:0 1px 2px rgba(0,0,0,.18)}
+button.b.g{box-shadow:none;border-color:var(--gold)}
+button:focus-visible,summary:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.gh{font-size:1.2rem;font-weight:600;border-radius:10px;border:1px solid var(--line);box-shadow:0 1px 2px rgba(60,30,20,.05)}
+.gh.open{border-color:var(--gold)}
+.srch,.inp{border-radius:10px;border:1px solid var(--line);font-family:inherit}
+.bar{height:5px;border-radius:3px}
+.dots i{width:16px;height:16px}
+.note{border:1px solid var(--line);background:var(--card)}
+nav{background:var(--card);background:color-mix(in srgb,var(--card) 90%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.05)}
+nav button{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.68rem;letter-spacing:.05em;padding:9px 2px 8px;font-family:'Source Serif 4',Georgia,serif}
+nav button.on{box-shadow:none}
+nav button.on::after{content:'';position:absolute;top:0;left:32%;right:32%;height:2px;background:var(--gold);border-radius:0 0 2px 2px}
+nav svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.stick{bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+main{padding-bottom:125px}
+.seg button{white-space:nowrap;font-size:.76rem;padding:10px 2px}
+.row .g.sm{min-height:44px;font-size:.9rem}
+.gh small{font-size:.8rem;color:var(--mute);font-variant:normal;letter-spacing:0;font-family:'Source Serif 4',Georgia,serif;margin-left:6px}
+a.note{text-decoration:none;font-weight:600}
+details.card{padding:10px 18px;border-top:1px solid var(--line);margin:8px 0}
+details.card[open]{border-top:2px solid var(--gold)}
+.gh.open+.card{margin-top:6px}
+</style></head><body><main id="app"></main>
+<nav><button id="t0" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5.5" stroke-width="2.6" stroke-dasharray="0.1 3.35"/><path d="M12 14.5V21M9.8 17.3h4.4"/></svg><span>Rosary</span></button><button id="t1"><svg viewBox="0 0 24 24"><path d="M12 6.5C10.5 5 8 4.5 4.5 4.5v13c3.5 0 6 .5 7.5 2 1.5-1.5 4-2 7.5-2v-13C16 4.5 13.5 5 12 6.5z"/><path d="M12 6.5v13"/></svg><span>Prayers</span></button><button id="t2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Hours</span></button><button id="t3"><svg viewBox="0 0 24 24"><path d="M12 3c2 2.5 3 4 3 5.5a3 3 0 0 1-6 0C9 7 10 5.5 12 3z"/><rect x="9" y="12" width="6" height="9" rx="1"/></svg><span>Devotions</span></button><button id="t4"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.7-6 7-6s6.2 2 7 6"/></svg><span>Me</span></button></nav>
+<script>
+var P={
+sign:["Sign of the Cross","In the name of the Father, and of the Son, and of the Holy Spirit. Amen."],
+our:["Our Father","Our Father, who art in heaven, hallowed be thy name; thy kingdom come; thy will be done on earth as it is in heaven.\nGive us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. Amen."],
+hail:["Hail Mary","Hail Mary, full of grace, the Lord is with thee; blessed art thou amongst women, and blessed is the fruit of thy womb, Jesus.\nHoly Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."],
+glory:["Glory Be","Glory be to the Father, and to the Son, and to the Holy Spirit; as it was in the beginning, is now, and ever shall be, world without end. Amen."],
+creed:["Apostles' Creed","I believe in God, the Father almighty, Creator of heaven and earth, and in Jesus Christ, his only Son, our Lord, who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from there he will come to judge the living and the dead.\nI believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen."],
+fatima:["Fatima Prayer","O my Jesus, forgive us our sins, save us from the fires of hell; lead all souls to heaven, especially those most in need of thy mercy."],
+queen:["Hail, Holy Queen","Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve; to thee do we send up our sighs, mourning and weeping in this valley of tears.\nTurn then, most gracious advocate, thine eyes of mercy toward us; and after this our exile, show unto us the blessed fruit of thy womb, Jesus.\nO clement, O loving, O sweet Virgin Mary."],
+contrition:["Act of Contrition","O my God, I am heartily sorry for having offended Thee, and I detest all my sins because of Thy just punishments, but most of all because they offend Thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of Thy grace, to sin no more and to avoid the near occasion of sin. Amen."],
+memorare:["The Memorare","Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, or sought thy intercession was left unaided. Inspired by this confidence, I fly unto thee, O Virgin of virgins, my Mother; to thee do I come, before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but in thy mercy hear and answer me. Amen."],
+michael:["Prayer to St. Michael","St. Michael the Archangel, defend us in battle. Be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all evil spirits who prowl about the world seeking the ruin of souls. Amen."],
+angel:["Guardian Angel","Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen."],
+grace:["Grace Before Meals","Bless us, O Lord, and these thy gifts, which we are about to receive from thy bounty, through Christ our Lord. Amen."],
+after:["Grace After Meals","We give thee thanks, almighty God, for all thy benefits, who livest and reignest world without end. Amen."]
+};
+var L={
+sign:"In nómine Patris, et Fílii, et Spíritus Sancti. Amen.",
+our:"Pater noster, qui es in cælis, sanctificétur nomen tuum; advéniat regnum tuum; fiat volúntas tua, sicut in cælo et in terra.\nPanem nostrum cotidiánum da nobis hódie; et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris; et ne nos indúcas in tentatiónem; sed líbera nos a malo. Amen.",
+hail:"Ave Maria, grátia plena, Dóminus tecum; benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus.\nSancta Maria, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen.",
+glory:"Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.",
+creed:"Credo in Deum Patrem omnipoténtem, Creatórem cæli et terræ. Et in Iesum Christum, Fílium eius unicum, Dóminum nostrum, qui concéptus est de Spíritu Sancto, natus ex Maria Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus, descéndit ad ínferos, tértia die resurréxit a mórtuis, ascéndit ad cælos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos.\nCredo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ætérnam. Amen.",
+fatima:"O mi Iesu, dimítte nobis débita nostra, líbera nos ab igne inférni, perduc in cælum omnes ánimas, præsértim eas quæ misericórdiæ tuæ máxime indigent.",
+queen:"Salve, Regína, Mater misericórdiæ, vita, dulcédo, et spes nostra, salve. Ad te clamámus, éxsules fílii Evæ. Ad te suspirámus, geméntes et flentes in hac lacrimárum valle.\nEia ergo, advocáta nostra, illos tuos misericórdes óculos ad nos convérte. Et Iesum, benedíctum fructum ventris tui, nobis post hoc exsílium osténde.\nO clemens, O pia, O dulcis Virgo María.",
+memorare:"Memorare, O piíssima Virgo María, non esse audítum a sǽculo, quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, ad te vénio, coram te gemens peccátor assísto. Noli, Mater Verbi, verba mea despícere; sed áudi propítia et exáudi. Amen.",
+michael:"Sancte Michaël Archángele, defénde nos in prœlio; contra nequítiam et insídias diáboli esto præsídium. Imperet illi Deus, súpplices deprecámur: tuque, Princeps milítiæ cæléstis, Satánam aliósque spíritus malígnos, qui ad perditiónem animárum pervagántur in mundo, divína virtúte in infernum detrúde. Amen.",
+angel:"Ángele Dei, qui custos es mei, me tibi commíssum pietáte supérna; illúmina, custódi, rege et gubérna. Amen.",
+grace:"Benedic, Dómine, nos et hæc tua dona, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum. Amen.",
+after:"Agimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis, qui vivis et regnas in sǽcula sæculórum. Amen."
+};
+var lang="both";try{lang=localStorage.getItem("pc-lang")||"both"}catch(e){}
+function bodies(par,k){
+ if(lang=='fo'){par.appendChild(el('p',0,F[k]||P[k][1]));if(F[k])par.appendChild(el('p','tr',P[k][1]));return}
+ if(!L[k]||lang=="en"){par.appendChild(el("p",0,P[k][1]));if(!L[k]&&lang=="la")par.appendChild(el("p","tr","(No Latin text included for this prayer.)"));return}
+ par.appendChild(el("p","lat",L[k]));
+ if(lang=="both")par.appendChild(el("p","tr",P[k][1]));
+}
+function langBar(){
+ var d=el("div","seg");
+ [['both','Latin + English'],['la','Latin'],['en','English'],['fo','Føroyskt']].forEach(function(o){
+  var b=el("button",lang==o[0]?"on":"",o[1]);
+  b.onclick=function(){lang=o[0];try{localStorage.setItem("pc-lang",lang)}catch(e){}[rosary,prayers,hours,devo,me][tab]()};
+  d.appendChild(b)});
+ app.appendChild(d);if(lang=='fo')app.appendChild(el('p','note','Faroese: the Rosary prayers (Creed, Our Father, Hail Mary, Glory Be, Fatima Prayer, Hail, Holy Queen, and the closing prayer) and the mysteries are shown in Faroese. Other prayers show in English.'));
+}
+var M={
+Joyful:["The Annunciation","The Visitation","The Nativity","The Presentation","Finding Jesus in the Temple"],
+Luminous:["The Baptism of Jesus","The Wedding at Cana","Proclamation of the Kingdom","The Transfiguration","Institution of the Eucharist"],
+Sorrowful:["The Agony in the Garden","The Scourging at the Pillar","The Crowning with Thorns","The Carrying of the Cross","The Crucifixion"],
+Glorious:["The Resurrection","The Ascension","The Descent of the Holy Spirit","The Assumption of Mary","The Coronation of Mary"]};
+var DAY=["Glorious","Joyful","Sorrowful","Glorious","Luminous","Sorrowful","Joyful"];
+var set=DAY[new Date().getDay()],steps=[],i=0,tab=0,app=document.getElementById("app");
+Object.assign(P,{
+offering:['Morning Offering',`O Jesus, through the Immaculate Heart of Mary, I offer you my prayers, works, joys and sufferings of this day, for all the intentions of your Sacred Heart, in union with the Holy Sacrifice of the Mass throughout the world, for the salvation of souls, the reparation of sins, and the reunion of all Christians. Amen.`],
+come:['Come, Holy Spirit',`Come, Holy Spirit, fill the hearts of your faithful and kindle in them the fire of your love.
+V. Send forth your Spirit and they shall be created.
+R. And you shall renew the face of the earth.
+Let us pray. O God, who instructed the hearts of the faithful by the light of the Holy Spirit, grant that in the same Spirit we may be truly wise and always rejoice in his consolation. Through Christ our Lord. Amen.`],
+angelus:['The Angelus',`V. The Angel of the Lord declared unto Mary.
+R. And she conceived of the Holy Spirit.
+Hail Mary…
+V. Behold the handmaid of the Lord.
+R. Be it done unto me according to your word.
+Hail Mary…
+V. And the Word was made flesh.
+R. And dwelt among us.
+Hail Mary…
+V. Pray for us, O holy Mother of God.
+R. That we may be made worthy of the promises of Christ.
+Let us pray. Pour forth, we beseech you, O Lord, your grace into our hearts; that we, to whom the incarnation of Christ your Son was made known by the message of an angel, may by his passion and cross be brought to the glory of his resurrection. Through the same Christ our Lord. Amen.`],
+regina:['Regina Caeli (Easter season)',`Queen of Heaven, rejoice, alleluia. For he whom you did merit to bear, alleluia, has risen as he said, alleluia. Pray for us to God, alleluia.
+V. Rejoice and be glad, O Virgin Mary, alleluia.
+R. For the Lord has truly risen, alleluia.
+Let us pray. O God, who gave joy to the world through the resurrection of your Son, our Lord Jesus Christ, grant, we beseech you, that through the intercession of the Virgin Mary, his Mother, we may obtain the joys of everlasting life. Through the same Christ our Lord. Amen.`],
+subtuum:['Sub Tuum Praesidium',`We fly to your patronage, O holy Mother of God; despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin.`],
+joseph:['Prayer to St. Joseph',`To you, O blessed Joseph, we have recourse in our tribulation, and having implored the help of your most holy Spouse, we confidently invoke your patronage also. Through that charity which bound you to the Immaculate Virgin Mother of God and through the paternal love with which you embraced the Child Jesus, we humbly beg you graciously to regard the inheritance which Jesus Christ purchased by his Blood, and with your power and strength to aid us in our necessities.
+O most watchful guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be kind to us and from heaven assist us in our struggle with the powers of darkness. As once you rescued the Child Jesus from deadly peril, so now defend God's Holy Church from the snares of the enemy and from all adversity; shield each one of us by your constant protection, so that, supported by your example and your aid, we may live piously, die holily, and obtain eternal happiness in heaven. Amen.`],
+francis:['Peace Prayer (attributed to St. Francis)',`Lord, make me an instrument of your peace: where there is hatred, let me sow love; where there is injury, pardon; where there is doubt, faith; where there is despair, hope; where there is darkness, light; where there is sadness, joy.
+O Divine Master, grant that I may not so much seek to be consoled as to console; to be understood as to understand; to be loved as to love. For it is in giving that we receive; it is in pardoning that we are pardoned; and it is in dying that we are born to eternal life. Amen.`],
+teresa:['St. Teresa of Avila: Let Nothing Disturb You',`Let nothing disturb you, nothing frighten you; all things are passing. God never changes. Patience obtains all things. Whoever has God lacks nothing: God alone suffices.`],
+ignatius:['St. Ignatius: Suscipe',`Take, Lord, and receive all my liberty, my memory, my understanding, and my entire will, all that I have and possess. You have given all to me. To you, Lord, I return it. All is yours; dispose of it wholly according to your will. Give me only your love and your grace, for this is enough for me. Amen.`],
+patrick:['St. Patrick\'s Breastplate (excerpt)',`Christ with me, Christ before me, Christ behind me, Christ in me, Christ beneath me, Christ above me, Christ on my right, Christ on my left, Christ when I lie down, Christ when I sit down, Christ when I arise, Christ in the heart of everyone who thinks of me, Christ in the mouth of everyone who speaks of me, Christ in every eye that sees me, Christ in every ear that hears me.`],
+communion:['Before Communion',`Lord, I am not worthy that you should enter under my roof; but only say the word and my soul shall be healed.`],
+anima:['Anima Christi (after Communion)',`Soul of Christ, sanctify me.
+Body of Christ, save me.
+Blood of Christ, inebriate me.
+Water from the side of Christ, wash me.
+Passion of Christ, strengthen me.
+O good Jesus, hear me.
+Within your wounds hide me.
+Suffer me not to be separated from you.
+From the malicious enemy defend me.
+In the hour of my death call me, and bid me come to you, that with your saints I may praise you forever and ever. Amen.`],
+fhl:['Acts of Faith, Hope & Love',`FAITH: O my God, I firmly believe that you are one God in three Divine Persons, Father, Son and Holy Spirit. I believe these and all the truths which the Holy Catholic Church teaches, because you have revealed them, who can neither deceive nor be deceived.
+HOPE: O my God, relying on your almighty power and infinite mercy and promises, I hope to gain pardon of my sins, the help of your grace, and life everlasting, through the merits of Jesus Christ, my Lord and Redeemer.
+LOVE: O my God, I love you above all things, with my whole heart and soul, because you are all good and worthy of all love. I love my neighbor as myself for the love of you. I forgive all who have injured me, and ask pardon of all whom I have injured.`],
+eternal:['Eternal Rest (for the departed)',`Eternal rest grant unto them, O Lord, and let perpetual light shine upon them. May they rest in peace. Amen.`],
+opening:['Opening Versicle',`O God, come to my assistance.
+O Lord, make haste to help me.
+Glory be to the Father… (see Glory Be)`],
+resp:['Compline Responsory',`Into your hands, O Lord, I commend my spirit.`],
+benedictus:['Canticle of Zechariah (Benedictus, Lauds)',`Blessed be the Lord God of Israel; because he hath visited and wrought the redemption of his people: And hath raised up a horn of salvation to us, in the house of David his servant, As he spoke by the mouth of his holy prophets, who are from the beginning: Salvation from our enemies, and from the hand of all that hate us: To perform mercy to our fathers, and to remember his holy testament, The oath, which he swore to Abraham our father, that he would grant to us, That being delivered from the hand of our enemies, we may serve him without fear, In holiness and justice before him, all our days.
+And thou, child, shalt be called the prophet of the Highest: for thou shalt go before the face of the Lord to prepare his ways: To give knowledge of salvation to his people, unto the remission of their sins: Through the bowels of the mercy of our God, in which the Orient from on high hath visited us: To enlighten them that sit in darkness, and in the shadow of death: to direct our feet into the way of peace.`],
+magnificat:['Canticle of Mary (Magnificat, Vespers)',`My soul doth magnify the Lord. And my spirit hath rejoiced in God my Saviour. Because he hath regarded the humility of his handmaid; for behold from henceforth all generations shall call me blessed. Because he that is mighty hath done great things to me; and holy is his name. And his mercy is from generation unto generations, to them that fear him.
+He hath shewed might in his arm: he hath scattered the proud in the conceit of their heart. He hath put down the mighty from their seat, and hath exalted the humble. He hath filled the hungry with good things; and the rich he hath sent empty away. He hath received Israel his servant, being mindful of his mercy: As he spoke to our fathers, to Abraham and to his seed for ever.`],
+nunc:['Canticle of Simeon (Nunc Dimittis, Compline)',`Now thou dost dismiss thy servant, O Lord, according to thy word in peace; Because my eyes have seen thy salvation, Which thou hast prepared before the face of all peoples: A light to the revelation of the Gentiles, and the glory of thy people Israel.`]
+});
+Object.assign(L,{
+subtuum:`Sub tuum præsídium confúgimus, sancta Dei Génetrix; nostras deprecatiónes ne despícias in necessitátibus, sed a perículis cunctis líbera nos semper, Virgo gloriósa et benedícta.`,
+communion:`Dómine, non sum dignus ut intres sub tectum meum: sed tantum dic verbo, et sanábitur ánima mea.`,
+anima:`Anima Christi, sanctífica me.
+Corpus Christi, salva me.
+Sanguis Christi, inébria me.
+Aqua láteris Christi, lava me.
+Passio Christi, confórta me.
+O bone Iesu, exáudi me.
+Intra tua vúlnera abscónde me.
+Ne permíttas me separári a te.
+Ab hoste malígno defénde me.
+In hora mortis meæ voca me.
+Et iube me veníre ad te, ut cum Sanctis tuis laudem te in sǽcula sæculórum. Amen.`,
+eternal:`Réquiem ætérnam dona eis, Dómine, et lux perpétua lúceat eis. Requiéscant in pace. Amen.`,
+opening:`Deus, in adiutórium meum inténde.
+Dómine, ad adiuvándum me festína.`,
+resp:`In manus tuas, Dómine, comméndo spíritum meum.`
+});
+Object.assign(L,{
+contrition:`Deus meus, ex toto corde pænitet me ómnium meórum peccatórum, eáque détestor, quia peccándo, non solum pœnas a te iuste statútas proméritus sum, sed præsértim quia offéndi te, summum bonum, ac dígnum qui super ómnia diligáris. Ídeo fírmiter propóno, adiuvánte grátia tua, de cétero me non peccatúrum peccandíque occasiónes próximas fugitúrum. Amen.`,
+come:`Veni, Sancte Spíritus, reple tuórum corda fidélium, et tui amóris in eis ignem accénde.\nV. Emítte Spíritum tuum et creabúntur.\nR. Et renovábis fáciem terræ.\nOrémus. Deus, qui corda fidélium Sancti Spíritus illustratióne docuísti, da nobis in eódem Spíritu recta sápere, et de eius semper consolatióne gaudére. Per Christum Dóminum nostrum. Amen.`,
+angelus:`V. Angelus Dómini nuntiávit Maríæ.\nR. Et concépit de Spíritu Sancto.\nAve María…\nV. Ecce ancílla Dómini.\nR. Fiat mihi secúndum verbum tuum.\nAve María…\nV. Et Verbum caro factum est.\nR. Et habitávit in nobis.\nAve María…\nV. Ora pro nobis, sancta Dei Génetrix.\nR. Ut digni efficiámur promissiónibus Christi.\nOrémus. Grátiam tuam, quǽsumus, Dómine, méntibus nostris infúnde: ut qui, Angelo nuntiánte, Christi Fílii tui incarnatiónem cognóvimus, per passiónem eius et crucem ad resurrectiónis glóriam perducámur. Per eúndem Christum Dóminum nostrum. Amen.`,
+regina:`Regína cæli, lætáre, allelúia: quia quem meruísti portáre, allelúia, resurréxit, sicut dixit, allelúia: ora pro nobis Deum, allelúia.\nV. Gaude et lætáre, Virgo María, allelúia.\nR. Quia surréxit Dóminus vere, allelúia.\nOrémus. Deus, qui per resurrectiónem Fílii tui, Dómini nostri Iesu Christi, mundum lætificáre dignátus es: præsta, quǽsumus; ut per eius Genetrícem Vírginem Maríam, perpétuæ capiámus gáudia vitæ. Per eúndem Christum Dóminum nostrum. Amen.`,
+ignatius:`Súscipe, Dómine, univérsam meam libertátem. Accipe memóriam, intelléctum atque voluntátem omnem. Quidquid hábeo vel possídeo mihi largítus es; id tibi totum restítuo, ac tuæ prorsus voluntáti trado gubernándum. Amórem tui solum cum grátia tua mihi dones, et dives sum satis, nec áliud quidquam ultra pósco. Amen.`,
+benedictus:`Benedíctus Dóminus Deus Israël, quia visitávit et fecit redemptiónem plebis suæ, et eréxit cornu salútis nobis in domo David púeri sui, sicut locútus est per os sanctórum, qui a sǽculo sunt, prophetárum eius, salútem ex inimícis nostris et de manu ómnium qui odérunt nos, ad faciéndam misericórdiam cum pátribus nostris et memorári testaménti sui sancti, iusiurándum, quod iurávit ad Ábraham patrem nostrum, datúrum se nobis, ut sine timóre, de manu inimicórum nostrórum liberáti, serviámus illi in sanctitáte et iustítia coram ipso ómnibus diébus nostris.\nEt tu, puer, prophéta Altíssimi vocáberis: præíbis enim ante fáciem Dómini paráre vias eius, ad dandam sciéntiam salútis plebi eius in remissiónem peccatórum eórum, per víscera misericórdiæ Dei nostri, in quibus visitábit nos óriens ex alto, illumináre his qui in ténebris et in umbra mortis sedent, ad dirigéndos pedes nostros in viam pacis.`,
+magnificat:`Magníficat ánima mea Dóminum, et exsultávit spíritus meus in Deo salvatóre meo, quia respéxit humilitátem ancíllæ suæ. Ecce enim ex hoc beátam me dicent omnes generatiónes, quia fecit mihi magna qui potens est, et sanctum nomen eius, et misericórdia eius in progénies et progénies timéntibus eum.\nFecit poténtiam in bráchio suo, dispérsit supérbos mente cordis sui; depósuit poténtes de sede et exaltávit húmiles; esuriéntes implévit bonis et dívites dimísit inánes. Suscépit Ísrael púerum suum, recordátus misericórdiæ suæ, sicut locútus est ad patres nostros, Ábraham et sémini eius in sǽcula.`,
+nunc:`Nunc dimíttis servum tuum, Dómine, secúndum verbum tuum in pace: quia vidérunt óculi mei salutáre tuum, quod parásti ante fáciem ómnium populórum: lumen ad revelatiónem géntium, et glóriam plebis tuæ Israël.`,
+loreto:`Kýrie, eléison. Christe, eléison. Kýrie, eléison.\nChriste, audi nos. Christe, exáudi nos.\nPater de cælis, Deus, miserére nobis.\nFili, Redémptor mundi, Deus, miserére nobis.\nSpíritus Sancte, Deus, miserére nobis.\nSancta Trínitas, unus Deus, miserére nobis.\n\nSancta María, ora pro nobis.\nSancta Dei Génetrix\nSancta Virgo vírginum\nMater Christi\nMater Ecclésiæ\nMater misericórdiæ\nMater divínæ grátiæ\nMater spei\nMater puríssima\nMater castíssima\nMater invioláta\nMater intemeráta\nMater amábilis\nMater admirábilis\nMater boni consílii\nMater Creatóris\nMater Salvatóris\nVirgo prudentíssima\nVirgo veneránda\nVirgo prædicánda\nVirgo potens\nVirgo clemens\nVirgo fidélis\nSpéculum iustítiæ\nSedes sapiéntiæ\nCausa nostræ lætítiæ\nVas spirituále\nVas honorábile\nVas insígne devotiónis\nRosa mýstica\nTurris Davídica\nTurris ebúrnea\nDomus áurea\nFoéderis arca\nIánua cæli\nStella matutína\nSalus infirmórum\nRefúgium peccatórum\nSolácium migrántium\nConsolátrix afflictórum\nAuxílium Christianórum\nRegína Angelórum\nRegína Patriarchárum\nRegína Prophetárum\nRegína Apostolórum\nRegína Mártyrum\nRegína Confessórum\nRegína Vírginum\nRegína Sanctórum ómnium\nRegína sine labe originális concépta\nRegína in cælum assúmpta\nRegína sacratíssimi Rosárii\nRegína famíliæ\nRegína pacis\n\nAgnus Dei, qui tollis peccáta mundi, parce nobis, Dómine.\nAgnus Dei, qui tollis peccáta mundi, exáudi nos, Dómine.\nAgnus Dei, qui tollis peccáta mundi, miserére nobis.\n\nV. Ora pro nobis, sancta Dei Génetrix.\nR. Ut digni efficiámur promissiónibus Christi.`
+});
+var G={
+'Daily & Basic':['sign','our','hail','glory','offering','come','angel','grace','after'],
+'Marian':['memorare','queen','angelus','regina','subtuum','fatima'],
+'Saints & Angels':['michael','joseph','francis','teresa','ignatius','patrick','augustine','newman'],
+'Mass & Sacraments':['contrition','communion','anima','fhl'],
+'Litanies':['loreto','sacredheart','josephlit','saints'],
+'Canticles':['benedictus','magnificat','nunc'],
+'For the Departed':['eternal']};
+var HR=[
+['Office of Readings',`Any time of day. Invitatory, hymn, three psalms, a long Scripture reading, and a reading from a Church Father or saint.`,['opening']],
+['Lauds (Morning Prayer)',`Morning. Opening versicle, hymn, psalms, short reading, responsory, Canticle of Zechariah, intercessions, Our Father, concluding prayer.`,['opening','benedictus','our']],
+['Daytime Prayer',`Mid-morning, midday or mid-afternoon. Hymn, three psalm segments, short reading, versicle, concluding prayer.`,['opening']],
+['Vespers (Evening Prayer)',`Evening. Same shape as Lauds, with the Canticle of Mary in place of Zechariah's.`,['opening','magnificat','our']],
+['Compline (Night Prayer)',`Before bed. Examination of conscience, hymn, psalm, short reading, responsory, Canticle of Simeon, blessing, and a Marian antiphon such as the Hail, Holy Queen.`,['opening','resp','nunc','queen']]];
+function hours(){
+ app.textContent='';app.appendChild(el('h1',0,'Liturgy of the Hours'));
+ app.appendChild(el('p','sub',`The Church's prayer through the day. Tap an hour to see its shape and its fixed prayers.`));
+ langBar();
+ var hr=new Date().getHours(),now=hr<10?1:hr<15?2:hr<20?3:4;
+ HR.forEach(function(r,j){
+  var d=el('details','card');if(j==now)d.open=true;
+  d.appendChild(el('summary',0,r[0]+(j==now?' (now)':'')));
+  d.appendChild(el('p','tr',r[1]));
+  r[2].forEach(function(k){var h=el('h2',0,P[k][0]);h.style.marginTop='14px';d.appendChild(h);bodies(d,k)});
+  app.appendChild(d)});
+ app.appendChild(el('p','sub',`The psalms, hymns and readings change every day and come from licensed translations, so they are not included here. Open today's full Hours, with the actual psalms and readings, in one of these free breviaries:`));
+ [['Universalis','https://universalis.com/'],['iBreviary','https://www.ibreviary.com/'],['Divine Office','https://divineoffice.org/']].forEach(function(l){var a=el('a','note',l[0]);a.href=l[1];a.target='_blank';a.rel='noopener';a.style.display='block';a.style.textAlign='center';a.style.color='var(--acc)';app.appendChild(a)});
+}
+var DV=[
+['A Simple Daily Rhythm',`Morning: Morning Offering, then Lauds.
+Noon: the Angelus.
+3 pm: Divine Mercy Chaplet.
+Evening: the Rosary, then Vespers.
+Night: Examination of conscience, Act of Contrition, Compline.`],
+['Stations of the Cross',`At each station: We adore you, O Christ, and we praise you. Because by your holy cross you have redeemed the world.
+
+1. Jesus is condemned to death
+2. Jesus takes up his cross
+3. Jesus falls the first time
+4. Jesus meets his mother
+5. Simon of Cyrene helps carry the cross
+6. Veronica wipes the face of Jesus
+7. Jesus falls the second time
+8. Jesus meets the women of Jerusalem
+9. Jesus falls the third time
+10. Jesus is stripped of his garments
+11. Jesus is nailed to the cross
+12. Jesus dies on the cross
+13. Jesus is taken down from the cross
+14. Jesus is laid in the tomb
+
+After each: Our Father, Hail Mary, Glory Be.`],
+['Divine Mercy Chaplet',`Begin: Sign of the Cross, Our Father, Hail Mary, Apostles' Creed.
+
+On each large bead:
+Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son, our Lord Jesus Christ, in atonement for our sins and those of the whole world.
+
+On each of the ten small beads:
+For the sake of his sorrowful Passion, have mercy on us and on the whole world.
+
+Repeat for five decades. To close, three times:
+Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.`],
+['Going to Confession',`1. Examine your conscience.
+2. Sign of the Cross: Bless me, Father, for I have sinned. It has been ___ since my last confession.
+3. Confess your sins, simply and honestly, including how often.
+4. Listen to the priest's counsel and accept your penance.
+5. Pray the Act of Contrition (see Prayers).
+6. The priest gives absolution. Give thanks, and do your penance soon.`],
+['Examination of Conscience',`1. Have I put anything before God, or neglected prayer?
+2. Have I misused God's name or broken promises?
+3. Have I missed Sunday Mass without serious reason?
+4. Have I dishonored my parents or neglected my family?
+5. Have I harmed others through anger, hatred or violence?
+6. Have I been faithful and pure in thought, word and deed?
+7. Have I stolen, cheated, or wasted what belongs to others?
+8. Have I lied, gossiped, or hurt someone's reputation?
+9. Have I entertained impure desires?
+10. Have I been envious or greedy?`]];
+function devo(){
+ app.textContent='';app.appendChild(el('h1',0,'Devotions'));
+ app.appendChild(el('p','sub','Longer practices and guides.'));
+ var cb=el('div','row');cb.style.flexDirection='column';
+ [['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
+ var OPD=ls('pc-dv',['Guided Prayers']);
+ var DG=[['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church','Responses at Mass']]],used=[];
+ DG.forEach(function(g){if(g[1])used=used.concat(g[1])});
+ DG.push(['More',DV.filter(function(r){return used.indexOf(r[0])<0}).map(function(r){return r[0]})]);
+ DG.forEach(function(g){
+  var op=OPD.indexOf(g[0])>-1,gh=el('button','gh'+(op?' open':''));gh.appendChild(el('span',0,g[0]));gh.appendChild(el('i'));
+  gh.onclick=function(){var x=OPD.indexOf(g[0]);if(x>-1)OPD.splice(x,1);else OPD.push(g[0]);sv('pc-dv',OPD);devo()};app.appendChild(gh);if(!op)return;
+  if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();
+  else DV.forEach(function(r){if(g[1].indexOf(r[0])>-1){var d=el('details','card');d.appendChild(el('summary',0,r[0]));d.appendChild(el('p',0,r[1]));app.appendChild(d)}})});
+}
+P.augustine=['St. Augustine: Late Have I Loved You',`Late have I loved you, O Beauty so ancient and so new; late have I loved you! You were within me, but I was outside, and there I searched for you. You called, you cried, you broke through my deafness. You were with me, but I was not with you. Now I breathe you in and I pant for you; I have tasted you, and I hunger and thirst for more. You touched me, and I burned for your peace. You have made us for yourself, O Lord, and our hearts are restless until they rest in you.`];
+P.loreto=['Litany of Loreto',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
+Christ, hear us. Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+To each title below, respond: Pray for us.
+
+Holy Mary
+Holy Mother of God
+Holy Virgin of virgins
+Mother of Christ
+Mother of the Church
+Mother of mercy
+Mother of divine grace
+Mother of hope
+Mother most pure
+Mother most chaste
+Mother inviolate
+Mother undefiled
+Mother most amiable
+Mother most admirable
+Mother of good counsel
+Mother of our Creator
+Mother of our Savior
+Virgin most prudent
+Virgin most venerable
+Virgin most renowned
+Virgin most powerful
+Virgin most merciful
+Virgin most faithful
+Mirror of justice
+Seat of wisdom
+Cause of our joy
+Spiritual vessel
+Vessel of honor
+Singular vessel of devotion
+Mystical rose
+Tower of David
+Tower of ivory
+House of gold
+Ark of the covenant
+Gate of heaven
+Morning star
+Health of the sick
+Refuge of sinners
+Comfort of migrants
+Comforter of the afflicted
+Help of Christians
+Queen of angels
+Queen of patriarchs
+Queen of prophets
+Queen of apostles
+Queen of martyrs
+Queen of confessors
+Queen of virgins
+Queen of all saints
+Queen conceived without original sin
+Queen assumed into heaven
+Queen of the most holy Rosary
+Queen of families
+Queen of peace
+
+Lamb of God, who take away the sins of the world, spare us, O Lord.
+Lamb of God, who take away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who take away the sins of the world, have mercy on us.
+
+V. Pray for us, O holy Mother of God.
+R. That we may be made worthy of the promises of Christ.`];
+DV.push(
+['Works of Mercy',`CORPORAL
+Feed the hungry.
+Give drink to the thirsty.
+Clothe the naked.
+Shelter the homeless.
+Visit the sick.
+Visit the imprisoned.
+Bury the dead.
+
+SPIRITUAL
+Instruct the ignorant.
+Counsel the doubtful.
+Admonish sinners.
+Bear wrongs patiently.
+Forgive offenses.
+Comfort the afflicted.
+Pray for the living and the dead.`],
+['The Beatitudes',`Blessed are the poor in spirit: theirs is the kingdom of heaven.
+Blessed are those who mourn: they shall be comforted.
+Blessed are the meek: they shall inherit the land.
+Blessed are those who hunger and thirst for righteousness: they shall be satisfied.
+Blessed are the merciful: they shall obtain mercy.
+Blessed are the clean of heart: they shall see God.
+Blessed are the peacemakers: they shall be called children of God.
+Blessed are those persecuted for righteousness: theirs is the kingdom of heaven.`],
+['Gifts & Fruits of the Holy Spirit',`SEVEN GIFTS
+Wisdom, understanding, counsel, fortitude, knowledge, piety, fear of the Lord.
+
+TWELVE FRUITS
+Charity, joy, peace, patience, kindness, goodness, generosity, gentleness, faithfulness, modesty, self-control, chastity.`],
+['Virtues & Sacraments',`THEOLOGICAL VIRTUES
+Faith, hope, charity.
+
+CARDINAL VIRTUES
+Prudence, justice, fortitude, temperance.
+
+THE SEVEN SACRAMENTS
+Baptism, Confirmation, Eucharist, Penance, Anointing of the Sick, Holy Orders, Matrimony.`],
+['Precepts of the Church',`1. Attend Mass on Sundays and holy days of obligation, and rest from unnecessary work.
+2. Confess serious sins at least once a year.
+3. Receive the Eucharist at least during the Easter season.
+4. Observe the days of fasting and abstinence.
+5. Help provide for the needs of the Church.`],
+['Responses at Mass',`The Lord be with you. / And with your spirit.
+The Word of the Lord. / Thanks be to God.
+The Gospel of the Lord. / Praise to you, Lord Jesus Christ.
+Lift up your hearts. / We lift them up to the Lord.
+Let us give thanks to the Lord our God. / It is right and just.
+The Body of Christ. / Amen.
+Go forth, the Mass is ended. / Thanks be to God.`]);
+var MEM={},STORE_OK=(function(){try{localStorage.setItem('pc-t','1');localStorage.removeItem('pc-t');return true}catch(e){return false}})();
+function ls(k,d){try{var v=JSON.parse(localStorage.getItem(k));if(v!=null)return v}catch(e){}return Object.prototype.hasOwnProperty.call(MEM,k)?MEM[k]:d}
+function sv(k,v){MEM[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var FAV=ls('pc-fav',[]),qs='',fs=ls('pc-fs',100);
+document.body.style.fontSize=fs+'%';
+function toggleFav(k){var i=FAV.indexOf(k);if(i>-1)FAV.splice(i,1);else FAV.push(k);sv('pc-fav',FAV);prayers()}
+function fmt(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function today(){return fmt(new Date())}
+function streak(days){var n=0,d=new Date();if(days.indexOf(fmt(d))<0)d.setDate(d.getDate()-1);while(days.indexOf(fmt(d))>-1){n++;d.setDate(d.getDate()-1)}return n}
+var SEA=(function(){var n=new Date(),y=n.getFullYear(),a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),t=h+l-7*m+114,E=new Date(y,Math.floor(t/31)-1,t%31+1),T=new Date(y,n.getMonth(),n.getDate()),x=Math.round((T-E)/864e5),av=new Date(y,11,25);av.setDate(25-((av.getDay()||7)+21));
+ var r;if(T>=new Date(y,11,25)||(n.getMonth()==0&&n.getDate()<=12))r=['Christmas season','w'];else if(T>=av)r=['Advent','violet'];else if(x>=-46&&x<0)r=['Lent','violet'];else if(x>=0&&x<=49)r=['Easter season','w'];else r=['Ordinary Time','green'];
+ document.documentElement.setAttribute('data-s',r[1]);window.EAS=E;return r})();
+var NVT={hs:[`Faith: ask the Holy Spirit to deepen your trust in God.`,`Hope: ask for confidence in God's promises.`,`Charity: ask for a heart that loves God and neighbor.`,`Wisdom: ask to see life as God sees it.`,`Understanding: ask for light to grasp the truths of the faith.`,`Counsel: ask for guidance in a decision you face.`,`Fortitude: ask for courage to do what is right.`,`Knowledge and piety: ask for a deeper knowledge of God and a devout heart.`,`Fear of the Lord: ask for reverence for God and a desire never to offend him.`],dm:[`Pray today for all mankind, especially sinners.`,`Pray today for priests and religious.`,`Pray today for all devout and faithful souls.`,`Pray today for those who do not believe in God and those who do not yet know Jesus.`,`Pray today for those who have separated from the Church.`,`Pray today for the meek and humble souls, and for children.`,`Pray today for souls who especially honor and glorify God's mercy.`,`Pray today for the souls in purgatory.`,`Pray today for souls who have become lukewarm.`]};
+var BR=['Arrest and binding','The scourging','Crown of thorns','Condemnation','Carrying the cross','Being stripped','The nailing','Raised on the cross','Words from the cross','Mother and disciple','Abandonment','Surrender','Commending the spirit','The death','The pierced side'];
+function me(){
+ app.textContent='';app.appendChild(el('h1',0,'My Prayer Life'));app.appendChild(el('p','sub',STORE_OK?'Saved privately on this device.':'Saving is turned off in this browser.'));if(!STORE_OK)app.appendChild(el('p','note','This browser does not allow saving, so your streaks, lists and settings will be lost when you close the page. Open the link in Safari or Chrome to keep them.'));
+ var c,t=today();
+ function card(h){var OPM=ls('pc-me',['Prayer Streak','My Daily Rule']),op=OPM.indexOf(h)>-1,gh=el('button','gh'+(op?' open':''));gh.appendChild(el('span',0,h));gh.appendChild(el('i'));gh.onclick=function(){var k=OPM.indexOf(h);if(k>-1)OPM.splice(k,1);else OPM.push(h);sv('pc-me',OPM);me()};app.appendChild(gh);var x=el('div','card');if(!op)x.style.display='none';app.appendChild(x);return x}
+ function btn(p,s,f){var b=el('button','b sm',s);b.onclick=f;b.style.margin='10px 8px 0 0';p.appendChild(b)}
+ var days=ls('pc-days',[]),done=days.indexOf(t)>-1;c=card('Prayer Streak');
+ c.appendChild(el('p',0,streak(days)+' day streak, '+days.length+' days in all. Season: '+SEA[0]+'.'));
+ btn(c,done?'Undo today':'I prayed today',function(){if(done)days.splice(days.indexOf(t),1);else days.push(t);sv('pc-days',days);me()});
+ var bd=ls('pc-br',[]),bdone=bd.indexOf(t)>-1;c=card('Fifteen Prayers of St. Bridget');
+ c.appendChild(el('p',0,bd.length+' of 365 days completed.'));c.appendChild(el('p','tr',BR.join(' · ')));
+ btn(c,bdone?'Undo today':'Mark today done',function(){if(bdone)bd.splice(bd.indexOf(t),1);else bd.push(t);sv('pc-br',bd);me()});
+ var nv=ls('pc-nv',null);c=card('Novena');
+ if(nv){var dd=Math.min(9,Math.floor((new Date(t)-new Date(nv.s))/864e5)+1);c.appendChild(el('p',0,nv.n+' novena: day '+dd+' of 9'+(dd>=9?' (final day)':'')));
+ var h=el('h2',0,'Today');h.style.marginTop='12px';c.appendChild(h);
+ c.appendChild(el('p',0,nv.k=='hs'||nv.k=='dm'?NVT[nv.k][dd-1]:'Pray for: '+nv.n));
+ if(nv.k=='hs')c.appendChild(el('p','tr','Then add your own intention.'));
+ (nv.k=='dm'?['sign','our','hail','creed']:['sign','come','our','hail','glory']).forEach(function(k){var h2=el('h2',0,P[k][0]);h2.style.marginTop='14px';c.appendChild(h2);bodies(c,k)});
+ if(nv.k=='dm')c.appendChild(el('p','tr','Then pray the Divine Mercy Chaplet (see the Devotions tab).'));
+ btn(c,'End novena',function(){sv('pc-nv',null);me()})}
+ else{c.appendChild(el('p','tr','Choose a novena: nine days of prayer. Each day shows what to pray.'));var ni=el('input','inp');ni.placeholder='Your own intention (for My own intention)';c.appendChild(ni);
+ [['hs','Holy Spirit'],['dm','Divine Mercy'],['own','My own intention']].forEach(function(o){btn(c,'Begin: '+o[1],function(){sv('pc-nv',{k:o[0],n:o[0]=='own'?(ni.value.trim()||'My intention'):o[1],s:t});me()})})}
+ var it=ls('pc-int',[]);c=card('Prayer Intentions');
+ it.forEach(function(s,i){var r=el('div','item');r.appendChild(el('span',0,s));var x=el('button','fav','Remove');x.style.marginTop='0';x.onclick=function(){it.splice(i,1);sv('pc-int',it);me()};r.appendChild(x);c.appendChild(r)});
+ var inp=el('input','inp');inp.placeholder='Add a person or intention';c.appendChild(inp);
+ btn(c,'Add',function(){if(inp.value.trim()){it.push(inp.value.trim());sv('pc-int',it);me()}});
+ ruleUI(card('My Daily Rule'),btn);
+ backupUI(card('Backup and Restore'),btn);
+ voiceUI(card('Voice for Read Aloud'),btn);
+ c=card('Text Size');
+ btn(c,'A−',function(){fs=Math.max(80,fs-10);sv('pc-fs',fs);document.body.style.fontSize=fs+'%'});
+ btn(c,'A+',function(){fs=Math.min(160,fs+10);sv('pc-fs',fs);document.body.style.fontSize=fs+'%'});
+}
+P.newman=['Cardinal Newman: Radiating Christ',`Dear Jesus, help me to spread your fragrance everywhere I go. Flood my soul with your spirit and life. Penetrate and possess my whole being so utterly that my life may only be a radiance of yours. Shine through me, and be so in me that every soul I come in contact with may feel your presence in my soul. Let them look up and see no longer me, but only Jesus. Amen.`];
+P.sacredheart=['Litany of the Sacred Heart',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
+Christ, hear us. Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+To each title below, respond: Have mercy on us.
+
+Heart of Jesus, Son of the eternal Father
+Heart of Jesus, formed by the Holy Spirit in the womb of the Virgin Mother
+Heart of Jesus, substantially united to the Word of God
+Heart of Jesus, of infinite majesty
+Heart of Jesus, holy temple of God
+Heart of Jesus, tabernacle of the Most High
+Heart of Jesus, house of God and gate of heaven
+Heart of Jesus, burning furnace of charity
+Heart of Jesus, abode of justice and love
+Heart of Jesus, full of goodness and love
+Heart of Jesus, abyss of all virtues
+Heart of Jesus, most worthy of all praise
+Heart of Jesus, king and center of all hearts
+Heart of Jesus, in whom are all the treasures of wisdom and knowledge
+Heart of Jesus, in whom dwells the fullness of divinity
+Heart of Jesus, in whom the Father was well pleased
+Heart of Jesus, of whose fullness we have all received
+Heart of Jesus, desire of the everlasting hills
+Heart of Jesus, patient and rich in mercy
+Heart of Jesus, rich to all who call upon you
+Heart of Jesus, fountain of life and holiness
+Heart of Jesus, propitiation for our sins
+Heart of Jesus, saturated with revilings
+Heart of Jesus, bruised for our iniquities
+Heart of Jesus, made obedient unto death
+Heart of Jesus, pierced with a lance
+Heart of Jesus, source of all consolation
+Heart of Jesus, our life and resurrection
+Heart of Jesus, our peace and reconciliation
+Heart of Jesus, victim for sin
+Heart of Jesus, salvation of those who trust in you
+Heart of Jesus, hope of those who die in you
+Heart of Jesus, delight of all the saints
+
+Lamb of God, who take away the sins of the world, spare us, O Lord.
+Lamb of God, who take away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who take away the sins of the world, have mercy on us.
+
+Jesus, meek and humble of heart, make our hearts like yours.`];
+P.josephlit=['Litany of St. Joseph',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
+Christ, hear us. Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+To each title below, respond: Pray for us.
+
+Saint Joseph
+Renowned offspring of David
+Light of patriarchs
+Spouse of the Mother of God
+Chaste guardian of the Virgin
+Foster father of the Son of God
+Diligent protector of Christ
+Head of the Holy Family
+Joseph most just
+Joseph most chaste
+Joseph most prudent
+Joseph most strong
+Joseph most obedient
+Joseph most faithful
+Mirror of patience
+Lover of poverty
+Model of workers
+Glory of home life
+Guardian of virgins
+Pillar of families
+Solace of the wretched
+Hope of the sick
+Patron of the dying
+Terror of demons
+Protector of Holy Church
+
+Lamb of God, who take away the sins of the world, spare us, O Lord.
+Lamb of God, who take away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who take away the sins of the world, have mercy on us.
+
+V. He made him the lord of his house.
+R. And prince over all his possessions.`];
+P.saints=['Litany of the Saints (short form)',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
+
+To each invocation below, respond: Pray for us.
+
+Holy Mary, Mother of God
+Saint Michael
+Holy angels of God
+Saint Joseph
+Saint John the Baptist
+Saints Peter and Paul
+Saint Andrew
+Saint John
+Saint Mary Magdalene
+Saint Stephen
+Saint Ignatius of Antioch
+Saint Lawrence
+Saints Perpetua and Felicity
+Saint Agnes
+Saint Gregory
+Saint Augustine
+Saint Athanasius
+Saint Basil
+Saint Martin
+Saint Benedict
+Saints Francis and Dominic
+Saint Francis Xavier
+Saint John Vianney
+Saint Catherine of Siena
+Saint Teresa of Avila
+All holy men and women, saints of God
+
+Lord, be merciful: Lord, save us.
+From all evil: Lord, save us.
+From every sin: Lord, save us.
+From sudden and unprovided death: Lord, save us.
+We sinners: Lord, hear our prayer.`];
+var CAL={};'01-01|Mary, Mother of God;01-06|Epiphany of the Lord;01-17|St. Anthony of Egypt;01-21|St. Agnes;01-24|St. Francis de Sales;01-25|Conversion of St. Paul;01-28|St. Thomas Aquinas;01-31|St. John Bosco;02-02|Presentation of the Lord;02-03|St. Blaise;02-05|St. Agatha;02-10|St. Scholastica;02-11|Our Lady of Lourdes;02-14|Sts. Cyril and Methodius;02-22|Chair of St. Peter;03-07|Sts. Perpetua and Felicity;03-17|St. Patrick;03-19|St. Joseph, Spouse of Mary;03-25|The Annunciation of the Lord;04-25|St. Mark;04-29|St. Catherine of Siena;05-01|St. Joseph the Worker;05-03|Sts. Philip and James;05-13|Our Lady of Fatima;05-14|St. Matthias;05-22|St. Rita of Cascia;05-26|St. Philip Neri;05-31|The Visitation;06-13|St. Anthony of Padua;06-21|St. Aloysius Gonzaga;06-22|Sts. Thomas More and John Fisher;06-24|Nativity of St. John the Baptist;06-29|Sts. Peter and Paul;07-03|St. Thomas the Apostle;07-11|St. Benedict;07-16|Our Lady of Mount Carmel;07-22|St. Mary Magdalene;07-23|St. Bridget of Sweden;07-25|St. James;07-26|Sts. Joachim and Anne;07-31|St. Ignatius of Loyola;08-01|St. Alphonsus Liguori;08-04|St. John Vianney;08-06|The Transfiguration of the Lord;08-08|St. Dominic;08-09|St. Teresa Benedicta of the Cross;08-10|St. Lawrence;08-11|St. Clare of Assisi;08-14|St. Maximilian Kolbe;08-15|The Assumption of Mary;08-22|Queenship of Mary;08-24|St. Bartholomew;08-27|St. Monica;08-28|St. Augustine;09-08|Nativity of the Blessed Virgin Mary;09-14|Exaltation of the Holy Cross;09-15|Our Lady of Sorrows;09-21|St. Matthew;09-23|St. Pius of Pietrelcina;09-27|St. Vincent de Paul;09-29|Archangels Michael, Gabriel and Raphael;09-30|St. Jerome;10-01|St. Therese of Lisieux;10-02|The Holy Guardian Angels;10-04|St. Francis of Assisi;10-07|Our Lady of the Rosary;10-15|St. Teresa of Avila;10-18|St. Luke;10-22|St. John Paul II;10-28|Sts. Simon and Jude;11-01|All Saints;11-02|All Souls;11-03|St. Martin de Porres;11-04|St. Charles Borromeo;11-09|Dedication of the Lateran Basilica;11-11|St. Martin of Tours;11-15|St. Albert the Great;11-17|St. Elizabeth of Hungary;11-22|St. Cecilia;11-25|St. Catherine of Alexandria;11-30|St. Andrew;12-03|St. Francis Xavier;12-06|St. Nicholas;12-07|St. Ambrose;12-08|The Immaculate Conception;12-12|Our Lady of Guadalupe;12-13|St. Lucy;12-14|St. John of the Cross;12-25|The Nativity of the Lord;12-26|St. Stephen;12-27|St. John, Apostle;12-28|The Holy Innocents'.split(';').forEach(function(s){var p=s.split('|');CAL[p[0]]=p[1]});
+function feast(){
+ var n=new Date(),Y=n.getFullYear(),T=new Date(Y,n.getMonth(),n.getDate()),x=Math.round((T-window.EAS)/864e5),o=[];
+ var MV={'-46':'Ash Wednesday','-7':'Palm Sunday','-3':'Holy Thursday','-2':'Good Friday','-1':'Holy Saturday','0':'Easter Sunday','7':'Divine Mercy Sunday','39':'The Ascension (a Sunday in some countries)','49':'Pentecost Sunday','56':'Trinity Sunday','60':'Corpus Christi (a Sunday in some countries)','68':'The Sacred Heart of Jesus','69':'Immaculate Heart of Mary'};
+ if(MV[x])o.push(MV[x]);
+ var av=new Date(Y,11,25);av.setDate(25-((av.getDay()||7)+21));av.setDate(av.getDate()-7);if(fmt(T)==fmt(av))o.push('Christ the King');
+ var c=CAL[('0'+(n.getMonth()+1)).slice(-2)+'-'+('0'+n.getDate()).slice(-2)];if(c)o.push(c);
+ return o.join(' / ')}
+var BP=[
+['I. Arrest and Binding',`In the garden you were overcome with sorrow, then seized and bound. For your anguish and the cords that held you, have mercy on me and free me from the bonds of my sins.`],
+['II. The Scourging',`For the lashes you bore at the pillar and the blood that flowed from your body, heal the wounds of my soul and teach me to accept correction with humility.`],
+['III. The Crown of Thorns',`For the thorns pressed into your head and the mockery of those who called you king, free me from pride and teach me to love the lowest place.`],
+['IV. The Condemnation',`For your silence before unjust judges and the sentence you accepted though innocent, give me patience when I am wronged, and keep me from judging others harshly.`],
+['V. Carrying the Cross',`For the weight of the cross and the long road with its falls, strengthen me to carry my own burdens in union with you.`],
+['VI. Stripped of Your Garments',`For the shame of being stripped and the wounds torn open again, clothe me in your grace and keep me from every shameful sin.`],
+['VII. The Nailing',`For the nails driven through your hands and feet, pierce my heart with love of you and free me from every disordered attachment.`],
+['VIII. Lifted Up on the Cross',`For being raised on the cross, thirsting for souls, draw my heart to you and make me thirst for you above all things.`],
+['IX. Your Words from the Cross',`For your prayer, Father, forgive them, and your promise to the repentant thief, forgive my sins and teach me to forgive those who hurt me.`],
+['X. Your Mother and the Disciple',`For entrusting your mother to your beloved disciple, and for the sorrow that pierced her heart, make me faithful in love and a true child of the Church.`],
+['XI. Abandonment',`For your cry, My God, why have you forsaken me, keep me from despair when God seems far, and let me trust you in the dark.`],
+['XII. It Is Finished',`For the bitter drink offered to you and your word that it is finished, help me to complete the work you give me and to endure to the end.`],
+['XIII. Into Your Hands',`For placing your spirit into your Father's hands, I commend to you my soul, my loved ones, and my last hour.`],
+['XIV. Your Death',`For your death, the darkened sky and the shaking earth, grant me a holy death and eternal rest with you.`],
+['XV. The Pierced Side',`For your side opened by the lance, and the blood and water that poured out, wash me clean, nourish me by the sacraments, and bring me at last to you.`]];
+G['St. Bridget: Fifteen Prayers']=[];
+BP.forEach(function(b,i){var k='br'+(i+1);P[k]=[b[0],'O Jesus Christ, sweetness of hearts,\n'+b[1]+'\nThen pray an Our Father and a Hail Mary.'];G['St. Bridget: Fifteen Prayers'].push(k)});
+Object.assign(P,{
+n_sick:['For the Sick',`Lord Jesus, you healed the sick and comforted the suffering. Look with mercy on those who are ill, especially those I carry in my heart. Give them strength and relief, patience in pain, and the comfort of your presence. Support their doctors and caregivers, and may your will be done in all things. Amen.`],
+n_fear:['In Anxiety or Fear',`Lord, you are with me in every storm. Quiet my racing mind and steady my heart. Help me to hand over what I cannot control, and to trust that you hold my life in your hands. Jesus, I trust in you. Amen.`],
+n_travel:['Before a Journey',`Lord, be with us on our journey. Guard us from danger, keep our way safe, and bring us home in peace. Holy Guardian Angels, watch over us. Amen.`],
+n_study:['Before Study or an Exam',`Come, Holy Spirit, give me a clear mind and a calm heart. Help me to remember what I have learned and to do my best. Whatever the result, let me use my gifts for your glory and the good of others. Amen.`],
+n_work:['For Work',`Lord, bless the work of my hands. Help me to do it faithfully, honestly, and with joy. Keep me from greed and from idleness, and let my labor serve you and my neighbor. St. Joseph the Worker, pray for me. Amen.`],
+n_decide:['When Facing a Decision',`Come, Holy Spirit, give me light to see your will. Quiet my fears and my own desires, and give me courage to follow where you lead. Amen.`],
+n_grief:['In Grief',`God of all comfort, you know my sorrow. Hold those who mourn, and give them hope in the resurrection. Grant rest to those who have died, and bring us all one day to your kingdom. Amen.`],
+n_mother:['For Expectant Mothers',`Lord, giver of life, bless this child and its mother. Protect them in body and soul, grant a safe and peaceful birth, and make us grateful for your gift. Mary, Mother of God, pray for us. Amen.`],
+n_dying:['For the Dying',`Merciful Jesus, be near those who are dying. Give them peace, forgive their sins, and welcome them into your arms. Mary, comfort them; St. Joseph, patron of a happy death, pray for them. Amen.
+
+If someone is seriously ill or near death, ask a priest to come for the Anointing of the Sick.`],
+n_family:['For My Family',`Lord, bless my family. Heal what is broken between us, keep us patient and kind, and make our home a place of peace. Holy Family of Nazareth, pray for us. Amen.`],
+n_forgive:['To Forgive Someone',`Lord, I have been hurt, and I find it hard to forgive. Soften my heart. Give me the grace to forgive as you have forgiven me, and to pray for those who wronged me. Amen.`],
+n_temptation:['In Temptation',`Lord, I am weak, and temptation is strong. Give me your strength, keep me from the near occasions of sin, and when I fall, lift me up. Mary, refuge of sinners, pray for me. Amen.`],
+n_peace:['For Peace',`Lord God, Prince of Peace, bring an end to war and violence. Turn hearts from hatred, comfort the victims, and lead the nations to justice and peace. Amen.`],
+n_thanks:['In Thanksgiving',`Thank you, Lord, for the gifts of this day: for life, for those I love, and for your mercy that never fails. Help me to notice your goodness and to share it with others. Amen.`],
+n_vocation:['For Vocations',`Lord of the harvest, call and send holy priests, deacons, and religious, and strengthen married couples in their vocation. Give each of us the courage to answer your call. Amen.`],
+n_church:['For the Church and the Pope',`Lord, watch over our Holy Father, our bishops, priests, and deacons. Give them wisdom, holiness, and courage, and keep your Church faithful to the Gospel. Amen.`],
+n_sleep:['Before Sleep',`Lord, thank you for this day. Forgive what I did wrong, bless those I love, and keep me safe through the night. Into your hands I commend my spirit. Amen.`]});
+G=Object.assign({'Daily & Basic':G['Daily & Basic'],'For Every Need':['n_sick','n_fear','n_travel','n_study','n_work','n_decide','n_grief','n_mother','n_dying','n_family','n_forgive','n_temptation','n_peace','n_thanks','n_vocation','n_church','n_sleep']},G);
+Object.assign(L,{
+ssclose:`V. Ora pro nobis, Virgo dolorósa.
+R. Ut digni efficiámur promissiónibus Christi.
+Orémus. Intervéniat pro nobis, quǽsumus, Dómine Iesu Christe, nunc et in hora mortis nostræ, apud tuam cleméntiam beáta Virgo María, Mater tua: cuius sacratíssimam ánimam in hora tuæ passiónis dolóris gladius pertransívit. Per te, Iesu Christe, Salvátor mundi: qui cum Patre et Spíritu Sancto vivis et regnas in sǽcula sæculórum. Amen.`,
+joseph:`Ad te, beáte Ióseph, in tribulatióne nostra confúgimus, atque, imploráto Sponsæ tuæ sanctíssimæ auxílio, patrocínium quoque tuum fidénter exposcímus. Per eam, quǽsumus, quæ te cum immaculáta Vírgine Dei Genetríce coniúnxit, caritátem, perque patérnum, quo Púerum Iesum amplexátus es, amórem, supplíciter deprecámur, ut hǽreditatem, quam Iesus Christus acquísivit sánguine suo, benígno intúeare óculo, ac necessitátibus nostris tua virtúte et ope succúrras.
+Tuére, o custos providentíssime divínæ Famíliæ, Iesu Christi sóbolem eléctam; próhibe a nobis, amantíssime Pater, omnem errórum ac corruptélarum luem; propítius nobis, sospítator noster fortíssime, in hoc cum potestáte tenébrarum cértamine e cælo adésto; et sicut olim Púerum Iesum e summo erípuisti vítæ discrímine, ita nunc Ecclésiam sanctam Dei ab hostílibus insídiis atque ab omni adversitáte defénde; nosque síngulos perpétuo tege patrocínio, ut ad tui exémplar et ope tua suffúlti, sancte vívere, pie emóri, sempitérnamque in cælis beatitúdinem assequi possímus. Amen.`,
+augustine:`Sero te amavi, pulchritudo tam antiqua et tam nova, sero te amavi! Et ecce intus eras et ego foris, et ibi te quaerebam, et in ista formosa, quae fecisti, deformis irruebam. Mecum eras, et tecum non eram. Vocasti et clamasti et rupisti surditatem meam; coruscasti, splenduisti et fugasti caecitatem meam; fragrasti, et duxi spiritum et anhelo tibi; gustavi et esurio et sitio; tetigisti me, et exarsi in pacem tuam. Fecisti nos ad te et inquietum est cor nostrum donec requiescat in te.`,
+sacredheart:`Kýrie, eléison. Christe, eléison. Kýrie, eléison.
+Christe, audi nos. Christe, exáudi nos.
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Cor Iesu, Fílii Patris ætérni
+Cor Iesu, in sinu Virgínis Matris a Spíritu Sancto formátum
+Cor Iesu, Verbo Dei substantiáliter unítum
+Cor Iesu, maiestátis infinítæ
+Cor Iesu, templum sanctum Dei
+Cor Iesu, tabernáculum Altíssimi
+Cor Iesu, domus Dei et porta cæli
+Cor Iesu, fornax ardens caritátis
+Cor Iesu, iustítiæ et amóris receptáculum
+Cor Iesu, bonitáte et amóre plenum
+Cor Iesu, virtútum ómnium abýssus
+Cor Iesu, omni laude digníssimum
+Cor Iesu, rex et centrum ómnium córdium
+Cor Iesu, in quo sunt omnes thesáuri sapiéntiæ et sciéntiæ
+Cor Iesu, in quo habítat omnis plenitúdo divinitátis
+Cor Iesu, in quo Pater sibi bene complácuit
+Cor Iesu, de cuius plenitúdine omnes nos accépimus
+Cor Iesu, desidérium cóllium æternórum
+Cor Iesu, pátiens et multæ misericórdiæ
+Cor Iesu, dives in omnes qui invócant te
+Cor Iesu, fons vitæ et sanctitátis
+Cor Iesu, propitiátio pro peccátis nostris
+Cor Iesu, saturátum oppróbriis
+Cor Iesu, attrítum propter scélera nostra
+Cor Iesu, usque ad mortem obédiens factum
+Cor Iesu, lancea perforátum
+Cor Iesu, fons totíus consolatiónis
+Cor Iesu, vita et resurréctio nostra
+Cor Iesu, pax et reconciliátio nostra
+Cor Iesu, víctima peccatórum
+Cor Iesu, salus in te sperántium
+Cor Iesu, spes in te moriéntium
+Cor Iesu, delíciæ Sanctórum ómnium
+
+Agnus Dei, qui tollis peccáta mundi, parce nobis, Dómine.
+Agnus Dei, qui tollis peccáta mundi, exáudi nos, Dómine.
+Agnus Dei, qui tollis peccáta mundi, miserére nobis.
+
+Iesu, mitis et húmilis Corde. Fac cor nostrum secúndum Cor tuum.`,
+josephlit:`Kýrie, eléison. Christe, eléison. Kýrie, eléison.
+Christe, audi nos. Christe, exáudi nos.
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Sancte Ioéseph, ora pro nobis.
+Proles David ínclita
+Lumen Patriarchárum
+Dei Genetrícis Sponse
+Custos pudíce Virgínis
+Fílii Dei nutríte
+Christi defénsor sédule
+Almæ Famíliæ prǽfecte
+Ioseph iustíssime
+Ioseph castíssime
+Ioseph prudentíssime
+Ioseph fortíssime
+Ioseph oboediéntissime
+Ioseph fidelíssime
+Spéculum patiéntiæ
+Amátor paupertátis
+Exémplar opíficum
+Domésticæ vitæ décus
+Custos vírginum
+Famíliarum cólumen
+Solámen misérorum
+Spes ǽgrotántium
+Patróne moriéntium
+Terror dǽmónum
+Protéctor Sanctæ Ecclésiæ
+
+Agnus Dei, qui tollis peccáta mundi, parce nobis, Dómine.
+Agnus Dei, qui tollis peccáta mundi, exáudi nos, Dómine.
+Agnus Dei, qui tollis peccáta mundi, miserére nobis.
+
+V. Constítuit eum dóminum dómus suæ.
+R. Et príncipem omnis possessiónis suæ.`,
+saints:`Kýrie, eléison. Christe, eléison. Kýrie, eléison.
+
+Sancta María, Mater Dei, ora pro nobis.
+Sancte Míchael
+Sancte Ióseph
+Sancte Ioánnes Baptista
+Sancti Petre et Paule
+Sancte Andréa
+Sancte Ioánnes
+Sancta María Magdaléna
+Sancte Stéphane
+Sancte Ignáti Antiochéne
+Sancte Laurénti
+Sanctæ Perpétua et Felícitas
+Sancta Agnes
+Sancte Gregóri
+Sancte Augustíne
+Sancte Athanási
+Sancte Basíli
+Sancte Martíne
+Sancte Benedícte
+Sancti Francísce et Domínice
+Sancte Francísce Xavéri
+Sancte Ioánnes Maria Vianney
+Sancta Catharína Senénsis
+Sancta Terésia a Iesu
+Omnes sancti et sanctæ Dei
+
+Propítius esto: líbera nos, Dómine.
+Ab omni malo: líbera nos, Dómine.
+Ab omni peccáto: líbera nos, Dómine.
+A subitánea et improvísa morte: líbera nos, Dómine.
+Nos peccatóres: te rogámus, audi nos.`
+});
+var bi=0;
+function bridget(){
+ app.textContent='';app.appendChild(el('h1',0,'Prayers of St. Bridget'));
+ app.appendChild(el('p','sub','Fifteen prayers on the Passion. Pray one at a time, or all fifteen in a sitting.'));
+ var bd=ls('pc-br',[]),t=today(),done=bd.indexOf(t)>-1;
+ var bar=el('div','bar'),f=el('div');f.style.width=((bi+1)/15*100)+'%';bar.appendChild(f);app.appendChild(bar);
+ var c=el('div','card');c.appendChild(el('div','tag','Prayer '+(bi+1)+' of 15'));
+ c.appendChild(el('h2',0,BP[bi][0]));
+ var o=el('p','lat','O Jesus Christ, sweetness of hearts,');c.appendChild(o);
+ c.appendChild(el('p',0,BP[bi][1]));
+ c.appendChild(el('p','tr','Then pray an Our Father and a Hail Mary.'));app.appendChild(c);
+ var r=el('div','row'),bk=el('button','b g','Back'),nx=el('button','b',bi==14?'Start over':'Next');
+ bk.onclick=function(){if(bi>0){bi--;bridget()}};nx.onclick=function(){bi=bi<14?bi+1:0;bridget();window.scrollTo(0,0)};
+ r.appendChild(bk);r.appendChild(nx);app.appendChild(r);
+ var n=el('div','note',bd.length+' of 365 days completed. ');n.style.marginTop='16px';
+ var mb=el('button','fav',done?'Undo today':'Mark today done');mb.onclick=function(){if(done)bd.splice(bd.indexOf(t),1);else bd.push(t);sv('pc-br',bd);bridget()};n.appendChild(mb);app.appendChild(n);
+ app.appendChild(el('p','sub','These are devotional renderings in modern English, not the traditional wording; use a Bridgettine prayer book for that. The popular promises attached to these prayers are not approved by the Church.'));
+}
+var CHM=null,CHL='';
+var SS=['The Prophecy of Simeon','The Flight into Egypt','The Loss of the Child Jesus in the Temple','Mary Meets Jesus Carrying the Cross','The Crucifixion','Jesus Is Taken Down from the Cross','The Burial of Jesus'];
+var SM=[['Seraphim','burn with the fire of perfect charity'],['Cherubim','turn from sin and follow the way of Christian perfection'],['Thrones','receive a true and sincere spirit of humility in our hearts'],['Dominions','govern our senses and overcome our unruly passions'],['Powers','be protected against the snares and temptations of the devil'],['Virtues','be preserved from evil and from falling into temptation'],['Principalities','be filled with a true spirit of obedience'],['Archangels','persevere in faith and good works until we attain the glory of heaven'],['Angels','be guided and guarded by the holy angels through our mortal life']];
+SM.forEach(function(m,d){P['sm'+(d+1)]=['Salutation to the '+m[0],'By the intercession of St. Michael and the heavenly choir of the '+m[0]+', may the Lord make us worthy to '+m[1]+'. Amen.']});
+Object.assign(P,{
+ssclose:['Closing Prayer: Seven Sorrows',`V. Pray for us, O Virgin most sorrowful.
+R. That we may be made worthy of the promises of Christ.
+Let us pray. Lord Jesus Christ, now and at the hour of our death, we implore the intercession of the Blessed Virgin Mary, your mother, whose holy soul was pierced by a sword of sorrow in the hour of your Passion. Through you, Jesus Christ, Savior of the world, who live and reign with the Father and the Holy Spirit, one God, forever and ever. Amen.`],
+smclose:['Closing Prayer to St. Michael',`O glorious prince, St. Michael, chief and commander of the heavenly hosts, guardian of souls, conqueror of rebel spirits, servant in the house of the Divine King, our admirable leader, you who shine with excellence and superhuman virtue: deliver us from all evil, for we turn to you with confidence, and by your gracious protection help us to serve God more faithfully every day.
+V. Pray for us, O glorious St. Michael, prince of the Church of Jesus Christ.
+R. That we may be made worthy of his promises.
+Let us pray. Almighty and everlasting God, who in your goodness and mercy appointed the glorious Archangel Michael as prince of your Church, make us worthy to be delivered from all our enemies, that none of them may trouble us at the hour of death, but that he may lead us into the presence of your divine majesty. Through Christ our Lord. Amen.`]});
+function chap(kind){
+ var a=[];function add(k,note,m,d,b,n,sc){var o={k:k,note:note};if(sc)o.secs=sc;if(m){o.mys=m;o.dec=d;o.bead=b||0;o.n=n}a.push(o)}
+ if(kind=='sorrows'){CHM='Seven Sorrows of Mary';CHL='Sorrow ';
+  add('sign','Begin');add('contrition','Act of Contrition');
+  SS.forEach(function(m,d){add('our','Sorrow '+(d+1)+': one Our Father',m,d+1,0,7);for(var h=1;h<=7;h++)add('hail','Sorrow '+(d+1)+': '+m+' ('+h+'/7)',m,d+1,h,7)});
+  add('ssclose','Closing');add('sign','Conclude')}
+ else if(kind=='mercy'){CHM='Divine Mercy Chaplet';CHL='Decade ';
+  add('sign','Begin');add('our','Begin');add('hail','Begin');add('creed','Begin');
+  for(var d=1;d<=5;d++){add('dm1','Decade '+d+': large bead','On the large bead',d,0,10);for(var h=1;h<=10;h++)add('dm2','Decade '+d+' ('+h+'/10)','On the small beads',d,h,10)}
+  for(var h2=1;h2<=3;h2++)add('dm3','Say three times ('+h2+'/3)');
+  add('dm4','Closing');add('sign','Conclude')}
+ else if(kind=='examen'){CHM='Daily Examen';CHL='Step ';
+  add('sign','Begin');add('ex1','Step 1 of 5',0,0,0,0,60);add('ex2','Step 2 of 5',0,0,0,0,120);add('ex3','Step 3 of 5',0,0,0,0,180);add('ex4','Step 4 of 5',0,0,0,0,60);add('contrition','Act of Contrition');add('ex5','Step 5 of 5',0,0,0,0,60);add('our','Close');add('sign','Conclude')}
+ else if(kind=='lectio'){CHM='Lectio Divina';CHL='Step ';
+  add('come','Begin with the Holy Spirit');add('lc1','Step 1 of 5',0,0,0,0,120);add('lc2','Step 2 of 5',0,0,0,0,180);add('lc3','Step 3 of 5',0,0,0,0,120);add('lc4','Step 4 of 5',0,0,0,0,300);add('lc5','Step 5 of 5',0,0,0,0,60);add('glory','Close')}
+ else if(kind=='adoration'){CHM='Holy Hour of Adoration';CHL='Step ';
+  add('ad1','Begin');add('ad2','Adore',0,0,0,0,600);add('ad3','Thanksgiving',0,0,0,0,300);add('ad4','Contrition',0,0,0,0,180);add('ad5','Intercession',0,0,0,0,600);add('ad6','Scripture',0,0,0,0,600);add('ad7','Close');add('sign','Conclude')}
+ else if(kind=='stations'){CHM='Stations of the Cross';CHL='Station ';
+  add('sign','Begin');add('contrition','Act of Contrition');
+  for(var n=1;n<=14;n++)add('stn'+n,'Station '+n+' of 14');
+  add('stnclose','Closing');add('sign','Conclude')}
+ else{CHM='Chaplet of St. Michael';CHL='Salutation ';
+  add('opening','Begin');add('glory','Begin');
+  SM.forEach(function(m,d){var nn='Salutation '+(d+1)+': '+m[0];add('sm'+(d+1),nn,m[0],d+1,0,3);add('our',nn+', one Our Father',m[0],d+1,0,3);for(var h=1;h<=3;h++)add('hail',nn+' ('+h+'/3)',m[0],d+1,h,3)});
+  ['St. Michael','St. Gabriel','St. Raphael','your Guardian Angel'].forEach(function(n){add('our','Closing Our Father in honor of '+n)});
+  add('smclose','Closing');add('sign','Conclude')}
+ steps=a;i=0;show(0)}
+(function(){try{var cv=document.createElement('canvas');cv.width=cv.height=180;var x=cv.getContext('2d');x.fillStyle='#7a1d2a';x.fillRect(0,0,180,180);x.strokeStyle='#d4aa4f';x.lineWidth=4;x.strokeRect(10,10,160,160);x.fillStyle='#d4aa4f';x.font='110px serif';x.textAlign='center';x.textBaseline='middle';x.fillText('✠',90,96);0}catch(e){}})();
+var WL=null;function wake(){try{if(navigator.wakeLock&&!WL)navigator.wakeLock.request('screen').then(function(l){WL=l;l.addEventListener('release',function(){WL=null})}).catch(function(){})}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState=='visible'&&tab==0)wake()});
+var sx=0,sy=0,lk=null,cd=null;
+document.addEventListener('touchstart',function(e){var t=e.touches[0];lk=null;cd=null;if(tab!=0||e.touches.length>1||t.clientX<24||t.clientX>window.innerWidth-24||/^(INPUT|TEXTAREA|SELECT|A)$/.test(e.target.tagName))return;sx=t.clientX;sy=t.clientY;lk='?';cd=app.querySelector('.card')},{passive:true});
+document.addEventListener('touchmove',function(e){if(!lk||!cd)return;var t=e.touches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(lk=='?'){if(Math.abs(dx)<10&&Math.abs(dy)<10)return;lk=Math.abs(dx)>Math.abs(dy)*1.5?'h':'v'}if(lk=='h'){cd.style.transition='none';cd.style.transform='translateX('+dx*0.5+'px)';cd.style.opacity=1-Math.min(Math.abs(dx)/400,0.4)}},{passive:true});
+document.addEventListener('touchend',function(e){
+ if(lk!='h'||!cd){lk=null;return}
+ var dx=e.changedTouches[0].clientX-sx,c=cd;lk=null;cd=null;
+ var go=Math.abs(dx)>60&&((dx<0&&i<steps.length-1)||(dx>0&&i>0));
+ c.style.transition='transform .18s ease,opacity .18s ease';
+ if(!go){c.style.transform='none';c.style.opacity=1;return}
+ var d=dx<0?1:-1;c.style.transform='translateX('+(-d*50)+'px)';c.style.opacity=0;
+ setTimeout(function(){i+=d;rosary();var n=app.querySelector('.card');if(n){n.style.transition='none';n.style.transform='translateX('+(d*50)+'px)';n.style.opacity=0;void n.offsetWidth;n.style.transition='transform .2s ease,opacity .2s ease';n.style.transform='none';n.style.opacity=1}},160)});
+var RT=['Morning','Midday','Evening','Night'];
+var RS=[['Morning Offering','offering'],['Come, Holy Spirit','come'],['The Angelus','angelus'],['The Rosary','rosary'],['Divine Mercy Chaplet','dm'],['Liturgy of the Hours','hours'],['Scripture reading',''],['Examination of conscience',''],['Act of Contrition','contrition'],['Before Sleep','n_sleep'],['Mass',''],['Adoration','']];
+function ruleUI(c,btn){
+ var rule=ls('pc-rule',[]),rd=ls('pc-rd',{}),t=today(),dn=rd[t]||[];
+ c.appendChild(el('p','tr',rule.length?'Tap an item when you have prayed it. Checkmarks reset each day.':'Build your daily rule: choose when and what you pray, then check it off each day.'));
+ RT.forEach(function(tm){
+  var items=[];rule.forEach(function(r,i){if(r.t==tm)items.push([r,i])});
+  if(!items.length)return;
+  var h=el('div','tag',tm);h.style.margin='12px 0 2px';c.appendChild(h);
+  items.forEach(function(x){var r=x[0],i=x[1],row=el('div','item'),on=dn.indexOf(i)>-1;
+   var b=el('button','fav',(on?'✓ ':'')+r.n);b.style.marginTop='0';b.style.flex='1';b.style.textAlign='left';
+   b.onclick=function(){if(on)dn.splice(dn.indexOf(i),1);else dn.push(i);rd[t]=dn;sv('pc-rd',rd);me()};row.appendChild(b);
+   if(r.k){var ob=el('button','fav','Open');ob.style.marginTop='0';ob.onclick=function(){if(r.k=='rosary')show(0);else if(r.k=='dm')show(3);else if(r.k=='hours')show(2);else{qs=P[r.k][0];show(1)}};row.appendChild(ob)}
+   var rm=el('button','fav','Remove');rm.style.marginTop='0';rm.onclick=function(){rule.splice(i,1);sv('pc-rule',rule);sv('pc-rd',{});me()};row.appendChild(rm);c.appendChild(row)})});
+ var s1=el('select','inp'),s2=el('select','inp');
+ RT.forEach(function(x){var o=el('option',0,x);o.value=x;s1.appendChild(o)});
+ RS.forEach(function(x,j){var o=el('option',0,x[0]);o.value=j;s2.appendChild(o)});
+ c.appendChild(s1);c.appendChild(s2);
+ btn(c,'Add to my rule',function(){var q=RS[s2.value];rule.push({t:s1.value,n:q[0],k:q[1]});sv('pc-rule',rule);sv('pc-rd',{});me()});
+}
+function backupUI(c,btn){
+ c.appendChild(el('p','tr','Your streaks, favorites, intentions, rule and novena are saved in this browser only. Create a backup, keep the text somewhere safe (Notes or email), and paste it back here to restore.'));
+ var ta=el('textarea','inp');ta.rows=4;ta.placeholder='Backup text appears here. To restore, paste a backup here.';c.appendChild(ta);
+ btn(c,'Create backup',function(){var o={};try{for(var j=0;j<localStorage.length;j++){var k=localStorage.key(j);if(k.indexOf('pc-')==0)o[k]=localStorage.getItem(k)}}catch(e){}ta.value=JSON.stringify(o);ta.select();try{navigator.clipboard.writeText(ta.value)}catch(e){}});
+ btn(c,'Restore from text',function(){try{var o=JSON.parse(ta.value);Object.keys(o).forEach(function(k){if(k.indexOf('pc-')==0)localStorage.setItem(k,o[k])});location.reload()}catch(e){c.appendChild(el('p','note','That does not look like a backup.'))}});
+}
+DV.push(['About These Texts',`Traditional prayers (Our Father, Hail Mary, the Creed, the Litanies, and similar) are given in widely used English wording. Latin texts were written from memory of the traditional forms and may contain small errors. The For Every Need prayers, the Bridget prayers, the novena daily themes, and the Confession and Examination guides are written in simple modern English and are not official texts.
+
+For anything liturgical, or if you are unsure, check an approved prayer book or missal, or ask a priest.`]);
+var SCR={
+'The Annunciation':['Luke 1:26-38',`Behold the handmaid of the Lord; be it done to me according to thy word.`,'Humility'],
+'The Visitation':['Luke 1:39-56',`Blessed art thou among women, and blessed is the fruit of thy womb.`,'Love of neighbor'],
+'The Nativity':['Luke 2:1-20',`For this day is born to you a Saviour, who is Christ the Lord, in the city of David.`,'Poverty of spirit'],
+'The Presentation':['Luke 2:22-38',`Now thou dost dismiss thy servant, O Lord, according to thy word in peace.`,'Obedience and purity'],
+'Finding Jesus in the Temple':['Luke 2:41-52',`Did you not know, that I must be about my father's business?`,'Joy in finding Jesus'],
+'The Baptism of Jesus':['Matthew 3:13-17',`This is my beloved Son, in whom I am well pleased.`],
+'The Wedding at Cana':['John 2:1-12',`Whatsoever he shall say to you, do ye.`],
+'Proclamation of the Kingdom':['Mark 1:14-15',`The time is accomplished, and the kingdom of God is at hand: repent, and believe the gospel.`],
+'The Transfiguration':['Luke 9:28-36',`This is my beloved Son; hear him.`],
+'Institution of the Eucharist':['Matthew 26:26-29',`Take ye, and eat. This is my body.`],
+'The Agony in the Garden':['Matthew 26:36-46',`My Father, if it be possible, let this chalice pass from me. Nevertheless, not as I will, but as thou wilt.`,'Sorrow for sin'],
+'The Scourging at the Pillar':['Matthew 27:24-26; John 19:1',`Then therefore Pilate took Jesus, and scourged him.`,'Purity'],
+'The Crowning with Thorns':['Matthew 27:27-31',`And platting a crown of thorns, they put it upon his head.`,'Courage'],
+'The Carrying of the Cross':['Luke 23:26-32',`They laid hold of one Simon of Cyrene, and they laid the cross on him to carry after Jesus.`,'Patience'],
+'The Crucifixion':['Luke 23:33-46',`Father, into thy hands I commend my spirit.`,'Perseverance'],
+'The Resurrection':['Matthew 28:1-10',`He is not here, for he is risen, as he said.`,'Faith'],
+'The Ascension':['Acts 1:6-11',`While they looked on, he was raised up, and a cloud received him out of their sight.`,'Hope'],
+'The Descent of the Holy Spirit':['Acts 2:1-11',`And they were all filled with the Holy Ghost.`,'Love of God'],
+'The Assumption of Mary':['Luke 1:46-55',`Behold from henceforth all generations shall call me blessed.`,'Grace of a happy death'],
+'The Coronation of Mary':['Revelation 12:1',`A woman clothed with the sun, and the moon under her feet, and on her head a crown of twelve stars.`,`Trust in Mary's intercession`]};
+var SYN=window.speechSynthesis||null,TOK=0,AUTO=false,SI=null;
+function clean(t){return t.replace(/\u2026/g,'.').replace(/(^|\n)[VR]\. /g,'$1').replace(/\n+/g,'. ')}
+function stopSay(){TOK++;try{if(SYN)SYN.cancel()}catch(e){}}
+function say(parts,done){
+ if(!SYN)return;stopSay();var my=TOK,n=0;
+ (function next(){
+  if(my!=TOK)return;
+  if(n>=parts.length){if(done)done();return}
+  var p=parts[n++],u=new SpeechSynthesisUtterance(clean(p[0]));u.lang=p[1];u.rate=RATE;
+  var vv=voiceFor(p[1]);if(vv)u.voice=vv;
+  u.onend=function(){if(my==TOK)next()};u.onerror=function(){};
+  SYN.speak(u)})();
+}
+function partsFor(k){var r=[];if(lang=='fo')return [[P[k][1],'en-US']];if(lang!='en'&&L[k])r.push([L[k],'it-IT']);if(lang=='en'||lang=='both'||!L[k])r.push([P[k][1],'en-US']);return r}
+function listenBtn(k){
+ if(!SYN)return document.createElement('span');
+ var b=el('button','fav','Listen');b.style.marginLeft='8px';
+ b.onclick=function(){if(b.textContent=='Stop'){stopSay();b.textContent='Listen';return}b.textContent='Stop';say(partsFor(k),function(){b.textContent='Listen'})};
+ return b}
+function speakStep(){
+ var s=steps[i],parts=partsFor(s.k);SI=i;
+ if(SRON&&!CHM&&s.bead&&SR[s.mys])parts.unshift([SR[s.mys].split('\n')[s.bead-1].split('|')[1],'en-US']);
+ if(s.mys&&!s.bead){var q=CHM?null:SCR[s.mys];parts.unshift([(CHM?CHL:'Mystery ')+s.dec+', '+s.mys+'.'+(q?' '+q[0]+'. '+q[1]:''),'en-US'])}
+ say(parts,function(){
+  if(!AUTO||tab!=0||SI!=i)return;
+  setTimeout(function(){if(!AUTO||tab!=0||SI!=i)return;if(i<steps.length-1){i++;rosary()}else{AUTO=false;SI=null;rosary()}},900)});
+}
+var SRON=ls('pc-sr',true);
+var SR={
+'The Annunciation':`Lk 1:26-27|The angel Gabriel is sent to Mary, a virgin of Nazareth betrothed to Joseph.
+Lk 1:28|The angel greets her: Hail, full of grace, the Lord is with you.
+Lk 1:29|Mary is troubled by his words and wonders what this greeting means.
+Lk 1:30|Do not be afraid, Mary; you have found favor with God.
+Lk 1:31|You will conceive and bear a son, and you will name him Jesus.
+Lk 1:32-33|He will be great, Son of the Most High, and his kingdom will have no end.
+Lk 1:34|Mary asks: How can this be, since I have no husband?
+Lk 1:35|The Holy Spirit will come upon you; the child will be called holy, the Son of God.
+Lk 1:37|Nothing will be impossible for God.
+Lk 1:38|Behold the handmaid of the Lord; let it be done to me according to your word.`,
+'The Visitation':`Lk 1:39-40|Mary hurries to the hill country and greets Elizabeth.
+Lk 1:41|At her greeting the child leaps in Elizabeth's womb, and she is filled with the Holy Spirit.
+Lk 1:42|Blessed are you among women, and blessed is the fruit of your womb.
+Lk 1:43|Who am I that the mother of my Lord should come to me?
+Lk 1:44|The child in my womb leapt for joy at the sound of your greeting.
+Lk 1:45|Blessed is she who believed that the Lord's words would be fulfilled.
+Lk 1:46-47|My soul magnifies the Lord, and my spirit rejoices in God my Savior.
+Lk 1:48-49|He has looked on his lowly servant; the Mighty One has done great things for me.
+Lk 1:50-53|His mercy reaches those who fear him; he lifts up the lowly and fills the hungry.
+Lk 1:56|Mary stays about three months with Elizabeth, then returns home.`,
+'The Nativity':`Lk 2:1-5|Joseph and Mary go up to Bethlehem for the census.
+Lk 2:6-7|Mary gives birth to her firstborn and lays him in a manger, because there was no room.
+Lk 2:8|Shepherds keep watch over their flocks by night.
+Lk 2:9|An angel appears, the glory of the Lord shines around them, and they are afraid.
+Lk 2:10-11|Do not be afraid: today a Savior is born for you, Christ the Lord.
+Lk 2:12|You will find a baby wrapped in swaddling clothes and lying in a manger.
+Lk 2:13-14|A multitude of angels praise God: Glory to God in the highest, and peace on earth.
+Lk 2:15-16|The shepherds hurry to Bethlehem and find Mary, Joseph, and the child.
+Lk 2:17-18|They tell what they were told, and all who hear are amazed.
+Lk 2:19-20|Mary keeps these things, pondering them in her heart; the shepherds return praising God.`,
+'The Presentation':`Lk 2:22-24|Mary and Joseph bring Jesus to Jerusalem to present him to the Lord.
+Lk 2:25|Simeon, a just and devout man, is waiting for the consolation of Israel.
+Lk 2:26|The Holy Spirit has told him he will not die before he sees the Lord's Christ.
+Lk 2:27-28|Led by the Spirit, he comes to the temple and takes the child in his arms.
+Lk 2:29-30|Now, Lord, you let your servant go in peace, for my eyes have seen your salvation.
+Lk 2:31-32|A light to reveal you to the nations, and the glory of your people Israel.
+Lk 2:33|The child's father and mother marvel at what is said about him.
+Lk 2:34-35|Simeon tells Mary that a sword will pierce her own soul.
+Lk 2:36-37|Anna, a prophetess, serves God in the temple with fasting and prayer.
+Lk 2:38|She gives thanks to God and speaks of the child to all who await redemption.`,
+'Finding Jesus in the Temple':`Lk 2:41-42|Each year Jesus' parents go to Jerusalem for the Passover; at twelve, he goes with them.
+Lk 2:43|On the return journey the boy Jesus stays behind in Jerusalem without their knowing.
+Lk 2:44|Thinking he is in the caravan, they travel a day and then search among relatives.
+Lk 2:45|Not finding him, they return to Jerusalem to look for him.
+Lk 2:46|After three days they find him in the temple, listening to the teachers and asking questions.
+Lk 2:47|All who hear him are amazed at his understanding and his answers.
+Lk 2:48|Mary says: Son, why have you done this to us? We have been looking for you in sorrow.
+Lk 2:49|He answers: Did you not know that I must be in my Father's house?
+Lk 2:50|They do not understand what he says to them.
+Lk 2:51-52|He goes down with them to Nazareth and is obedient; he grows in wisdom, and Mary treasures all these things in her heart.`,
+'The Baptism of Jesus':`Mt 3:1-2|John the Baptist preaches in the desert: Repent, for the kingdom of heaven is at hand.
+Mt 3:3|A voice cries out in the wilderness: Prepare the way of the Lord.
+Mt 3:5-6|People from Jerusalem and all Judea come and are baptized, confessing their sins.
+Mt 3:11|I baptize you with water; the one who comes after me will baptize you with the Holy Spirit and fire.
+Mt 3:13|Jesus comes from Galilee to the Jordan to be baptized by John.
+Mt 3:14|John tries to prevent him: I need to be baptized by you.
+Mt 3:15|Jesus answers: Let it be so now, for it is fitting to fulfill all righteousness.
+Mt 3:16|The heavens open, and the Spirit of God descends like a dove.
+Mt 3:17|A voice from heaven: This is my beloved Son, with whom I am well pleased.
+Lk 3:21|While Jesus is praying after his baptism, heaven opens.`,
+'The Wedding at Cana':`Jn 2:1|On the third day there is a wedding at Cana in Galilee, and the mother of Jesus is there.
+Jn 2:2|Jesus and his disciples are also invited to the wedding.
+Jn 2:3|When the wine runs short, Mary tells Jesus: They have no wine.
+Jn 2:4|Jesus answers: Woman, how does your concern affect me? My hour has not yet come.
+Jn 2:5|Mary tells the servants: Do whatever he tells you.
+Jn 2:6|Six stone water jars stand there for the Jewish rites of purification.
+Jn 2:7|Jesus says: Fill the jars with water. They fill them to the brim.
+Jn 2:8|Now draw some out and take it to the headwaiter.
+Jn 2:9-10|The water has become wine, and the headwaiter marvels that the good wine was kept until now.
+Jn 2:11|Jesus reveals his glory, the first of his signs, and his disciples believe in him.`,
+'Proclamation of the Kingdom':`Mk 1:14|After John is arrested, Jesus goes to Galilee proclaiming the gospel of God.
+Mk 1:15|The time is fulfilled, and the kingdom of God is at hand.
+Mk 1:15|Repent, and believe in the gospel.
+Mt 5:3|Blessed are the poor in spirit, for theirs is the kingdom of heaven.
+Mt 6:9-10|Our Father, who art in heaven, thy kingdom come.
+Mk 2:5|Jesus forgives the paralyzed man: Child, your sins are forgiven.
+Lk 7:47-48|Her many sins are forgiven because she has loved much.
+Mt 9:35|Jesus goes through the towns teaching, proclaiming the kingdom, and healing every disease.
+Mt 11:28|Come to me, all you who labor and are burdened, and I will give you rest.
+Lk 17:21|The kingdom of God is among you.`,
+'The Transfiguration':`Lk 9:28|Jesus takes Peter, John, and James up the mountain to pray.
+Lk 9:29|As he prays, his face changes and his clothing becomes dazzling white.
+Lk 9:30|Two men, Moses and Elijah, appear and speak with him.
+Lk 9:31|They appear in glory and speak of his departure, which he is about to fulfill in Jerusalem.
+Lk 9:32|Peter and his companions are heavy with sleep, but they wake and see his glory.
+Lk 9:33|Peter says: Master, it is good for us to be here; let us make three tents.
+Lk 9:34|A cloud casts a shadow over them, and they are afraid as they enter it.
+Lk 9:35|A voice from the cloud: This is my Son, my chosen one; listen to him.
+Lk 9:36|When the voice has spoken, Jesus is found alone.
+Mt 17:7|Jesus touches them: Rise, and do not be afraid.`,
+'Institution of the Eucharist':`Lk 22:7-8|Jesus sends Peter and John to prepare the Passover meal.
+Lk 22:14|When the hour comes, he takes his place at table with the apostles.
+Lk 22:15|I have eagerly desired to eat this Passover with you before I suffer.
+Jn 13:4-5|He rises, takes a towel, and begins to wash the disciples' feet.
+Jn 13:34|A new commandment: love one another as I have loved you.
+Mt 26:26|Jesus takes bread, blesses and breaks it, and gives it to his disciples.
+Mt 26:26|Take and eat; this is my body.
+Mt 26:27-28|He takes the cup: Drink from it, all of you; this is my blood of the covenant, poured out for many for the forgiveness of sins.
+Lk 22:19|Do this in memory of me.
+Jn 6:54|Whoever eats my flesh and drinks my blood has eternal life.`,
+'The Agony in the Garden':`Mt 26:36|Jesus goes with his disciples to a place called Gethsemane.
+Mt 26:37|He takes Peter and the two sons of Zebedee, and begins to be sorrowful and troubled.
+Mt 26:38|My soul is sorrowful even to death; stay here and keep watch with me.
+Mt 26:39|He falls on his face and prays: My Father, if it is possible, let this cup pass from me.
+Mt 26:39|Yet not as I will, but as you will.
+Mt 26:40|He finds the disciples asleep: Could you not keep watch with me for one hour?
+Mt 26:41|Watch and pray that you may not enter into temptation; the spirit is willing, but the flesh is weak.
+Mt 26:42|A second time he prays: My Father, your will be done.
+Lk 22:43-44|An angel from heaven strengthens him; in agony he prays more earnestly, and his sweat becomes like drops of blood.
+Mt 26:45-46|The hour is at hand, and the Son of Man is handed over to sinners. Rise, let us go.`,
+'The Scourging at the Pillar':`Mt 27:15|At the feast, the governor used to release one prisoner chosen by the crowd.
+Mt 27:16-17|Pilate asks: Whom do you want me to release, Barabbas or Jesus called Christ?
+Mt 27:18|He knows they handed Jesus over out of envy.
+Mt 27:19|Pilate's wife sends word: Have nothing to do with that righteous man.
+Mt 27:20-22|The crowds ask for Barabbas and cry out: Let him be crucified.
+Mt 27:23|Pilate asks: What evil has he done? They only shout louder.
+Mt 27:24|Pilate washes his hands: I am innocent of this man's blood.
+Mt 27:26|He releases Barabbas, and after having Jesus scourged, hands him over to be crucified.
+Jn 19:1|Pilate takes Jesus and has him scourged.
+Is 53:5|He was pierced for our offenses, crushed for our sins; by his stripes we are healed.`,
+'The Crowning with Thorns':`Mt 27:27|The soldiers take Jesus into the praetorium and gather the whole cohort around him.
+Mt 27:28|They strip him and put a scarlet cloak on him.
+Mt 27:29|They weave a crown of thorns and set it on his head.
+Mt 27:29|They put a reed in his right hand.
+Mt 27:29|They kneel before him and mock him: Hail, King of the Jews!
+Mt 27:30|They spit on him and beat him on the head with the reed.
+Jn 19:4-5|Pilate brings Jesus out, wearing the crown of thorns and purple cloak: Behold the man!
+Jn 19:6|The chief priests cry out: Crucify him!
+Jn 19:9|Pilate asks: Where are you from? But Jesus gives him no answer.
+Mt 27:31|After mocking him, they take off the cloak, dress him in his own clothes, and lead him away to be crucified.`,
+'The Carrying of the Cross':`Jn 19:16|Pilate hands Jesus over to be crucified.
+Jn 19:17|Carrying his own cross, he goes out to the place called Golgotha.
+Lk 23:26|They seize Simon of Cyrene and make him carry the cross behind Jesus.
+Lk 23:27|A great crowd follows him, including women who mourn and lament for him.
+Lk 23:28|Jesus turns: Daughters of Jerusalem, do not weep for me, but for yourselves and your children.
+Lk 23:31|If they do this when the wood is green, what will happen when it is dry?
+Lk 23:32|Two others, criminals, are led away to be put to death with him.
+Mt 16:24|Whoever wishes to come after me must deny himself, take up his cross, and follow me.
+Is 53:7|Like a lamb led to the slaughter, he opened not his mouth.
+Heb 12:2|Looking to Jesus, who for the joy set before him endured the cross.`,
+'The Crucifixion':`Lk 23:33|At the place called Calvary they crucify Jesus, with the criminals on his right and left.
+Lk 23:34|Father, forgive them, for they do not know what they are doing.
+Lk 23:42-43|Jesus, remember me when you come into your kingdom. Today you will be with me in Paradise.
+Jn 19:25|Standing by the cross are his mother, her sister, Mary of Clopas, and Mary Magdalene.
+Jn 19:26-27|Woman, behold your son. Behold your mother. The disciple takes her into his home.
+Mk 15:34|My God, my God, why have you forsaken me?
+Jn 19:28|I thirst.
+Jn 19:30|It is finished. He bows his head and gives up his spirit.
+Lk 23:46|Father, into your hands I commend my spirit.
+Mt 27:54|The centurion and those with him are terrified: Truly this was the Son of God.`,
+'The Resurrection':`Mt 28:1|After the Sabbath, Mary Magdalene and the other Mary go to see the tomb.
+Mt 28:2|There is a great earthquake, and an angel of the Lord rolls back the stone.
+Mt 28:5-6|Do not be afraid; he is not here, for he has been raised as he said.
+Mt 28:6-7|Come and see the place where he lay; then go quickly and tell his disciples.
+Jn 20:1-2|Mary Magdalene finds the stone moved and runs to Peter and the other disciple.
+Jn 20:6-8|Peter enters the tomb and sees the burial cloths; the other disciple sees and believes.
+Jn 20:14-16|Mary sees Jesus but does not know him until he calls her name: Mary.
+Lk 24:30-31|At table in Emmaus, Jesus breaks the bread, and their eyes are opened.
+Jn 20:19|On Easter evening Jesus stands among the disciples: Peace be with you.
+Jn 20:27-28|Thomas touches his wounds and says: My Lord and my God.`,
+'The Ascension':`Acts 1:3|For forty days Jesus appears to the apostles, speaking about the kingdom of God.
+Acts 1:4|He tells them not to leave Jerusalem but to wait for the promise of the Father.
+Acts 1:5|John baptized with water, but you will be baptized with the Holy Spirit.
+Acts 1:6-7|They ask about the kingdom; he says it is not for them to know the times.
+Acts 1:8|You will receive power when the Holy Spirit comes, and you will be my witnesses to the ends of the earth.
+Mt 28:19-20|Go and make disciples of all nations; I am with you always.
+Lk 24:50|He leads them out to Bethany and lifts up his hands.
+Lk 24:51|While blessing them, he parts from them and is taken up to heaven.
+Acts 1:9|A cloud takes him from their sight.
+Acts 1:10-11|Two men in white: This Jesus will return in the same way you saw him go.`,
+'The Descent of the Holy Spirit':`Acts 1:14|The apostles devote themselves to prayer with Mary the mother of Jesus.
+Acts 2:1|When the day of Pentecost comes, they are all together in one place.
+Acts 2:2|Suddenly a noise like a strong driving wind fills the house.
+Acts 2:3|Tongues as of fire appear and rest on each of them.
+Acts 2:4|They are all filled with the Holy Spirit and begin to speak in other tongues.
+Acts 2:5-6|Devout Jews from every nation gather, and each hears them in his own language.
+Acts 2:7-8|Amazed, they ask: Are not all these Galileans? How do we each hear our own language?
+Acts 2:11|We hear them speaking of the mighty acts of God.
+Acts 2:14|Peter stands with the Eleven and addresses the crowd.
+Acts 2:41|About three thousand accept his message and are baptized that day.`,
+'The Assumption of Mary':`Lk 1:28|Hail, full of grace, the Lord is with you.
+Lk 1:38|Behold the handmaid of the Lord.
+Lk 1:48|From now on all generations will call me blessed.
+Lk 2:19|Mary keeps all these things, pondering them in her heart.
+Jn 2:5|Do whatever he tells you.
+Jn 19:25|Mary stands by the cross of her Son.
+Acts 1:14|Mary prays with the apostles as they await the Spirit.
+Rev 11:19|God's temple in heaven is opened, and the ark of his covenant is seen.
+Rev 12:1|A great sign appears in heaven: a woman clothed with the sun.
+Jdt 15:9|You are the glory of Jerusalem, the joy of Israel, the great pride of our people.`,
+'The Coronation of Mary':`Rev 12:1|A woman clothed with the sun, the moon under her feet, and on her head a crown of twelve stars.
+Rev 12:2|She is with child and cries out in the pangs of birth.
+Rev 12:5|She gives birth to a son who will rule all the nations.
+Ps 45:10|At your right hand stands the queen in gold of Ophir.
+Lk 1:32-33|Her Son will reign over the house of Jacob forever, and his kingdom will have no end.
+Lk 1:42|Blessed are you among women.
+Lk 1:45|Blessed is she who believed that what was spoken to her would be fulfilled.
+Jn 19:27|Jesus gives his mother to us: Behold your mother.
+Rev 22:5|The Lord God will be their light, and they will reign forever.
+2 Tim 4:8|The crown of righteousness is stored up for those who have longed for his appearing.`};
+var STN=[
+['Jesus Is Condemned to Death',`Pilate finds no guilt in Jesus, yet gives in to the crowd and sends him to be crucified (Mt 27:24-26). Jesus stays silent and accepts the sentence. Lord, when I am tempted to follow the crowd or to avoid the truth, give me courage.`],
+['Jesus Takes Up His Cross',`Jesus receives the cross and carries it without complaint (Jn 19:17). Help me to accept my own crosses, large and small, from your hand, and to carry them with love.`],
+['Jesus Falls the First Time',`Weakened by the scourging and the long night, Jesus falls under the weight of the cross (see Is 53:4-5). This station comes from Church tradition. When I fall into sin or discouragement, lift me up.`],
+['Jesus Meets His Mother',`Mary meets her Son on the way, and the sword Simeon foretold pierces her heart (Lk 2:35). This station comes from Church tradition. Mary, help me to stay close to Jesus when it hurts.`],
+['Simon of Cyrene Helps Jesus Carry the Cross',`The soldiers force Simon of Cyrene to carry the cross behind Jesus (Lk 23:26). Make me willing to help carry the burdens of others, even when it is inconvenient.`],
+['Veronica Wipes the Face of Jesus',`According to tradition, a woman steps forward from the crowd to wipe the face of Jesus. Small acts of compassion are never lost (Mt 25:40). Let me see your face in those who suffer, and serve you in them.`],
+['Jesus Falls the Second Time',`Again Jesus falls, and again he rises. This station comes from Church tradition. Give me perseverance when I fall again and again, and let me never stop returning to you.`],
+['Jesus Meets the Women of Jerusalem',`Women weep as Jesus passes. He tells them: Do not weep for me, but for yourselves and your children (Lk 23:27-28). Teach me to be sorry for my sins and to pray for those I love.`],
+['Jesus Falls the Third Time',`Exhausted, Jesus falls a third time and rises once more. This station comes from Church tradition. When I have nothing left, give me grace to get up and keep going with you.`],
+['Jesus Is Stripped of His Garments',`The soldiers strip Jesus and divide his clothes among them (Jn 19:23-24). Strip me of my pride and my attachments, and help me honor the dignity of everyone who is humiliated.`],
+['Jesus Is Nailed to the Cross',`Jesus is nailed to the cross and prays: Father, forgive them, for they do not know what they are doing (Lk 23:33-34). Help me to forgive, and to give myself fully, as you did.`],
+['Jesus Dies on the Cross',`Jesus cries out with a loud voice: Father, into your hands I commend my spirit, and he dies (Lk 23:44-46). Thank you, Lord, for giving your life for me. Into your hands I commend my life and my death.`],
+['Jesus Is Taken Down from the Cross',`Joseph of Arimathea asks for the body of Jesus and takes it down (Mt 27:57-59). Tradition remembers Mary holding her Son. Mother of Sorrows, hold us in our grief and teach us to trust.`],
+['Jesus Is Laid in the Tomb',`Jesus is wrapped in linen and laid in a new tomb (Jn 19:40-42). Bury my sins with him, Lord, and give me hope in the resurrection.`]];
+var ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV'];
+STN.forEach(function(s,n){P['stn'+(n+1)]=[ROM[n]+'. '+s[0],'V. We adore you, O Christ, and we praise you.\nR. Because by your holy cross you have redeemed the world.\n\n'+s[1]+'\n\nThen pray an Our Father, a Hail Mary, and a Glory Be.\nHave mercy on us, O Lord. Have mercy on us.']});
+P.stnclose=['Closing Prayer: Stations',`Lord Jesus, you walked the way of the cross for love of me. Help me to follow you each day, and bring me through the cross to the joy of the resurrection. Amen.`];
+function cardImg(k,dark){
+ var W=1080,pad=110,mw=W-pad*2,cv=document.createElement('canvas');cv.width=W;cv.height=400;var x=cv.getContext('2d');
+ var bg=dark?'#1a1214':'#f3ead6',ink=dark?'#f3e8d4':'#2a1d1a',acc=dark?'#e0a9b0':'#7a1d2a',gold=dark?'#d4aa4f':'#a9822a';
+ var parts=[];if(lang=='fo'){parts.push([F[k]||P[k][1],false])}else{if(lang!='en'&&L[k])parts.push([L[k],true]);if(lang=='en'||lang=='both'||!L[k])parts.push([P[k][1],false])}
+ var total=parts.reduce(function(a,p){return a+p[0].length},0),fs=total<220?54:total<500?44:total<1100?36:30,lh=Math.round(fs*1.45),ctr=total<420;
+ function wrap(t,f){x.font=f;var out=[];t.split('\n').forEach(function(par){if(!par.trim()){out.push('');return}var ln='';par.split(' ').forEach(function(w){var s=ln?ln+' '+w:w;if(x.measureText(s).width>mw&&ln){out.push(ln);ln=w}else ln=s});out.push(ln)});return out}
+ var tl=wrap((lang=='fo'&&FT[k])||P[k][0],'bold 58px Georgia, serif'),body=[];
+ parts.forEach(function(p,j){if(j)body.push({t:'',i:false});wrap(p[0],(p[1]?'italic ':'')+fs+'px Georgia, serif').forEach(function(l){body.push({t:l,i:p[1]})})});
+ var top=330+tl.length*72+40,bh=body.length*lh,H=Math.max(1350,top+bh+190);
+ cv.height=H;x=cv.getContext('2d');
+ x.fillStyle=bg;x.fillRect(0,0,W,H);
+ x.strokeStyle=gold;x.lineWidth=3;x.strokeRect(40,40,W-80,H-80);x.lineWidth=1;x.strokeRect(54,54,W-108,H-108);
+ x.fillStyle=gold;x.fillRect(W/2-5,120,10,86);x.fillRect(W/2-28,146,56,10);x.fillRect(W/2-120,236,240,2);x.fillRect(W/2-120,H-120,240,2);
+ x.fillStyle=acc;x.font='bold 58px Georgia, serif';x.textAlign='center';x.textBaseline='alphabetic';
+ tl.forEach(function(l,j){x.fillText(l,W/2,330+j*72)});
+ var y=top+(ctr?Math.max(0,(H-190-top-bh)/2):0)+fs;
+ x.fillStyle=ink;x.textAlign=ctr?'center':'left';var px=ctr?W/2:pad;
+ body.forEach(function(b){x.font=(b.i?'italic ':'')+fs+'px Georgia, serif';x.fillText(b.t,px,y);y+=lh});
+ return {cv:cv,t:P[k][0]+'\n\n'+parts.map(function(p){return p[0]}).join('\n\n')}}
+function shareCard(k){
+ var dark=!!(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches),cv,txt,file=null,ov=el('div');
+ ov.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:50;background:rgba(0,0,0,.88);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 16px) 16px 24px;display:flex;flex-direction:column;align-items:center;gap:12px';
+ var img=el('img');img.style.cssText='max-width:100%;max-height:60vh;border-radius:6px;object-fit:contain';
+ var msg=el('p','tr','Press and hold the image to save or copy it.');msg.style.cssText='color:#d9cdb8;text-align:center;margin:0';
+ function draw(){var r=cardImg(k,dark);cv=r.cv;txt=r.t;img.src=cv.toDataURL('image/png');file=null;cv.toBlob(function(b){if(b)file=new File([b],'prayer.png',{type:'image/png'})},'image/png')}
+ draw();
+ var row=el('div','row');row.style.cssText='flex-wrap:wrap;width:100%;max-width:420px';
+ function mk(t,f){var b=el('button','b sm',t);b.style.flex='1 1 40%';b.onclick=f;row.appendChild(b);return b}
+ mk('Share',function(){
+  var data=(file&&navigator.canShare&&navigator.canShare({files:[file]}))?{files:[file],title:P[k][0]}:{title:P[k][0],text:txt};
+  if(navigator.share){navigator.share(data).catch(function(e){if(e&&e.name!='AbortError')msg.textContent='Sharing is not available here. Press and hold the image to save it, or use Copy text.'})}
+  else msg.textContent='Sharing is not available here. Press and hold the image to save it, or use Copy text.'});
+ mk('Copy text',function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){msg.textContent='Text copied.'}).catch(function(){msg.textContent='Could not copy. Press and hold the image instead.'})}else msg.textContent='Could not copy. Press and hold the image instead.'});
+ var tg=mk(dark?'Light card':'Dark card',function(){dark=!dark;tg.textContent=dark?'Light card':'Dark card';draw()});
+ mk('Close',function(){document.body.removeChild(ov)});
+ ov.appendChild(img);ov.appendChild(row);ov.appendChild(msg);document.body.appendChild(ov);
+}
+function shareBtn(k){var b=el('button','fav','Share');b.style.marginLeft='8px';b.onclick=function(){shareCard(k)};return b}
+var NOV=['Albert','Bad','Bahh','Bells','Boing','Bubbles','Cellos','Deranged','Good','Hysterical','Jester','Organ','Superstar','Trinoids','Whisper','Wobble','Zarvox','Fred','Junior','Kathy','Ralph'],RATE=ls('pc-rate',0.9);
+function vlist(pre){return SYN?SYN.getVoices().filter(function(v){return v.lang.replace('_','-').toLowerCase().indexOf(pre)==0&&NOV.indexOf(v.name.split(' ')[0])<0}):[]}
+function vscore(v){var n=v.name;return (/premium/i.test(n)?30:0)+(/enhanced/i.test(n)?20:0)+(/siri/i.test(n)?15:0)+(/^(Samantha|Daniel|Karen|Moira|Serena|Alice|Luca|Federica|Paola)/.test(n)?5:0)+(v.localService?0:-2)}
+function voiceFor(lg){var pre=lg.slice(0,2).toLowerCase(),sn=ls('pc-v-'+pre,''),l=vlist(pre);if(!l.length)return null;if(sn)for(var j=0;j<l.length;j++)if(l[j].name==sn)return l[j];l.sort(function(a,b){return vscore(b)-vscore(a)});return l[0]}
+if(SYN)SYN.onvoiceschanged=function(){if(tab==4)me()};
+function voiceUI(c,btn){
+ if(!SYN){c.appendChild(el('p','tr','Read aloud is not available in this browser.'));return}
+ c.appendChild(el('p','tr','Voices come from your phone. For the best quality, download an Enhanced or Premium voice in Settings > Accessibility > Spoken Content > Voices, then reload this page. Siri voices are not available to web pages.'));
+ [['en','English voice'],['it','Latin voice (Italian voices read Latin best)']].forEach(function(o){
+  c.appendChild(el('div','tag',o[1]));var s=el('select','inp'),l=vlist(o[0]).sort(function(a,b){return vscore(b)-vscore(a)});
+  var a=el('option',0,'Automatic (best available)');a.value='';s.appendChild(a);
+  l.forEach(function(v){var q=el('option',0,v.name+(/premium/i.test(v.name)?' (premium)':/enhanced/i.test(v.name)?' (enhanced)':''));q.value=v.name;s.appendChild(q)});
+  s.value=ls('pc-v-'+o[0],'');s.onchange=function(){sv('pc-v-'+o[0],s.value)};c.appendChild(s)});
+ c.appendChild(el('div','tag','Speed'));var r=el('input','inp');r.type='range';r.min='0.6';r.max='1.1';r.step='0.05';r.value=RATE;r.oninput=function(){RATE=parseFloat(r.value);sv('pc-rate',RATE)};c.appendChild(r);
+ btn(c,'Test English',function(){say([['Hail Mary, full of grace, the Lord is with thee.','en-US']])});
+ btn(c,'Test Latin',function(){say([['Ave Maria, gratia plena, Dominus tecum.','it-IT']])});
+}
+Object.assign(P,{
+dm1:['On the Large Bead',`Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son, our Lord Jesus Christ, in atonement for our sins and those of the whole world.`],
+dm2:['On the Small Beads',`For the sake of his sorrowful Passion, have mercy on us and on the whole world.`],
+dm3:['Holy God',`Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.`],
+dm4:['Closing Prayer',`Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to your holy will, which is love and mercy itself. Amen.`],
+ex1:['1. Remember God is Present',`Settle into stillness. Take a few slow breaths. Ask the Holy Spirit to help you see your day with God's eyes: not with judgment, but with love.`],
+ex2:['2. Give Thanks',`Look back over your day and notice its gifts: people, small joys, moments of beauty, help you received. Thank God for each one.`],
+ex3:['3. Review the Day',`Walk through your day hour by hour. Where did you feel close to God and to others? Where were you impatient, distracted, or unkind? Notice without excusing or condemning yourself.`],
+ex4:['4. Ask Forgiveness',`Speak honestly to the Lord about what you regret, and receive his mercy. He is not surprised, and he is not leaving.`],
+ex5:['5. Look to Tomorrow',`Ask for the grace you will need tomorrow. Name one thing you will try to do better, and entrust your sleep and your loved ones to God.`],
+lc1:['1. Lectio: Read',`Choose a short Scripture passage, perhaps today's Gospel (the link is on the Rosary tab). Read it slowly, then read it again. Notice a word or phrase that stands out.`],
+lc2:['2. Meditatio: Reflect',`Stay with that word or phrase. Turn it over gently. What is God saying through it? How does it touch your life today?`],
+lc3:['3. Oratio: Respond',`Speak to God from your heart about what you have found: thanks, sorrow, a question, a request. Pray in your own words.`],
+lc4:['4. Contemplatio: Rest',`Be still. Let go of words and simply rest in God's presence, as one rests with a trusted friend.`],
+lc5:['5. Actio: Live It',`Choose one small way to live this word today. Then close with a Glory Be.`],
+ad1:['Enter in Reverence',`Genuflect or bow, and take your place in silence. Remember that Jesus is truly present in the Blessed Sacrament. A holy hour is about an hour, but shorten it as you need.\n\nO Sacrament most holy, O Sacrament divine, all praise and all thanksgiving be every moment thine.`],
+ad2:['Adore',`Simply be with him. You need no words. Look at him, and let him look at you.`],
+ad3:['Give Thanks',`Thank Jesus for his gifts to you, especially the gift of himself in the Eucharist.`],
+ad4:['Ask Mercy',`Bring your sins and weaknesses to him and ask for his mercy. You may pray the Act of Contrition.`],
+ad5:['Intercede',`Pray for the people and needs you carry: your family, your friends, the sick, the Church, and the intentions on your list in the Me tab.`],
+ad6:['Listen',`Open a Gospel or the Psalms and read a few verses slowly. Let the Lord speak to you.`],
+ad7:['The Divine Praises',`Blessed be God.\nBlessed be his holy Name.\nBlessed be Jesus Christ, true God and true man.\nBlessed be the name of Jesus.\nBlessed be his most Sacred Heart.\nBlessed be his most Precious Blood.\nBlessed be Jesus in the most holy Sacrament of the Altar.\nBlessed be the Holy Spirit, the Paraclete.\nBlessed be the great Mother of God, Mary most holy.\nBlessed be her holy and Immaculate Conception.\nBlessed be her glorious Assumption.\nBlessed be the name of Mary, Virgin and Mother.\nBlessed be St. Joseph, her most chaste spouse.\nBlessed be God in his angels and in his saints.`]});
+var TMI=null;
+function clrT(){if(TMI){clearInterval(TMI);TMI=null}}
+function tf(s){return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function timerUI(c,sec){
+ var b=el('button','b g','Begin quiet time ('+tf(sec)+')');b.style.marginTop='12px';b.style.width='100%';
+ b.onclick=function(){clrT();var left=sec,ac=null;try{ac=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}b.textContent=tf(left);
+  TMI=setInterval(function(){left--;if(left>0){b.textContent=tf(left);return}clrT();b.textContent='Time is up. Tap Next when ready.';
+   try{if(ac){var o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=528;g.gain.value=0.15;o.start();o.stop(ac.currentTime+0.8)}}catch(e){}},1000)};
+ c.appendChild(b)}
+var SPR={adv:['Come, Lord Jesus. Awaken my hope in you. In the darkness of this world, keep me watchful and trusting that you are near. Amen.','Prince of Peace, quiet my anxious heart, and make me a peacemaker in my home and among those I meet. Come, Lord Jesus. Amen.','Lord, you fill the lowly with good things. Give me a deep, quiet joy that no loss can take away, and let me share it. Come, Lord Jesus. Amen.','Word made flesh, you came to us out of love. Teach me to love as you love, and make room in my heart for you and for all you send me. Come, Lord Jesus. Amen.'],
+len:['Lord, I have wandered. Give me a heart that turns back to you with all its strength. Let this Lent be a time of honest repentance and new beginnings. Amen.','Lord Jesus, you were tempted in the desert and did not fall. Strengthen me against my temptations, and teach me to say yes to the Father as you did. Amen.','Father, teach me to pray. Draw me into silence, and help me to listen as much as I speak, so that my prayer may become love. Amen.','Lord, help me to fast not only from food but from all that keeps me from you. Let what I give up make room for you and for my neighbor. Amen.','God of mercy, open my hands and my heart to those in need. Teach me to give generously, and let me rejoice that Easter draws near. Amen.','Merciful Father, you forgive me again and again. Soften my heart to forgive others, and heal what is broken between us. Amen.','Lord Jesus, you walk toward the cross for love of me. Keep me beside you this week, in prayer, in silence, and in thanksgiving. Amen.']};
+var SPT={adv:['Hope','Peace','Joy','Love'],len:['Return to the Lord','Conversion','Prayer','Fasting','Almsgiving and Joy','Mercy and Forgiveness','Holy Week']};
+var SPA={adv:['Light the Advent candle and pray, with your family or alone.','Write a note of thanks or encouragement to someone.','Spend five quiet minutes in silence, waiting on the Lord.','Do one hidden act of kindness without being noticed.','Forgive someone, or ask for forgiveness.','Pray a decade of the Rosary for those who are waiting or struggling.','Go to confession if you can, to prepare your heart.'],len:['Go to Mass, and stay a few minutes afterward in thanksgiving.','Give up something small today, such as a treat or scrolling, and offer it up.','Read one Gospel passage slowly and ask what Jesus says to you.','Fast from complaining; say a silent thank you instead.','Call or visit someone who is lonely.','Abstain from meat where required, and pray the Stations of the Cross.','Give a small gift to someone in need, in money or in time.']};
+function seasonCard(){
+ var n=new Date(),Y=n.getFullYear(),T=new Date(Y,n.getMonth(),n.getDate()),ash=new Date(window.EAS.getTime());ash.setDate(ash.getDate()-46);
+ var av=new Date(Y,11,25);av.setDate(25-((av.getDay()||7)+21));var kind,day,wk;
+ if(T>=ash&&T<window.EAS){kind='len';day=Math.round((T-ash)/864e5)+1;wk=day<5?0:day>=40?6:Math.floor((day-5)/7)+1}
+ else if(T>=av&&T<new Date(Y,11,25)){kind='adv';day=Math.round((T-av)/864e5)+1;wk=Math.min(3,Math.floor((day-1)/7))}
+ else return;
+ var d=el('details','card');d.appendChild(el('summary',0,(kind=='len'?'Lent':'Advent')+', day '+day+': '+SPT[kind][wk]));
+ d.appendChild(el('p',0,SPR[kind][wk]));var h=el('div','tag','Today, a small step');h.style.margin='12px 0 2px';d.appendChild(h);d.appendChild(el('p',0,SPA[kind][T.getDay()]));app.appendChild(d)}
+var FS=`St. Anthony of Padua|lost things, finding lost items, travelers, the poor|
+St. Jude|desperate cases, hopeless causes|
+St. Joseph|workers, fathers, families, carpenters, immigrants, a happy death|joseph
+St. Francis of Assisi|animals, nature, peace|francis
+St. Therese of Lisieux|missions, florists, illness, pilots|
+St. Michael the Archangel|protection, police, soldiers|michael
+St. Raphael the Archangel|healing, travelers, the blind, happy marriages|
+St. Gabriel the Archangel|messengers, communications, broadcasters|
+St. Christopher|travelers, drivers|
+St. Cecilia|musicians, singers|
+St. Luke|doctors, physicians, artists|
+St. Thomas Aquinas|students, teachers, universities, scholars|
+St. Joseph of Cupertino|students, exams, pilots|
+St. Dymphna|anxiety, depression, mental illness|
+St. Peregrine|cancer|
+St. Agatha|breast cancer, nurses|
+St. Blaise|throat ailments|
+St. Lucy|eyes, blindness|
+St. Rita of Cascia|impossible causes, difficult marriages|
+St. Monica|mothers, difficult children, patience|
+St. Augustine|theologians, converts, printers|augustine
+St. Gianna Beretta Molla|mothers, pregnancy, physicians|
+St. Gerard Majella|expectant mothers, childbirth|
+St. Anne|grandmothers, mothers, homemakers|
+St. John Bosco|youth, teachers, students|
+St. Maximilian Kolbe|prisoners, addiction, journalists|
+St. Matthew|accountants, bankers, tax collectors|
+St. Isidore the Farmer|farmers, rain|
+St. Benedict|monks, protection from evil|
+St. Patrick|Ireland, converts|patrick
+St. Nicholas|children, sailors, merchants|
+St. Valentine|engaged couples, love|
+St. Genesius|actors, comedians|
+St. Martin de Porres|racial harmony, social justice, barbers|
+St. Teresa of Avila|writers, headaches, religious life|teresa
+St. Ignatius of Loyola|retreats, soldiers, discernment|ignatius
+St. Padre Pio|those in pain, stress|
+St. John Paul II|youth, families|
+St. Carlo Acutis|young people, the internet, computer programmers|
+St. Jerome|librarians, translators, scholars|
+St. Barbara|fire, miners, protection from lightning|
+St. Florian|firefighters|
+St. Sebastian|athletes, soldiers|
+St. Vincent de Paul|charity, volunteers|
+St. Camillus|nurses, hospitals, the sick|
+St. Lawrence|cooks, chefs, deacons|
+St. Martha|cooks, hospitality, housewives|
+St. Joan of Arc|soldiers, France, those mocked for their faith|
+St. Bernadette|the sick, Lourdes|
+St. Faustina|mercy, Divine Mercy devotion|
+St. Bridget of Sweden|Sweden, widows, Europe|
+St. Elizabeth Ann Seton|Catholic schools, widows|`.split('\n');
+function finderUI(){
+ var c=el('div','card');c.appendChild(el('h2',0,'Patron Saint Finder'));
+ var q=el('input','inp');q.type='search';q.placeholder='Search by need, job, or place';c.appendChild(q);var out=el('div');c.appendChild(out);
+ function go(){out.textContent='';var t=q.value.trim().toLowerCase();if(!t){out.appendChild(el('p','tr','Try: lost, students, nurses, anxiety, travelers, Sweden.'));return}
+  var n=0;FS.forEach(function(l){var p=l.split('|');if((p[0]+' '+p[1]).toLowerCase().indexOf(t)<0)return;n++;var r=el('div','item');r.appendChild(el('span',0,p[0]+': '+p[1]));
+   if(p[2]&&P[p[2]]){var b=el('button','fav','Prayer');b.style.marginTop='0';b.onclick=function(){qs=P[p[2]][0];show(1)};r.appendChild(b)}out.appendChild(r)});
+  if(!n)out.appendChild(el('p','tr','No match. Try another word.'))}
+ q.oninput=go;go();app.appendChild(c)}
+P.rosclose=['Closing Prayer of the Rosary',`O God, whose only-begotten Son, by his life, death, and resurrection, has purchased for us the rewards of eternal life: grant, we beseech you, that by meditating on these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise. Through the same Christ our Lord. Amen.`];
+P.rosinv=['Invocations',`Most Sacred Heart of Jesus, have mercy on us.
+Immaculate Heart of Mary, pray for us.`];
+L.rosclose=`Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis ætérnæ prǽmia comparavit: concéde, quǽsumus; ut hǽc mystéria sacratíssimo beátæ Maríæ Vírginis Rosário recoléntes, et imitémur quod cóntinent, et quod promíttunt assequámur. Per eúndem Christum Dóminum nostrum. Amen.`;
+var F={
+sign:`Í navnið Faðirsins, Sonarins og Heilaga Andans. Amen.`,
+creed:`Eg trúgvi á Gud Faðir, hin alvalda, skapara himins og jarðar.
+
+Og á Jesus Krist, Guds einborna Son, váran Harra,
+sum er gitin av Heilagum Anda,
+borin í heim av Mariu moy,
+pínslaður undir Pontiusi Pilatusi,
+krossfestur, deyður og jarðaður,
+niður farin til heljar,
+triðja dagin staðin upp frá deyðum, farin til himmals,
+sitandi við høgru hond Guds Faðirs hins alvalda,
+haðani hann kemur at døma livandi og deyð.
+
+Eg trúgvi á Heilagan Anda,
+hina heilagu katólsku kirkju,
+samfelag teirra heilagu,
+fyrigeving syndanna,
+uppreisn likamsins
+og lív um aldur og ævir.
+Amen.`,
+our:`Faðir vár,
+tú sum ert í himnum,
+heilagt verði navn títt,
+komi ríki títt,
+verði vilji tín, sum í himni so á jørð.
+Gev okkum í dag okkara dagliga breyð;
+og fyrigev okkum syndir okkara,
+so sum vit eisini fyrigeva teimum,
+ið móti okkum synda;
+og leið okkum ikki í freistingar;
+men frels okkum frá tí illa.
+Amen.`,
+hail:`Heil veri tú, Maria,
+full av náði,
+Harrin er við tær.
+Vælsignað ert tú millum kvinnur,
+og vælsignað er frukt móðurlívs tíns, Jesus.
+Heilaga Maria,
+móðir Guds,
+bið fyri okkum syndarum,
+nú og á deyðastund okkara.
+Amen.`,
+glory:`Heiður veri Faðirinum,
+Soninum og Heilaga Andanum,
+sum tað var í upphavi,
+soleiðis nú og altíð og um allar ævir.
+Amen.`,
+fatima:`O mín Jesus, fyrigev okkum syndir okkara,
+halt okkum frá helvitis eldi,
+leið allar sálir inn í Himmalin,
+serliga tær, sum treingja mest til Tína miskunn. Amen.`,
+queen:`Heil veri tú, Heilaga Drotning,
+Móðir Miskunnar,
+lív okkara, søtleiki okkara og
+vón okkara.
+Til tín rópa vit,
+fátæku og burturvístu børn Evu.
+Til tín senda vit upp okkara suff,
+tár og grát í hesum sorgardali.
+Vend so, náðiríkasti talsmaður,
+tíni miskunnareygu móti okkum,
+og vís okkum eftir hesa útlegd
+hina signaðu frukt móðurlívs tíns,
+Jesus.
+O, milda, o, kærleiksfulla,
+o, søta Maria Moy.`,
+rosclose:`O, Guð, hvørs einborni sonur við lívi,
+deyða og uppreisn síni hevur keypt
+okkum ævigu frelsunnar løn. Gev, vit
+biðja teg, at vit við at grunda á
+loynidómarnar í signaðu Mariu
+Moyar háheilaga rósukransi mega
+bæði gera eftir innihaldi teirra og
+taka ímóti lyftum teirra, við Kristi,
+Harra okkara. Amen.`,
+rosinv:`Háheilaga hjarta Jesu,
+miskunna okkum.
+Lýtaleysa hjarta Mariu, bið
+fyri okkum.`};
+var FSET={Joyful:'gleðiríku',Luminous:'ljósafullu',Sorrowful:'sorgarfullu',Glorious:'dýrdarríku'};
+var FM={
+'The Annunciation':['Bóðan Mariu','“Sí, eg eri tænastukvinna Harrans”','Lukas 1. 26-38; Jesaja 7,14'],
+'The Visitation':['Vitjan Mariu hjá Elisabeth','“Vælsignað ert tú av kvinnum”','Lukas 1, 39-56'],
+'The Nativity':['Jesu føðing','“Tí at tykkum er í dag ein frelsari føddur”','Lukas 2, 1-20'],
+'The Presentation':['Jesus verður borin fram í halgidóminum','“Tey fóru við honum niðan til Jerúsalem fyri at føra hann fram fyri Harran”','Lukas 2, 22-35; Jóhannes 1, 9-12'],
+'Finding Jesus in the Temple':['Jesus verður funnin í halgidóminum','“Vistu tit ikki, at eg eigi at vera í faðirs míns húsi?”','Lukas 2, 41-52'],
+'The Baptism of Jesus':['Dópur Jesu í ánni Jórdan','“Tú ert sonur mín, hin elskaði; til tín havi eg góðan tokka”','Lukas 3, 15-22'],
+'The Wedding at Cana':['Fyrsta undur Jesu við brúdleypinum í Kána','“Tey havi einki vín”','Jóhannes 2, 1-11'],
+'Proclamation of the Kingdom':['Boðan Jesu um Guðs ríki og kall hansara til umvending','“Vendið um og trúgvið gleðiboðskapinum”','Markus 1: 14-15; Matteus 4: 23'],
+'The Transfiguration':['Bjartleiki Jesu á fjallinum','“Og klæði hansara vórðu skínandi bjørt … hvítari enn nakar maður … kann fáa tey”','Markus 9, 2-9'],
+'Institution of the Eucharist':['Innseting av tí heilagu kvøldmáltíðini','“Gerið hetta til mínar áminningar!”','Fyrra Korintbrævið 11, 23-27; Jóhannes 13, 2-20'],
+'The Agony in the Garden':['Jesu angist í Getsemane','“Men verði tó ikki mín vilji, men tín!”','Lukas 22, 39-53'],
+'The Scourging at the Pillar':['Jesus verður húðflongdur','“Men Pilatus læt Jesus húðfleingja og gav hann upp til teirra at verða krossfestan”','Matteus 27, 11-26'],
+'The Crowning with Thorns':['Jesus verður tornakrýndur','“Teir flættaðu eina krúnu av tornum og settu honum á høvdið”','Matteus 27, 27-31'],
+'The Carrying of the Cross':['Jesus ber kross sín','“Hann bar sjálvur kross sín og gekk út á tann staðin, summ kallaðist Ennistauðurin”','Jóhannes 19, 17-22; Lukas 23, 26-32'],
+'The Crucifixion':['Jesus doyr á krossinum','“Tað er fullgjørt!”','Jóhannes 19, 23-37; Lukas 23, 33-46'],
+'The Resurrection':['Uppreisnin','“Hann er ikki her, men hann er risin upp”','Lukas 24, 1-8; Jóhannes 20, 11-18'],
+'The Ascension':['Himmalsferðin','“Hann varð upp tikin, so teir sóu tað, og eitt skýggj tók hann burtur úr eygum teirra”','Ápostlasøgan 1, 3-11; Matteus 28, 18-20'],
+'The Descent of the Holy Spirit':['Koma Heilaga Andans','“Teir vórðu allir fyltir av hinum heilaga anda”','Ápostlasøgan 2, 1-13; Jóhannes 14, 16-21'],
+'The Assumption of Mary':['Maria Moy verður tikin upp í himmalin','“soleiðis skulu øll verða gjørd livandi í Kristi”','Fyrra Korintbrævið 15, 20-23; Efesusbrævið 2, 4-10; Lukas 1, 46-55'],
+'The Coronation of Mary':['Maria Moy verður krýnd himmaldrotning','“og stórt tekin kom til sjóndar á himni”','Opinberingin 12, 1-10; Jóhannes 19, 25-27']};
+function FN(s){
+ if(lang!='fo'||CHM)return s.note;
+ if(s.mys)return '';
+ if(s.note=='On the crucifix')return 'Á krossinum';
+ if(s.note=='First large bead')return 'Á fyrstu perluni';
+ if(s.note.indexOf('Three small beads')==0)return 'Á teimum fylgjandi trimum perlunum'+s.note.slice(s.note.indexOf(' ('));
+ if(s.note=='Close the introduction')return 'Millum 4. og 5. perlu';
+ return ''}
+DV.push(['Rósukransur: hvussu hann verður biðin (Faroese)',`Eru fleiri saman, er vanligt, at ein biður fyri, til dømis biður ein fyrru helvt av Faðir Vár og hini ta seinnu helvtina,
+og skiftast so um at biðja fyri.
+
+Tá ið Rósukransur verður biðin, hugsleiða vit yvir fimm loynidómar,
+sum kunnu býtast yvir fleiri dagar, til dømis:
+
+mánadag og leygardag teir Gleðiligu loyndómarnir
+hósdag teir Ljósafullu loynidómarnir
+týsdag og fríggjadag teir Sorgarfullu loynidómarnir
+mikudag og sunnudag teir Dýrdarríku loynidómarnir
+
+– eisini kunnu allir biðjast sama dag, um man vil tað.`]);
+Object.assign(P,{
+m_offer:['Morning Offering (short)',`O Jesus, through the heart of Mary, I offer you this day: all my thoughts, words and deeds, both joy and suffering.
+
+Grant that all I do may be to your glory and for the salvation of souls. Amen.`],
+m_eve:['Evening Prayer (simple)',`Lord God, I thank you for this day. Forgive me what I have done wrong, and be with me tonight. Amen.`],
+m_mem:['Memorare (short form)',`Remember, O gracious Mary, that it has never been heard that anyone who fled to your protection was turned away.
+
+I come to you, O Virgin of virgins, sinful and weak. Hear my prayer and help me. Amen.`],
+m_jesus:['The Jesus Prayer',`Jesus Christ, Son of God, have mercy on me, a sinner.
+
+(Or simply: Jesus, be with me.)`],
+m_spirit:['Prayer to the Holy Spirit (short)',`Come, Holy Spirit, and fill our hearts with your grace. Kindle a light in the darkness within us and lead us to the truth. Amen.`],
+m_str:['Prayer for Strength',`Lord God, give me strength to bear what comes my way. Help me to be faithful and reliable in all things. Amen.`],
+m_work:['Prayer for My Work',`God, bless this work of mine. Grant that I may do it well and with honor, and that it may benefit others. Amen.`],
+m_faith:['Prayer for Faith',`Lord God, strengthen my faith. Help me to believe in you, even when I do not understand everything. Do not let me stray from you. Amen.`],
+m_hope:['Prayer for Hope',`God, give me hope when everything feels heavy. Remind me that you never let go of me. Amen.`],
+m_love:['Prayer for Love',`Lord, teach me to love, not only those who love me, but also those I am angry with. Make my heart gentle. Amen.`],
+m_prot:['Prayer for Protection',`Lord God, be with us today and tonight. Keep us from all evil, and lead us on the right path. Amen.`],
+m_wday:['Prayer for the Workday',`God, I place this working day in your hands. Give me diligence, patience and strength. Help me to do a good job. Amen.`],
+m_trb:['Prayer in Times of Trouble',`Lord, I do not know what to do. But I place my life in your hands. Help me to find the way forward. Amen.`],
+m_peace:['Prayer for Peace (short)',`Lord God, give me peace in my heart. Take away fear and unrest. Let me rest in you. Amen.`],
+m_temp:['Prayer Against Temptation',`God, help me when I am tempted. Give me strength to do what is right, even when it is hard. Amen.`],
+m_sick:['Prayer for the Sick (short)',`Lord God, stretch out your hand to those who are sick. Heal them and strengthen them in their troubles. Amen.`],
+m_dead:['Prayer for the Dead',`God, receive those who have departed from us. Give them eternal light and peace. Amen.`],
+m_hum:['Prayer for Humility',`Lord, make me humble. Help me not to put myself first, but to serve others with love. Amen.`],
+m_pat:['Prayer for Patience',`God, give me patience today, when everything goes slowly, and when people make me angry. Help me to stay calm. Amen.`]});
+Object.assign(F,{
+michael:`Mikael, høvuðseingil halgi,
+verj okkum í stríði.
+Ver vernd móti óndskapi og fellum djevulsins.
+Lat hann kenna revsing Guds, tað biðja vit inniliga.
+Og tú, prinsur himna herskaranna,
+við Guds megi blaka til heljar Satan
+og allar teir illu andar,
+ið rekast um heimin leitandi eftir sálum at spilla.
+Amen`,
+m_offer:`O Jesus, gjøgnum Mariu hjarta,
+offri eg tær hendan dagin:
+allar mínar tankar, orð og gerðir,
+bæði gleði og pínu.
+
+Gev, at alt, eg geri, má verða til tín æru
+og til frelsu fyri sálir. Amen.`,
+m_eve:`Harra Gud, eg takki tær fyri hendan dagin.
+Fyrigev mær tað, sum eg havi gjørt skeivt,
+og ver við mær í nátt. Amen.`,
+m_mem:`Minnist, o milda Maria,
+at ongantíð hevur tað hoyrt til,
+at nakar, sum flýðdi til tín verndar,
+varð vístur burtur.
+
+Eg komi til tín, o moyggjanna Moy,
+syndugur og veikari.
+Hoyr mína bøn og hjálp mær. Amen.`,
+m_jesus:`Jesus Kristus, Guds Sonur,
+miskunna mær syndara.
+
+(Eller bara: Jesus, ver við mær)`,
+m_spirit:`Kom, Heilagi Andi,
+og fyll hjørtu okkara við tínari náði.
+Kveik ljós í myrkrinum í okkum
+og leið okkum til sannleikan. Amen.`,
+m_str:`Harri Gud, gev mær styrki,
+at eg kann bera tað, sum kemur á mín veg.
+Hjálp mær at vera trúgvur og reiðiligur í
+øllum. Amen.`,
+m_work:`Gud, vælsignað hetta arbeiði mítt.
+Gev, at eg geri tað væl og við heiðri,
+og at tað gagnar øðrum. Amen.`,
+m_faith:`Harri Gud, styrk trúgv mína.
+Hjálp mær at trúgva á teg,
+eisini tá eg ikki skilji alt.
+Lat meg ikki hvørva frá tær. Amen.`,
+m_hope:`Gud, gev mær vón,
+tá alt kennist tungt.
+Minst mær á,
+at tú ongantíð sleppur mær. Amen.`,
+m_love:`Harri, lær meg at elska,
+ikki bara tey, sum elska meg,
+men eisini tey, sum eg havi ilt við.
+Ger hjarta mítt mildt. Amen.`,
+m_prot:`Harri Gud, ver okkum í dag og í nátt.
+Halt okkum frá øllum illum,
+og leið okkum á rættan veg. Amen.`,
+m_wday:`Gud, eg leggi hendan arbeiðsdagin í tínar hendur.
+Gev mær dugnaskap, tol og styrki.
+Hjálp mær at gera eitt gott arbeiði. Amen.`,
+m_trb:`Harri, eg veit ikki, hvat eg skal gera.
+Men eg seti lív mítt í tínar hendur.
+Hjálp mær at finna vegin fram. Amen.`,
+m_peace:`Harri Gud, gev mær frið í hjartanum.
+Takam burtur ótta og órógv.
+Lat meg hvíla í tær. Amen.`,
+m_temp:`Gud, hjálp mær, tá eg verði freistaður.
+Gev mær styrki at gera tað rætta,
+eisini tá tað er ringt. Amen.`,
+m_sick:`Harri Gud, røkk tíni hond út
+til tey, sum eru sjúk.
+Lækna tey og styrk tey í trupulleikum. Amen.`,
+m_dead:`Gud, tak ímóti teimum, sum eru farin frá okkum.
+Gev teimum ævigt ljós og frið. Amen.`,
+m_hum:`Harri, ger meg eyðmjúkan.
+Hjálp mær ikki at seta meg sjálvan fremst,
+men at tæna øðrum við kærleika. Amen.`,
+m_pat:`Gud, gev mær tol í dag.
+Tá alt gongur seint,
+og tá fólk gera meg illan.
+Hjálp mær at halda meg róligan. Amen.`});
+var FT={michael:'Bøn til Mikael høvuðseingil',m_offer:'Morgunoffur',m_eve:'Kvøldbøn (einføld)',m_mem:'Minnibønin (Memorare)',m_jesus:'Jesus-bøn (stutt og sterk)',m_spirit:'Bøn til Heilaga Andan',m_str:'Bøn fyri styrki',m_work:'Bøn fyri arbeiði',m_faith:'Bøn um trúgv',m_hope:'Bøn um vón',m_love:'Bøn um kærleika',m_prot:'Bøn fyri verju (generell)',m_wday:'Bøn fyri arbeiðsdag',m_trb:'Bøn í trupulleikum',m_peace:'Bøn um frið',m_temp:'Bøn móti freistingum',m_sick:'Bøn fyri sjúkum',m_dead:'Bøn fyri deyðum',m_hum:'Bøn um eyðmjúkleika',m_pat:'Bøn um tol'};
+G['Short Daily Prayers']=['m_offer','m_eve','m_mem','m_jesus','m_spirit','m_str','m_faith','m_hope','m_love','m_hum','m_pat','m_peace','m_trb','m_temp','m_prot','m_work','m_wday','m_sick','m_dead'];
+Object.assign(P,{
+s_guid:['Prayer for Guidance',`Lord, show me the way I should walk. Do not let me walk the wrong way, but follow your will. Amen.`],
+s_cross:['Prayer to Jesus on the Cross',`Jesus, you bore my suffering on the cross. Help me to bear my own. I place myself in your hands. Amen.`],
+s_mary:['Prayer to Holy Mary (mother and protector)',`Holy Mary, Mother of God, take me and my family under your protection. Pray for us now and at the hour of our death. Amen.`],
+s_joseph:['Prayer to St. Joseph (workers)',`Saint Joseph, protector of those who work, be with me in my work. Teach me patience, diligence and faithfulness. Help me to do my work well and with honor. Amen.`],
+s_anthony:['Prayer to St. Anthony (lost things, help in trouble)',`Saint Anthony, faithful servant of God, help me to find what is lost, and guide me in what I do not understand. Pray for me to God. Amen.`],
+s_fran1:['Prayer to St. Francis of Assisi',`Saint Francis, teach me to be gentle, humble and peaceful. Help me to see God in all creation. Amen.`],
+s_fran2:['St. Francis of Assisi: Instrument of Peace',`Saint Francis, teach me to be an instrument of peace. Where there is hatred, let me bring love; where there is discord, let me bring harmony. Amen.`],
+s_patron:['Prayer to a Patron Saint (personal)',`Saint (name), you who are a friend of God in heaven, pray for me to our Lord. Be with me in my life and work. Amen.`],
+s_teresa:['St. Teresa of Avila (prayer)',`Saint Teresa, teach me to seek God in prayer. Strengthen my soul, so that I do not give up, but hold fast to faith. Amen.`],
+s_magd:['St. Mary Magdalene',`Saint Mary Magdalene, faithful witness to the resurrection of the Lord, pray for us, that we may turn away from sin and stay close to Christ. Amen.`],
+s_luke:['St. Luke the Evangelist',`Saint Luke, faithful physician and evangelist, pray for us, that we may come to know Christ better through his word. Amen.`],
+s_cath:['St. Catherine of Siena',`Saint Catherine, give me courage to stand for the truth, even when it is difficult. Help me to live rightly and purely. Amen.`],
+s_john:['St. John the Evangelist',`Saint John, friend of Jesus and disciple of love, teach us to love God and one another with a pure heart. Amen.`],
+s_seb:['St. Sebastian',`Saint Sebastian, strong witness in times of distress, strengthen us in adversity, so that we do not lose courage. Amen.`],
+s_agatha:['St. Agatha',`Saint Agatha, faithful witness of God, be with those who struggle, and help us to be faithful in times of trial. Amen.`],
+s_martin:['St. Martin of Tours',`Saint Martin, who shared his cloak with the poor man, teach us to be good and generous. Amen.`],
+s_ben:['St. Benedict (prayer)',`Saint Benedict, father of prayer and work, teach us discipline, peace and joy in work. Amen.`],
+s_pio:['St. Pio of Pietrelcina (Padre Pio)',`Saint Pio, faithful priest and man of prayer, teach us to love prayer and sacrifice. Help us to bear our crosses with patience. Amen.`],
+s_therese:['St. Therese of Lisieux (the Little Flower)',`Saint Therese, teach me to do small things with great love. Help me to be faithful in little things, so that I can love God in everyday life. Amen.`],
+s_carlo:['Prayer to Carlo Acutis',`Saint Carlo Acutis, teach us to use the internet rightly, so that it leads us to God and not away from him. Pray for us. Amen.`]});
+Object.assign(F,{
+s_guid:`Harri, vís mær tann veg, eg eigi at ganga.
+Lat meg ikki ganga skeivan veg,
+men fylgja tínum vilja. Amen.`,
+s_cross:`Jesus, tú barst mína pínu á krossinum.
+Hjálp mær at bera mína egnu.
+Eg seti meg í tínar hendur. Amen.`,
+s_mary:`Heilaga Maria, Guds móðir,
+tak undir tíni verju meg og mína familju.
+Bið fyri okkum nú og í deyðastund okkara. Amen.`,
+s_joseph:`Heilagi Jósef, verndari av teimum arbeiðandi,
+ver tú hjá mær í arbeiði mínum.
+Lær meg tol, dugnaskap og trúfesti.
+Hjálp mær at gera arbeiðið væl og við heiðri. Amen.`,
+s_anthony:`Heilagi Antonius, trúfastur tænari Guds,
+hjálp mær at finna tað, sum er burtur,
+og leið meg í tað, sum eg ikki skilji.
+Bið fyri mær hjá Gudi. Amen.`,
+s_fran1:`Heilagi Fransiskus,
+lær meg at vera mildur, eyðmjúkur og friðsamur.
+Hjálp mær at síggja Gud í øllum skapanum. Amen.`,
+s_fran2:`Heilagi Fransiskus,
+lær meg at vera amboð fyri frið.
+Har hat er, lat meg seta kærleika,
+har ósemja er, lat meg seta semju. Amen.`,
+s_patron:`Heilagi (navn),
+tú sum ert vinur Guds í himli,
+bið fyri mær hjá Harra okkara.
+Ver hjá mær í lívi og arbeiði mínum. Amen.`,
+s_teresa:`Heilaga Teresia,
+lær meg at søkja Gud í bøn.
+Styrk mína sál,
+so eg ikki gevist,
+men haldi fast við trúgv. Amen.`,
+s_magd:`Heilaga Maria Magdalena,
+trúgva vitni um uppreisn Harrans,
+bið fyri okkum,
+so vit venda okkum frá synd
+og halda okkum nær Kristusi. Amen.`,
+s_luke:`Heilagi Lukas,
+trúgvi lækni og evangelistur,
+bið fyri okkum,
+so vit læra Kristus betur at kenna
+gjøgnum orð hansara. Amen.`,
+s_cath:`Heilaga Katarina,
+gev mær dirvi at standa fyri sannleikanum,
+eisini tá tað er trupult.
+Hjálp mær at liva rætt og reint. Amen.`,
+s_john:`Heilagi Jóhannes,
+vinur Jesu og lærusveinur kærleika,
+lær okkum at elska Gud
+og hvør annan við reinum hjarta. Amen.`,
+s_seb:`Heilagi Sebastian,
+sterki vitni í trongdum,
+styrk okkum í mótgangi,
+so vit ikki missa mót. Amen.`,
+s_agatha:`Heilaga Agata,
+trúfasta vitni Guds,
+ver hjá teimum, sum stríðast,
+og hjálp okkum at vera trúgv í royndum. Amen.`,
+s_martin:`Heilagi Martin,
+sum deildi kápuna við hin fátæka,
+lær okkum at vera góðir og gavmildir. Amen.`,
+s_ben:`Heilagi Benedikt,
+faðir av bøn og arbeiði,
+lær okkum disiplin, frið og arbeiðsgleði. Amen.`,
+s_pio:`Heilagi Pio,
+trufasti prestur og bønarmaður,
+lær okkum at elska bøn og offur.
+Hjálp okkum at bera okkara krossar við tol. Amen.`,
+s_therese:`Heilaga Teresia,
+lær meg at gera smá ting við stórum kærleika.
+Hjálp mær at vera trúfastur í tí lítla,
+so eg kann elska Gud í gerandisdegnum. Amen.`,
+s_carlo:`Heilagi Carlo Acutis,
+lær okkum at brúka internetið rætt,
+so tað leiðir okkum til Gud
+og ikki burtur frá honum.
+
+Bið fyri okkum. Amen.`});
+Object.assign(FT,{s_guid:'Bøn fyri leiðslu',s_cross:'Bøn til Jesus á krossinum',s_mary:'Bøn til heilaga Maria (sum móðir og vernd)',s_joseph:'Bøn til heilaga Jósef',s_anthony:'Bøn til heilaga Antonius (viðfunnið ting / hjálp í trupulleikum)',s_fran1:'Bøn til heilaga Fransiskus av Assisi',s_fran2:'Heilagi Fransiskus av Assisi',s_patron:'Bøn til verndandi heilaga (persónlig bøn)',s_teresa:'Heilaga Teresia av Avila',s_magd:'Heilaga Maria Magdalena',s_luke:'Heilagi Lukas evangelist',s_cath:'Heilaga Katarina av Siena',s_john:'Heilagi Jóhannes (evangelisturin)',s_seb:'Heilagi Sebastian',s_agatha:'Heilaga Agata',s_martin:'Heilagi Martin av Tours',s_ben:'Heilagi Benedikt',s_pio:'Heilagi Pio av Pietrelcina (Padre Pio)',s_therese:'Heilaga Teresia frá Lisieux ("Lítla Blóman")',s_carlo:'Bøn til Carlo Acutis'});
+G['Short Daily Prayers'].push('s_guid','s_cross');
+G['Marian'].push('s_mary');
+G['Prayers to the Saints (short)']=['s_joseph','s_anthony','s_fran1','s_fran2','s_teresa','s_therese','s_pio','s_ben','s_martin','s_seb','s_agatha','s_cath','s_magd','s_luke','s_john','s_carlo','s_patron'];
+(function(){var KM={'St. Anthony of Padua':'s_anthony','St. Therese of Lisieux':'s_therese','St. Carlo Acutis':'s_carlo','St. Agatha':'s_agatha','St. Sebastian':'s_seb','St. Benedict':'s_ben','St. Padre Pio':'s_pio','St. Luke':'s_luke'};
+ FS=FS.map(function(l){var p=l.split('|');if(!p[2]&&KM[p[0]])p[2]=KM[p[0]];return p.join('|')});
+ FS.push('St. Catherine of Siena|courage, standing for the truth, nurses, Italy|s_cath','St. John the Evangelist|friendship, writers, love|s_john','St. Mary Magdalene|converts, repentant sinners|s_magd','St. Martin of Tours|generosity, the poor, soldiers|s_martin')})();
+var OPEN=ls('pc-go',['Favorites']);
+(function(){var o=['Daily & Basic','For Every Need','Short Daily Prayers','Marian','Saints & Angels','Prayers to the Saints (short)','Litanies','Mass & Sacraments','Canticles','For the Departed','St. Bridget: Fifteen Prayers'],n={};o.forEach(function(k){if(G[k])n[k]=G[k]});Object.keys(G).forEach(function(k){if(!n[k])n[k]=G[k]});G=n})();
+P.nicene=['Nicene Creed',`I believe in one God,
+the Father almighty,
+maker of heaven and earth,
+and of all things visible and invisible.
+
+And in one Lord Jesus Christ,
+the only-begotten Son of God,
+born of the Father before all ages.
+God of God, light of light, true God of true God,
+begotten, not made, consubstantial with the Father;
+by whom all things were made.
+Who for us men and for our salvation came down from heaven.
+And became incarnate by the Holy Ghost of the Virgin Mary,
+and was made man.
+
+He was also crucified for us,
+suffered under Pontius Pilate, and was buried.
+And on the third day he rose again, according to the Scriptures.
+And ascended into heaven,
+and sits at the right hand of the Father.
+And he shall come again with glory
+to judge the living and the dead;
+of whose kingdom there shall be no end.
+
+And in the Holy Ghost, the Lord and giver of life,
+who proceeds from the Father and the Son;
+who together with the Father and the Son
+is adored and glorified;
+who spoke by the prophets.
+And one holy, catholic, and apostolic Church.
+I confess one baptism for the remission of sins.
+And I look for the resurrection of the dead,
+and the life of the world to come. Amen.`];
+L.nicene=`Credo in unum Deum,
+Patrem omnipótentem,
+factorem cǽli et terrǽ,
+visibílium ómnium et invisibílium.
+
+Et in unum Dóminum Iesum Christum,
+Fílium Dei unigénitum,
+et ex Patre natum ante ómnia sǽcula.
+Deum de Deo, lumen de lúmine, Deum verum de Deo vero,
+génitum, non factum, consubstantiálem Patri:
+per quem ómnia facta sunt.
+Qui propter nos hómines et propter nostram salútem
+descéndit de cǽlis.
+Et incarnátus est de Spíritu Sancto ex María Vírgine:
+et homo factus est.
+
+Crucifíxus étiam pro nobis sub Póntio Piláto;
+passus, et sepúltus est.
+Et resurréxit tértia die, secúndum Scripturás.
+Et ascéndit in cǽlum:
+sedet ad déxteram Patris.
+Et itérum venturús est cum glória
+iudicáre vivos et mórtuos:
+cuius regni non erit finis.
+
+Et in Spíritum Sanctum, Dóminum et vivificántem:
+qui ex Patre Filióque procédit.
+Qui cum Patre et Fílio simul adorátur et conglorificátur:
+qui locútus est per Prophetás.
+Et unam, sanctam, cathólicam et apostólicam Ecclésiam.
+Confíteor unum baptísma in remissiónem peccatórum.
+Et exspécto resurrectiónem mortuórum,
+et vitam venturí sǽculi. Amen.`;
+P.athanasian=['Athanasian Creed',`Whosoever will be saved, before all things it is necessary that he hold the Catholic Faith. Which Faith except every one do keep whole and undefiled, without doubt he shall perish everlastingly.
+
+And the Catholic Faith is this: That we worship one God in Trinity, and Trinity in Unity; neither confounding the Persons, nor dividing the Substance. For there is one Person of the Father, another of the Son, and another of the Holy Ghost. But the Godhead of the Father, of the Son, and of the Holy Ghost, is all one, the Glory equal, the Majesty co-eternal.
+
+Such as the Father is, such is the Son, and such is the Holy Ghost. The Father uncreate, the Son uncreate, and the Holy Ghost uncreate. The Father incomprehensible, the Son incomprehensible, and the Holy Ghost incomprehensible. The Father eternal, the Son eternal, and the Holy Ghost eternal. And yet they are not three eternals, but one eternal. As also there are not three incomprehensibles, nor three uncreated, but one uncreated, and one incomprehensible.
+
+So likewise the Father is Almighty, the Son Almighty, and the Holy Ghost Almighty. And yet they are not three Almighties, but one Almighty. So the Father is God, the Son is God, and the Holy Ghost is God. And yet they are not three Gods, but one God. So likewise the Father is Lord, the Son Lord, and the Holy Ghost Lord. And yet not three Lords, but one Lord.
+
+For like as we are compelled by the Christian verity to acknowledge every Person by himself to be God and Lord, so are we forbidden by the Catholic Religion to say, There be three Gods, or three Lords.
+
+The Father is made of none, neither created, nor begotten. The Son is of the Father alone; not made, nor created, but begotten. The Holy Ghost is of the Father and of the Son; neither made, nor created, nor begotten, but proceeding. So there is one Father, not three Fathers; one Son, not three Sons; one Holy Ghost, not three Holy Ghosts.
+
+And in this Trinity none is afore, or after another; none is greater, or less than another. But the whole three Persons are co-eternal, and co-equal. So that in all things, as is aforesaid, the Unity in Trinity, and the Trinity in Unity, is to be worshipped. He therefore that will be saved, must thus think of the Trinity.
+
+Furthermore it is necessary to everlasting salvation, that he also believe rightly the Incarnation of our Lord Jesus Christ. For the right Faith is, that we believe and confess, that our Lord Jesus Christ, the Son of God, is God and Man; God, of the Substance of the Father, begotten before the worlds; and Man, of the Substance of his Mother, born in the world; perfect God, and perfect Man, of a reasonable soul and human flesh subsisting; equal to the Father, as touching his Godhead; and inferior to the Father as touching his Manhood.
+
+Who although he be God and Man, yet he is not two, but one Christ; one, not by conversion of the Godhead into flesh, but by taking of the Manhood into God; one altogether, not by confusion of Substance, but by unity of Person. For as the reasonable soul and flesh is one man, so God and Man is one Christ; who suffered for our salvation; descended into hell; rose again the third day from the dead. He ascended into heaven, he sits on the right hand of the Father, God Almighty; from whence he shall come to judge the quick and the dead.
+
+At whose coming all men shall rise again with their bodies, and shall give account for their own works. And they that have done good shall go into life everlasting; and they that have done evil, into everlasting fire.
+
+This is the Catholic Faith; which except a man believe faithfully, he cannot be saved.`];
+G['Creeds']=['creed','nicene','athanasian'];
+(function(){var o=['Daily & Basic','Creeds','For Every Need','Short Daily Prayers','Marian','Saints & Angels','Prayers to the Saints (short)','Litanies','Mass & Sacraments','Canticles','For the Departed','St. Bridget: Fifteen Prayers'],n={};o.forEach(function(k){if(G[k])n[k]=G[k]});Object.keys(G).forEach(function(k){if(!n[k])n[k]=G[k]});G=n})();
+Object.assign(P,{
+e_paul:['Prayer to St. Paul the Apostle',`Holy Apostle Paul, chosen vessel and teacher of the nations, you whom Christ turned around on the road to Damascus and who gave your life for the Gospel, pray for us. Obtain for us a heart that is turned to Christ, courage to proclaim the faith, and perseverance in trials. Teach us to say with you that for us to live is Christ. Pray for the Church, and for all who do not yet know him. Amen.`],
+e_tax:['Prayer to the Holy Taxiarchs, Michael and Gabriel',`Holy Archangels Michael and Gabriel, commanders of the heavenly hosts and servants of the Most High, intercede for us. Michael, defend us in the struggle against evil. Gabriel, messenger of good news, help us to hear the word of God and to answer as Mary did. Guard us from dangers of body and soul, strengthen the Church, and lead us in the way of peace. Amen.`],
+e_mich:['Prayer to St. Michael the Archangel (intercession)',`Holy Archangel Michael, commander of the heavenly hosts, stand beside us in every trial. Protect your people, comfort the afflicted, and defend the Church. Obtain for us courage to resist evil and fidelity to God's will all our days. Amen.`],
+e_gab:['Prayer to St. Gabriel the Archangel',`Holy Archangel Gabriel, who announced to Mary the coming of the Savior, pray for us. Open our ears to the word of God, and give us the humility to say yes to his will. Be a messenger of peace to our families and to all who wait in hope. Amen.`],
+e_hier:['Prayer to the Three Hierarchs',`Holy Hierarchs Basil the Great, Gregory the Theologian, and John Chrysostom, shepherds and teachers of the Church, lights of the world, intercede for us. Teach us to love the truth of the Gospel, to seek wisdom with humility, and to serve the poor and the Church with all our hearts. Pray that we may keep the faith whole, and that all who learn and teach may come to know Christ. Amen.`],
+e_basil:['St. Basil the Great',`Saint Basil the Great, shepherd of the poor and defender of the faith, pray for us. Teach us to care for those in need, to pray with constancy, and to hold fast to the faith of the Church. Amen.`],
+e_greg:['St. Gregory the Theologian',`Saint Gregory the Theologian, who spoke so well of the Holy Trinity, pray for us. Open our minds and hearts to know the Father, the Son, and the Holy Spirit, and give us words of truth and peace. Amen.`],
+e_chrys:['St. John Chrysostom',`Saint John Chrysostom, golden-mouthed preacher of the Gospel, pray for us. Give us a love of Scripture, courage to speak the truth, and generous hearts toward the poor. Amen.`]});
+G['Paul, Taxiarchs & Hierarchs']=['e_paul','e_tax','e_mich','e_gab','e_hier','e_basil','e_greg','e_chrys'];
+(function(){var KM={'St. Gabriel the Archangel':'e_gab'};FS=FS.map(function(l){var p=l.split('|');if(!p[2]&&KM[p[0]])p[2]=KM[p[0]];return p.join('|')});
+ FS.push('St. Paul the Apostle|missionaries, evangelists, writers, tentmakers|e_paul','St. Basil the Great|the poor, hospitals, education, monks|e_basil','St. Gregory the Theologian|theologians, preachers, orators|e_greg','St. John Chrysostom|preachers, public speakers, Scripture readers|e_chrys')})();
+(function(){var o=['Daily & Basic','Creeds','For Every Need','Short Daily Prayers','Marian','Saints & Angels','Paul, Taxiarchs & Hierarchs','Prayers to the Saints (short)','Litanies','Mass & Sacraments','Canticles','For the Departed','St. Bridget: Fifteen Prayers'],n={};o.forEach(function(k){if(G[k])n[k]=G[k]});Object.keys(G).forEach(function(k){if(!n[k])n[k]=G[k]});G=n})();
+G['Saints & Angels']=G['Saints & Angels'].concat(G['Paul, Taxiarchs & Hierarchs']);delete G['Paul, Taxiarchs & Hierarchs'];
+function build(){
+ steps=[];
+ function add(k,note,bead){steps.push({k:k,note:note,bead:bead})}
+ add("sign","Begin");add("creed","On the crucifix");add("our","First large bead");
+ for(var n=1;n<=3;n++)add("hail","Three small beads ("+n+"/3)");
+ add("glory","Close the introduction");
+ M[set].forEach(function(m,d){
+  add("our","Decade "+(d+1)+": "+m,0);
+  steps[steps.length-1].mys=m;steps[steps.length-1].dec=d+1;
+  for(var h=1;h<=10;h++){add("hail","Decade "+(d+1)+": "+m+" ("+h+"/10)");var s=steps[steps.length-1];s.mys=m;s.dec=d+1;s.bead=h}
+  add("glory","Decade "+(d+1));add("fatima","Decade "+(d+1));
+  steps[steps.length-1].mys=m;steps[steps.length-1].dec=d+1;steps[steps.length-2].mys=m;steps[steps.length-2].dec=d+1;
+ });
+ add("queen","Closing");add("rosclose","Closing prayer");add("rosinv","Invocations");add("sign","Conclude");
+}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function rosary(){
+ app.textContent="";
+ app.appendChild(el("h1",0,CHM||(lang=="fo"?"Rósukransur":"Holy Rosary")));
+ app.appendChild(el("p","sub",(CHM?"Guided prayer. Tap Next after each step.":(lang=="fo"?"Í dag: teir "+FSET[set]+" loynidómarnir":"Today's mysteries: "+set+" · "+SEA[0]))));
+ langBar();
+ if(i<0){i=0}wake();clrT();if(!CHM)sv('pc-ri',{d:today(),set:set,i:i});if(SYN&&SI!=null&&SI!=i){stopSay();SI=null;if(AUTO)setTimeout(speakStep,300)}
+ var fd=feast();if(fd){var fc=el('p','note','Today: '+fd);fc.style.textAlign='center';app.appendChild(fc)}
+ var rl=el('a','note','Mass readings for today (USCCB)');rl.href='https://bible.usccb.org/daily-bible-reading';rl.target='_blank';rl.rel='noopener';rl.style.display='block';rl.style.textAlign='center';rl.style.color='var(--acc)';app.appendChild(rl);if(!CHM)seasonCard();
+ var s=steps[i];
+ var bar=el("div","bar");var f=el("div");f.style.width=((i+1)/steps.length*100)+"%";bar.appendChild(f);app.appendChild(bar);
+ var c=el("div","card");
+ var tg=FN(s);if(tg)c.appendChild(el("div","tag",tg));
+ if(s.mys){var fm=(!CHM&&lang=="fo")?FM[s.mys]:null;var mm=el("p","big",fm?s.dec+") "+fm[0]:(CHM?CHL:"Mystery ")+s.dec+": "+s.mys);mm.style.margin="6px 0";c.appendChild(mm);var sc=CHM?null:SCR[s.mys];if(fm){var sp0=el('p','tr',fm[2]+(s.bead?'':': '+fm[1]));sp0.style.fontStyle='italic';c.appendChild(sp0)}else if(sc){var sp=el('p','tr',s.bead?sc[0]:sc[0]+' (Douay-Rheims): '+sc[1]+(sc[2]?'  Fruit of the mystery: '+sc[2]+'.':''));sp.style.fontStyle='italic';c.appendChild(sp)}if(SRON&&!CHM&&lang!='fo'&&s.bead&&SR[s.mys]){var bb2=SR[s.mys].split('\n')[s.bead-1].split('|');var bt=el('p',0,bb2[1]);bt.style.fontWeight='bold';bt.style.marginTop='8px';c.appendChild(bt);c.appendChild(el('p','tr',bb2[0]+' (paraphrase)'))}}
+ c.appendChild(el("h2",0,P[s.k][0]));
+ bodies(c,s.k);if(s.secs)timerUI(c,s.secs);
+ if(s.dec){var d=el("div","dots");for(var b=1;b<=(s.n||10);b++){d.appendChild(el("i",b<=(s.bead||0)?"f":""))}c.appendChild(d)}
+ app.appendChild(c);
+ var r=el("div","row stick");
+ var bk=el("button","b g","Back");bk.onclick=function(){if(i>0){i--;rosary()}};
+ var nx=el("button","b",i==steps.length-1?"Amen — restart":"Next");
+ nx.onclick=function(){i=i<steps.length-1?i+1:0;rosary();window.scrollTo(0,0)};
+ r.appendChild(bk);r.appendChild(nx);app.appendChild(r);
+ var sr=el('button','b g',SRON?'Scriptural Rosary: On':'Scriptural Rosary: Off');sr.style.width='100%';sr.style.marginTop='12px';sr.onclick=function(){SRON=!SRON;sv('pc-sr',SRON);rosary()};if(!CHM)app.appendChild(sr);
+ if(SYN){var au=el('div','row');var sb=el('button','b g','Listen');sb.onclick=function(){AUTO=false;speakStep();rosary()};var pb=el('button','b g',AUTO?'Stop praying along':'Pray along');pb.onclick=function(){AUTO=!AUTO;if(AUTO)speakStep();else{stopSay();SI=null}rosary()};au.appendChild(sb);au.appendChild(pb);app.appendChild(au)}
+ var sel=el("div","row");
+ Object.keys(M).forEach(function(k){var b=el("button","b g",k);b.style.fontSize=".8rem";b.style.padding="10px 4px";if(k==set)b.style.fontWeight="bold";b.onclick=function(){set=k;i=0;build();rosary()};sel.appendChild(b)});
+ if(CHM){var bb=el('button','b g','Back to the Rosary');bb.style.marginTop='12px';bb.style.width='100%';bb.onclick=function(){CHM=null;CHL='';build();i=0;rosary()};app.appendChild(bb)}else app.appendChild(sel);
+}
+function prayers(){
+ app.textContent="";
+ app.appendChild(el("h1",0,"Prayers"));
+ app.appendChild(el("p","sub","Traditional Catholic prayers. Tap to open."));
+ langBar();
+ var q=el('input','srch');q.type='search';q.placeholder='Search prayers';q.value=qs;q.oninput=function(){qs=q.value;var p=q.selectionStart;prayers();var n=document.querySelector('.srch');n.focus();n.setSelectionRange(p,p)};app.appendChild(q);var ea=el('div','row');[['Expand all',function(){OPEN=Object.keys(G).concat(['Favorites'])}],['Collapse all',function(){OPEN=[]}]].forEach(function(o){var b=el('button','b g sm',o[0]);b.onclick=function(){o[1]();sv('pc-go',OPEN);prayers()};ea.appendChild(b)});app.appendChild(ea);
+ var GG={};if(FAV.length)GG['Favorites']=FAV;Object.keys(G).forEach(function(g){GG[g]=G[g]});
+ Object.keys(GG).forEach(function(g){var l2=GG[g].filter(function(k){return !qs||(P[k][0]+' '+P[k][1]+' '+(FT[k]||'')+' '+(F[k]||'')).toLowerCase().indexOf(qs.toLowerCase())>-1});if(!l2.length)return;var op=!!qs||OPEN.indexOf(g)>-1,gh=el('button','gh'+(op?' open':''));var sp=el('span',0,g);sp.appendChild(el('small',0,'· '+l2.length));gh.appendChild(sp);gh.appendChild(el('i'));gh.onclick=function(){var x=OPEN.indexOf(g);if(x>-1)OPEN.splice(x,1);else OPEN.push(g);sv('pc-go',OPEN);prayers()};app.appendChild(gh);(op?l2:[]).forEach(function(k){
+  var d=el("details","card");d.appendChild(el("summary",0,(lang=='fo'&&FT[k])?FT[k]:P[k][0]));bodies(d,k);var st=el('button','fav',FAV.indexOf(k)>-1?'Remove from favorites':'Add to favorites');st.onclick=function(){toggleFav(k)};d.appendChild(st);d.appendChild(listenBtn(k));d.appendChild(shareBtn(k));if(qs)d.open=true;app.appendChild(d)})});
+}
+function show(t){tab=t;app.classList.add('pg');setTimeout(function(){app.classList.remove('pg')},400);if(t!=0){AUTO=false;SI=null;stopSay()}for(var j=0;j<5;j++)document.getElementById('t'+j).className=j==t?'on':'';[rosary,prayers,hours,devo,me][t]();window.scrollTo(0,0)}
+[0,1,2,3,4].forEach(function(j){document.getElementById('t'+j).onclick=function(){show(j)}});
+build();var ri=ls('pc-ri',null);if(ri&&ri.d==today()&&ri.set==set&&ri.i<steps.length)i=ri.i;app.classList.add('pg');setTimeout(function(){app.classList.remove('pg')},400);rosary();
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
+</body></html>
