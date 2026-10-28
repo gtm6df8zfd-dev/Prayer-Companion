@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Prayer">
+<meta name="apple-mobile-web-app-title" content="Sursum">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#7a1d2a">
 <link rel="apple-touch-icon" id="ati" href="apple-touch-icon.png">
@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<title>Prayer Companion</title>
+<title>Sursum</title>
 <style>
 :root{--bg:#faf6ee;--card:#fff;--ink:#2b2420;--mute:#7a6e63;--acc:#8a2f3c;--line:#e6dccb;--on:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1715;--card:#26201d;--ink:#f1e9de;--mute:#a99d90;--acc:#d9858f;--line:#3a312c;--on:#1b1715}}
@@ -63,8 +63,8 @@ nav{border-top:1px solid var(--gold)}nav button.on{color:var(--acc);box-shadow:i
 summary{list-style:none}summary::-webkit-details-marker{display:none}summary::before{content:'✠︎  ';color:var(--gold)}
 .seg button{font-size:.78rem;padding:8px 2px}.seg button.on{background:var(--acc);border-color:var(--gold)}
 .note{border:1px dashed var(--gold);border-radius:6px;padding:8px 10px;font-size:.85rem;color:var(--mute);margin:0 0 12px}
-:root[data-s=violet]{--acc:#5a3a85}:root[data-s=green]{--acc:#2f6b3f}
-@media (prefers-color-scheme:dark){:root[data-s=violet]:not([data-theme=light]){--acc:#b79be3}:root[data-s=green]:not([data-theme=light]){--acc:#8fcf9e}}
+:root{--sea:#c9a227}:root[data-s=violet]{--sea:#5a3a85}:root[data-s=green]{--sea:#2f6b3f}
+@media (prefers-color-scheme:dark){:root[data-s=violet]:not([data-theme=light]){--sea:#b79be3}:root[data-s=green]:not([data-theme=light]){--sea:#8fcf9e}}
 .srch,.inp{width:100%;padding:12px;border:1px solid var(--gold);border-radius:6px;background:var(--card);color:var(--ink);font:inherit;margin:8px 0}
 .sm{padding:8px 14px!important;font-size:.9rem!important}
 .fav{margin-top:12px;background:none;border:1px solid var(--gold);color:var(--acc);border-radius:4px;padding:8px 12px;font:inherit;font-size:.85rem}
@@ -115,6 +115,61 @@ a.note{text-decoration:none;font-weight:600}
 details.card{padding:10px 18px;border-top:1px solid var(--line);margin:8px 0}
 details.card[open]{border-top:2px solid var(--gold)}
 .gh.open+.card{margin-top:6px}
+.todayline{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 6px;font-size:.92rem}
+.tl{background:none;border:0;color:var(--acc);font:inherit;font-weight:600;text-decoration:none;padding:6px 2px;cursor:pointer}
+.todayline .sep{color:var(--gold)}
+.beadwrap{display:flex;justify-content:center;margin:0 0 4px}
+.beads{width:min(46vw,176px);height:auto;overflow:visible;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+.beads .chain{fill:none;stroke:var(--line);stroke-width:1.3}
+.beads .hit{fill:transparent}
+.beads .b{fill:var(--card);stroke:var(--gold);stroke-width:1.3;transition:fill .3s ease}
+.beads .done .b{fill:var(--gold);fill-opacity:.6}
+.beads .cur .b{fill:var(--acc);stroke:var(--acc)}
+.beads .halo{fill:none;stroke:var(--acc);stroke-width:2;transform-box:fill-box;transform-origin:center;animation:bhalo 1.8s ease-in-out infinite}
+@keyframes bhalo{0%,100%{transform:scale(.85);opacity:.35}50%{transform:scale(1.15);opacity:.9}}
+.beads .cross{stroke:var(--gold);stroke-width:5;stroke-linecap:round;fill:none}
+.beads .done .cross,.beads .cur .cross{stroke:var(--acc)}
+.beads g{cursor:pointer}
+.chips{display:flex;gap:6px;margin:12px 0 6px;flex-wrap:wrap}
+.chip{width:36px;height:36px;padding:0;border-radius:50%;border:1px solid var(--gold);background:var(--card);color:var(--ink);font:inherit;font-weight:600}
+.chip.done{background:var(--line)}
+.chip.on{background:var(--acc);color:var(--on);border-color:var(--acc)}
+.welcome{position:fixed;top:0;left:0;right:0;bottom:0;z-index:60;background:var(--bg);background:radial-gradient(900px 500px at 50% -10%,var(--card),var(--bg) 70%);display:flex;align-items:center;justify-content:center;padding:calc(env(safe-area-inset-top,0px) + 24px) 20px 24px;overflow:auto;animation:fi .35s ease both}
+.welcome .inner{max-width:420px;width:100%;text-align:center}
+.welcome .mark{font-size:2.6rem;color:var(--gold);line-height:1}
+.welcome h1::before{content:none}
+.welcome p{margin:10px 0}
+.welcome .b{width:100%;margin-top:10px}
+.welcome .lk{background:none;border:0;color:var(--acc);font:inherit;text-decoration:underline;margin-top:16px;padding:8px}
+.setsec{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:18px 0 6px}
+.setsec:first-child{margin-top:4px}
+.setrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.setrow .seg{flex:1;margin:0}
+/* polish pass */
+html{background:var(--bg)}
+.guided{gap:0!important;margin-top:4px}
+.guided button.b{background:transparent;color:var(--ink);box-shadow:none;border:0;border-bottom:1px solid var(--line);border-radius:0;text-align:left;padding:15px 30px 15px 6px;font-weight:normal;letter-spacing:0;font-size:1.02rem;position:relative}
+.guided button.b::after{content:'';position:absolute;right:10px;top:50%;width:7px;height:7px;border-right:2px solid var(--gold);border-top:2px solid var(--gold);transform:translateY(-50%) rotate(45deg)}
+.guided button.b:last-child{border-bottom:0}
+.gh{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;margin:0;padding:16px 4px}
+.gh.open{border-bottom-color:var(--gold)}
+details.card{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;margin:0;padding:13px 4px}
+details.card[open]{background:var(--card);border:1px solid var(--line);border-top:2px solid var(--gold);border-radius:12px;padding:14px 16px;margin:8px 0;box-shadow:0 1px 2px rgba(60,30,20,.06),0 8px 24px rgba(60,30,20,.05)}
+button.b.g{border-color:var(--line)}
+.fav{border-color:var(--line);border-radius:8px}
+.opts{margin-top:10px}
+.opts>summary{list-style:none;cursor:pointer;padding:12px 4px;color:var(--mute);font-size:.95rem;text-align:center;font-weight:normal}
+.opts>summary::-webkit-details-marker{display:none}
+.opts>summary::before{content:'';display:inline-block;width:7px;height:7px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);margin:0 10px 3px 0;transition:transform .2s}
+.opts[open]>summary::before{transform:rotate(-135deg);margin-bottom:-1px}
+.opts>.row:first-of-type{margin-top:0}
+.seadot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--sea);margin:0 7px 2px 0;vertical-align:middle;box-shadow:0 0 0 2px var(--card)}
+.todaycard{padding:10px 18px 4px}
+.trow{display:flex;align-items:center;gap:12px;width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 0;font:inherit;color:var(--ink);text-align:left;cursor:pointer}
+.trow:last-child{border-bottom:0}
+.tlbl{flex:0 0 92px;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);line-height:1.3}
+.ttxt{flex:1;font-size:.98rem;line-height:1.4}
+.trow i{flex:0 0 7px;width:7px;height:7px;border-right:2px solid var(--gold);border-top:2px solid var(--gold);transform:rotate(45deg);margin-right:4px}
 </style></head><body><main id="app"></main>
 <nav><button id="t0" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="5.5" stroke-width="2.6" stroke-dasharray="0.1 3.35"/><path d="M12 14.5V21M9.8 17.3h4.4"/></svg><span>Rosary</span></button><button id="t1"><svg viewBox="0 0 24 24"><path d="M12 6.5C10.5 5 8 4.5 4.5 4.5v13c3.5 0 6 .5 7.5 2 1.5-1.5 4-2 7.5-2v-13C16 4.5 13.5 5 12 6.5z"/><path d="M12 6.5v13"/></svg><span>Prayers</span></button><button id="t2"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Hours</span></button><button id="t3"><svg viewBox="0 0 24 24"><path d="M12 3c2 2.5 3 4 3 5.5a3 3 0 0 1-6 0C9 7 10 5.5 12 3z"/><rect x="9" y="12" width="6" height="9" rx="1"/></svg><span>Devotions</span></button><button id="t4"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-4 3.7-6 7-6s6.2 2 7 6"/></svg><span>Me</span></button></nav>
 <script>
@@ -160,7 +215,7 @@ function langBar(){
   var b=el("button",lang==o[0]?"on":"",o[1]);
   b.onclick=function(){lang=o[0];try{localStorage.setItem("pc-lang",lang)}catch(e){}[rosary,prayers,hours,devo,me][tab]()};
   d.appendChild(b)});
- app.appendChild(d);if(lang=='fo')app.appendChild(el('p','note','Faroese: the Rosary prayers (Creed, Our Father, Hail Mary, Glory Be, Fatima Prayer, Hail, Holy Queen, and the closing prayer) and the mysteries are shown in Faroese. Other prayers show in English.'));
+ app.appendChild(d);if(lang=='fo')app.appendChild(el('p','note','Føroyskt: the Rosary, the creeds and the prayers you supplied are in Faroese. Other prayers show in English. The menus are a draft translation: see Devotions, More, Faroese menu words to check.'));
 }
 var M={
 Joyful:["The Annunciation","The Visitation","The Nativity","The Presentation","Finding Jesus in the Temple"],
@@ -335,16 +390,16 @@ Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole 
 function devo(){
  app.textContent='';app.appendChild(el('h1',0,'Devotions'));
  app.appendChild(el('p','sub','Longer practices and guides.'));
- var cb=el('div','row');cb.style.flexDirection='column';
+ var cb=el('div','row guided');cb.style.flexDirection='column';
  [['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
  var OPD=ls('pc-dv',['Guided Prayers']);
- var DG=[['Verse of the Day',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
+ var DG=[['Verse of the Day',null],['Saint of the Day',null],['Journeys',null],['Curious? 7 Days',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
  DG.forEach(function(g){if(g[1])used=used.concat(g[1])});
  DG.push(['More',DV.filter(function(r){return used.indexOf(r[0])<0}).map(function(r){return r[0]})]);
  DG.forEach(function(g){
-  var op=OPD.indexOf(g[0])>-1,gh=el('button','gh'+(op?' open':''));gh.appendChild(el('span',0,g[0]));gh.appendChild(el('i'));
+  var op=OPD.indexOf(g[0])>-1,gh=el('button','gh'+(op?' open':''));gh.dataset.g=g[0];gh.appendChild(el('span',0,g[0]));gh.appendChild(el('i'));
   gh.onclick=function(){var x=OPD.indexOf(g[0]);if(x>-1)OPD.splice(x,1);else OPD.push(g[0]);sv('pc-dv',OPD);devo()};app.appendChild(gh);if(!op)return;
-  if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();else if(g[0]=='Coming Up')comingUp();else if(g[0]=='Verse of the Day')verseCard();
+  if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();else if(g[0]=='Coming Up')comingUp();else if(g[0]=='Verse of the Day')verseCard();else if(g[0]=='Saint of the Day')saintCard();else if(g[0]=='Journeys')journeysUI();else if(g[0]=='Curious? 7 Days')curiousUI();
   else DV.forEach(function(r){if(g[1].indexOf(r[0])>-1){var d=el('details','card');d.appendChild(el('summary',0,r[0]));d.appendChild(el('p',0,r[1]));app.appendChild(d)}})});
 }
 P.augustine=['St. Augustine: Late Have I Loved You',`Late have I loved you, O Beauty so ancient and so new; late have I loved you! You were within me, but I was outside, and there I searched for you. You called, you cried, you broke through my deafness. You were with me, but I was not with you. Now I breathe you in and I pant for you; I have tasted you, and I hunger and thirst for more. You touched me, and I burned for your peace. You have made us for yourself, O Lord, and our hearts are restless until they rest in you.`];
@@ -511,10 +566,8 @@ function me(){
  journalUI(card('Prayer Journal'),btn);
  ruleUI(card('My Daily Rule'),btn);
  backupUI(card('Backup and Restore'),btn);
- voiceUI(card('Voice for Read Aloud'),btn);
- c=card('Text Size');
- btn(c,'A−',function(){fs=Math.max(80,fs-10);sv('pc-fs',fs);document.body.style.fontSize=fs+'%'});
- btn(c,'A+',function(){fs=Math.min(160,fs+10);sv('pc-fs',fs);document.body.style.fontSize=fs+'%'});
+ settingsUI(card('Settings'),btn);
+ aboutUI(card('About Sursum'));
 }
 P.newman=['Cardinal Newman: Radiating Christ',`Dear Jesus, help me to spread your fragrance everywhere I go. Flood my soul with your spirit and life. Penetrate and possess my whole being so utterly that my life may only be a radiance of yours. Shine through me, and be so in me that every soul I come in contact with may feel your presence in my soul. Let them look up and see no longer me, but only Jesus. Amen.`];
 P.sacredheart=['Litany of the Sacred Heart',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
@@ -851,6 +904,20 @@ function chap(kind){
   add('sign','Begin');add('contrition','Act of Contrition');
   SS.forEach(function(m,d){add('our','Sorrow '+(d+1)+': one Our Father',m,d+1,0,7);for(var h=1;h<=7;h++)add('hail','Sorrow '+(d+1)+': '+m+' ('+h+'/7)',m,d+1,h,7)});
   add('ssclose','Closing');add('sign','Conclude')}
+ else if(kind=='hmor'||kind=='hmid'||kind=='hev'||kind=='hnight'){
+  var nw=new Date(),dw=nw.getDay(),doy=Math.floor((nw-new Date(nw.getFullYear(),0,0))/864e5);
+  function shr(o){var v=VOD[(doy+o)%VOD.length];P.shr=['Short Reading',v[1]+'\n\n'+v[0]+' (King James Version)']}
+  var it=ls('pc-int',[]);
+  P.inter=['Intercessions','Pray for the needs of the Church, the world, and the people you love. Speak to God in your own words, and end each petition with: Lord, hear our prayer.'+(it.length?'\n\nYour intentions:\n- '+it.join('\n- '):'')];
+  var MORN=[148,63,100,51,117,150,23],MID=[117,121,23,117,121,23,117],EVE=[110,121,141,130,23,117,100];
+  if(kind=='hmor'){CHM='Morning Prayer (simplified)';CHL='Step ';shr(0);
+   add('lips','Opening');add('ps95','Invitatory psalm');add('vc','Hymn');add('ps'+MORN[dw],'Psalm of the day');add('shr','Short reading');add('benedictus','Gospel canticle: Zechariah');add('inter','Intercessions');add('our','The Our Father');add('conc_m','Concluding prayer');add('bless_m','Dismissal')}
+  else if(kind=='hmid'){CHM='Daytime Prayer (simplified)';CHL='Step ';shr(1);
+   add('opening','Opening');add('ps'+MID[dw],'Psalm');add('shr','Short reading');add('our','The Our Father');add('conc_d','Concluding prayer');add('bless_m','Dismissal')}
+  else if(kind=='hev'){CHM='Evening Prayer (simplified)';CHL='Step ';shr(2);
+   add('opening','Opening');add('phos','Hymn');add('ps'+EVE[dw],'Psalm of the day');add('shr','Short reading');add('magnificat','Gospel canticle: Mary');add('inter','Intercessions');add('our','The Our Father');add('conc_e','Concluding prayer');add('bless_m','Dismissal')}
+  else{CHM='Night Prayer (simplified)';CHL='Step ';
+   add('opening','Opening');add('exam','Examination of conscience');add('contrition','Act of Contrition');add('teluc','Hymn');add('ps4','Psalm 1 of 3');add('ps91','Psalm 2 of 3');add('ps134','Psalm 3 of 3');add('shr_n','Short reading');add('resp','Responsory');add('nunc','Gospel canticle: Simeon');add('conc_n','Concluding prayer');add('bless_n','Blessing');add('queen','Marian antiphon')}}
  else if(kind=='mercy'){CHM='Divine Mercy Chaplet';CHL='Decade ';
   add('sign','Begin');add('our','Begin');add('hail','Begin');add('creed','Begin');
   for(var d=1;d<=5;d++){add('dm1','Decade '+d+': large bead','On the large bead',d,0,10);for(var h=1;h<=10;h++)add('dm2','Decade '+d+' ('+h+'/10)','On the small beads',d,h,10)}
@@ -876,7 +943,7 @@ function chap(kind){
 var WL=null;function wake(){try{if(navigator.wakeLock&&!WL)navigator.wakeLock.request('screen').then(function(l){WL=l;l.addEventListener('release',function(){WL=null})}).catch(function(){})}catch(e){}}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState=='visible'&&tab==0)wake()});
 var sx=0,sy=0,lk=null,cd=null;
-document.addEventListener('touchstart',function(e){var t=e.touches[0];lk=null;cd=null;if(tab!=0||e.touches.length>1||t.clientX<24||t.clientX>window.innerWidth-24||/^(INPUT|TEXTAREA|SELECT|A)$/.test(e.target.tagName))return;sx=t.clientX;sy=t.clientY;lk='?';cd=app.querySelector('.card')},{passive:true});
+document.addEventListener('touchstart',function(e){var t=e.touches[0];lk=null;cd=null;if(tab!=0||e.touches.length>1||t.clientX<24||t.clientX>window.innerWidth-24||/^(INPUT|TEXTAREA|SELECT|A)$/.test(e.target.tagName))return;sx=t.clientX;sy=t.clientY;lk='?';cd=app.querySelector('.card.main')},{passive:true});
 document.addEventListener('touchmove',function(e){if(!lk||!cd)return;var t=e.touches[0],dx=t.clientX-sx,dy=t.clientY-sy;if(lk=='?'){if(Math.abs(dx)<10&&Math.abs(dy)<10)return;lk=Math.abs(dx)>Math.abs(dy)*1.5?'h':'v'}if(lk=='h'){cd.style.transition='none';cd.style.transform='translateX('+dx*0.5+'px)';cd.style.opacity=1-Math.min(Math.abs(dx)/400,0.4)}},{passive:true});
 document.addEventListener('touchend',function(e){
  if(lk!='h'||!cd){lk=null;return}
@@ -885,7 +952,7 @@ document.addEventListener('touchend',function(e){
  c.style.transition='transform .18s ease,opacity .18s ease';
  if(!go){c.style.transform='none';c.style.opacity=1;return}
  var d=dx<0?1:-1;c.style.transform='translateX('+(-d*50)+'px)';c.style.opacity=0;
- setTimeout(function(){i+=d;rosary();var n=app.querySelector('.card');if(n){n.style.transition='none';n.style.transform='translateX('+(d*50)+'px)';n.style.opacity=0;void n.offsetWidth;n.style.transition='transform .2s ease,opacity .2s ease';n.style.transform='none';n.style.opacity=1}},160)});
+ setTimeout(function(){i+=d;rosary();var n=app.querySelector('.card.main');if(n){n.style.transition='none';n.style.transform='translateX('+(d*50)+'px)';n.style.opacity=0;void n.offsetWidth;n.style.transition='transform .2s ease,opacity .2s ease';n.style.transform='none';n.style.opacity=1}},160)});
 var RT=['Morning','Midday','Evening','Night'];
 var RS=[['Morning Offering','offering'],['Come, Holy Spirit','come'],['The Angelus','angelus'],['The Rosary','rosary'],['Divine Mercy Chaplet','dm'],['Liturgy of the Hours','hours'],['Scripture reading',''],['Examination of conscience',''],['Act of Contrition','contrition'],['Before Sleep','n_sleep'],['Mass',''],['Adoration','']];
 function ruleUI(c,btn){
@@ -961,7 +1028,7 @@ function speakStep(){
  if(s.mys&&!s.bead){var q=CHM?null:SCR[s.mys];parts.unshift([(CHM?CHL:'Mystery ')+s.dec+', '+s.mys+'.'+(q?' '+q[0]+'. '+q[1]:''),'en-US'])}
  say(parts,function(){
   if(!AUTO||tab!=0||SI!=i)return;
-  setTimeout(function(){if(!AUTO||tab!=0||SI!=i)return;if(i<steps.length-1){i++;rosary()}else{AUTO=false;SI=null;rosary()}},900)});
+  setTimeout(function(){if(!AUTO||tab!=0||SI!=i)return;if(i<steps.length-1){i++;rosary();toCard()}else{AUTO=false;SI=null;rosary()}},900)});
 }
 var SRON=ls('pc-sr',true);
 var SR={
@@ -1994,6 +2061,68 @@ function comingUp(){
   r.appendChild(el('span',0,f));r.appendChild(dt);c.appendChild(r)}
  if(!cnt)c.appendChild(el('p','tr','Nothing listed in the next two months.'));
  app.appendChild(c)}
+var DOX='\n\nGlory be to the Father, and to the Son, and to the Holy Spirit;\nas it was in the beginning, is now, and ever shall be. Amen.';
+function psl(n,t,txt){P['ps'+n]=[t,txt+DOX]}
+psl(95,'Psalm 95 (Venite), selected verses',`O come, let us sing unto the LORD:\nlet us make a joyful noise to the rock of our salvation.\nLet us come before his presence with thanksgiving,\nand make a joyful noise unto him with psalms.\nFor the LORD is a great God, and a great King above all gods.\nIn his hand are the deep places of the earth:\nthe strength of the hills is his also.\nThe sea is his, and he made it:\nand his hands formed the dry land.\nO come, let us worship and bow down:\nlet us kneel before the LORD our maker.\nFor he is our God;\nand we are the people of his pasture, and the sheep of his hand.\nTo day if ye will hear his voice, harden not your heart.`);
+psl(100,'Psalm 100 (Jubilate)',`Make a joyful noise unto the LORD, all ye lands.\nServe the LORD with gladness: come before his presence with singing.\nKnow ye that the LORD he is God:\nit is he that hath made us, and not we ourselves;\nwe are his people, and the sheep of his pasture.\nEnter into his gates with thanksgiving, and into his courts with praise:\nbe thankful unto him, and bless his name.\nFor the LORD is good; his mercy is everlasting;\nand his truth endureth to all generations.`);
+psl(117,'Psalm 117 (Laudate)',`O praise the LORD, all ye nations: praise him, all ye people.\nFor his merciful kindness is great toward us:\nand the truth of the LORD endureth for ever.\nPraise ye the LORD.`);
+psl(150,'Psalm 150',`Praise ye the LORD.\nPraise God in his sanctuary: praise him in the firmament of his power.\nPraise him for his mighty acts: praise him according to his excellent greatness.\nPraise him with the sound of the trumpet: praise him with the psaltery and harp.\nPraise him with the timbrel and dance: praise him with stringed instruments and organs.\nPraise him upon the loud cymbals: praise him upon the high sounding cymbals.\nLet every thing that hath breath praise the LORD.\nPraise ye the LORD.`);
+psl(148,'Psalm 148, selected verses',`Praise ye the LORD. Praise ye the LORD from the heavens: praise him in the heights.\nPraise ye him, all his angels: praise ye him, all his hosts.\nPraise ye him, sun and moon: praise him, all ye stars of light.\nPraise him, ye heavens of heavens, and ye waters that be above the heavens.\nLet them praise the name of the LORD: for he commanded, and they were created.\nPraise the LORD from the earth, ye dragons, and all deeps:\nfire, and hail; snow, and vapours; stormy wind fulfilling his word:\nmountains, and all hills; fruitful trees, and all cedars:\nbeasts, and all cattle; creeping things, and flying fowl:\nkings of the earth, and all people; princes, and all judges of the earth:\nboth young men, and maidens; old men, and children:\nlet them praise the name of the LORD:\nfor his name alone is excellent; his glory is above the earth and heaven.`);
+psl(63,'Psalm 63, verses 1-8',`O God, thou art my God; early will I seek thee:\nmy soul thirsteth for thee, my flesh longeth for thee\nin a dry and thirsty land, where no water is;\nto see thy power and thy glory, so as I have seen thee in the sanctuary.\nBecause thy lovingkindness is better than life, my lips shall praise thee.\nThus will I bless thee while I live: I will lift up my hands in thy name.\nMy soul shall be satisfied as with marrow and fatness;\nand my mouth shall praise thee with joyful lips:\nwhen I remember thee upon my bed, and meditate on thee in the night watches.\nBecause thou hast been my help, therefore in the shadow of thy wings will I rejoice.\nMy soul followeth hard after thee: thy right hand upholdeth me.`);
+psl(51,'Psalm 51 (Miserere), selected verses',`Have mercy upon me, O God, according to thy lovingkindness:\naccording unto the multitude of thy tender mercies blot out my transgressions.\nWash me throughly from mine iniquity, and cleanse me from my sin.\nFor I acknowledge my transgressions: and my sin is ever before me.\nAgainst thee, thee only, have I sinned, and done this evil in thy sight.\nBehold, thou desirest truth in the inward parts:\nand in the hidden part thou shalt make me to know wisdom.\nPurge me with hyssop, and I shall be clean: wash me, and I shall be whiter than snow.\nMake me to hear joy and gladness; that the bones which thou hast broken may rejoice.\nHide thy face from my sins, and blot out all mine iniquities.\nCreate in me a clean heart, O God; and renew a right spirit within me.\nCast me not away from thy presence; and take not thy holy spirit from me.\nRestore unto me the joy of thy salvation; and uphold me with thy free spirit.\nO Lord, open thou my lips; and my mouth shall shew forth thy praise.\nThe sacrifices of God are a broken spirit:\na broken and a contrite heart, O God, thou wilt not despise.`);
+psl(23,'Psalm 23',`The LORD is my shepherd; I shall not want.\nHe maketh me to lie down in green pastures: he leadeth me beside the still waters.\nHe restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.\nYea, though I walk through the valley of the shadow of death, I will fear no evil:\nfor thou art with me; thy rod and thy staff they comfort me.\nThou preparest a table before me in the presence of mine enemies:\nthou anointest my head with oil; my cup runneth over.\nSurely goodness and mercy shall follow me all the days of my life:\nand I will dwell in the house of the LORD for ever.`);
+psl(121,'Psalm 121',`I will lift up mine eyes unto the hills, from whence cometh my help.\nMy help cometh from the LORD, which made heaven and earth.\nHe will not suffer thy foot to be moved: he that keepeth thee will not slumber.\nBehold, he that keepeth Israel shall neither slumber nor sleep.\nThe LORD is thy keeper: the LORD is thy shade upon thy right hand.\nThe sun shall not smite thee by day, nor the moon by night.\nThe LORD shall preserve thee from all evil: he shall preserve thy soul.\nThe LORD shall preserve thy going out and thy coming in\nfrom this time forth, and even for evermore.`);
+psl(130,'Psalm 130 (De profundis)',`Out of the depths have I cried unto thee, O LORD.\nLord, hear my voice: let thine ears be attentive to the voice of my supplications.\nIf thou, LORD, shouldest mark iniquities, O Lord, who shall stand?\nBut there is forgiveness with thee, that thou mayest be feared.\nI wait for the LORD, my soul doth wait, and in his word do I hope.\nMy soul waiteth for the Lord more than they that watch for the morning:\nI say, more than they that watch for the morning.\nLet Israel hope in the LORD: for with the LORD there is mercy,\nand with him is plenteous redemption.\nAnd he shall redeem Israel from all his iniquities.`);
+psl(141,'Psalm 141, verses 1-4',`LORD, I cry unto thee: make haste unto me; give ear unto my voice, when I cry unto thee.\nLet my prayer be set forth before thee as incense;\nand the lifting up of my hands as the evening sacrifice.\nSet a watch, O LORD, before my mouth; keep the door of my lips.\nIncline not my heart to any evil thing.`);
+psl(110,'Psalm 110, verses 1-4',`The LORD said unto my Lord, Sit thou at my right hand,\nuntil I make thine enemies thy footstool.\nThe LORD shall send the rod of thy strength out of Zion:\nrule thou in the midst of thine enemies.\nThy people shall be willing in the day of thy power,\nin the beauties of holiness from the womb of the morning:\nthou hast the dew of thy youth.\nThe LORD hath sworn, and will not repent,\nThou art a priest for ever after the order of Melchizedek.`);
+psl(4,'Psalm 4, selected verses',`Hear me when I call, O God of my righteousness:\nthou hast enlarged me when I was in distress; have mercy upon me, and hear my prayer.\nBut know that the LORD hath set apart him that is godly for himself:\nthe LORD will hear when I call unto him.\nStand in awe, and sin not: commune with your own heart upon your bed, and be still.\nOffer the sacrifices of righteousness, and put your trust in the LORD.\nLORD, lift thou up the light of thy countenance upon us.\nThou hast put gladness in my heart.\nI will both lay me down in peace, and sleep:\nfor thou, LORD, only makest me dwell in safety.`);
+psl(91,'Psalm 91, selected verses',`He that dwelleth in the secret place of the most High\nshall abide under the shadow of the Almighty.\nI will say of the LORD, He is my refuge and my fortress: my God; in him will I trust.\nSurely he shall deliver thee from the snare of the fowler, and from the noisome pestilence.\nHe shall cover thee with his feathers, and under his wings shalt thou trust:\nhis truth shall be thy shield and buckler.\nThou shalt not be afraid for the terror by night; nor for the arrow that flieth by day;\nnor for the pestilence that walketh in darkness; nor for the destruction that wasteth at noonday.\nFor he shall give his angels charge over thee, to keep thee in all thy ways.\nThey shall bear thee up in their hands, lest thou dash thy foot against a stone.\nBecause he hath set his love upon me, therefore will I deliver him:\nI will set him on high, because he hath known my name.\nHe shall call upon me, and I will answer him: I will be with him in trouble;\nI will deliver him, and honour him.\nWith long life will I satisfy him, and shew him my salvation.`);
+psl(134,'Psalm 134',`Behold, bless ye the LORD, all ye servants of the LORD,\nwhich by night stand in the house of the LORD.\nLift up your hands in the sanctuary, and bless the LORD.\nThe LORD that made heaven and earth bless thee out of Zion.`);
+Object.assign(P,{
+lips:['Opening of the Day',`Lord, open my lips.\nAnd my mouth will proclaim your praise.`],
+vc:['Hymn: Veni Creator Spiritus',`Come, Holy Ghost, our souls inspire,\nAnd lighten with celestial fire;\nThou the anointing Spirit art,\nWho dost thy sevenfold gifts impart.\nThy blessed unction from above\nIs comfort, life, and fire of love.\nEnable with perpetual light\nThe dullness of our blinded sight.\nAnoint and cheer our soiled face\nWith the abundance of thy grace.\nKeep far our foes, give peace at home;\nWhere thou art guide, no ill can come.\nTeach us to know the Father, Son,\nAnd thee, of both, to be but One;\nThat through the ages all along\nThis may be our endless song:\nPraise to thy eternal merit,\nFather, Son, and Holy Spirit. Amen.`],
+phos:['Evening Hymn: Hail, Gladdening Light',`Hail, gladdening Light, of his pure glory poured,\nWho is the immortal Father, heavenly, blest,\nHoliest of Holies, Jesus Christ our Lord!\nNow we are come to the sun's hour of rest;\nThe lights of evening round us shine;\nWe hymn the Father, Son, and Holy Spirit divine.\nWorthiest art thou at all times to be sung\nWith undefiled tongue,\nSon of our God, giver of life, alone:\nTherefore in all the world thy glories, Lord, they own.`],
+teluc:['Night Hymn: Te lucis ante terminum',`Before the ending of the day,\nCreator of the world, we pray\nThat thou, with wonted favour, wouldst\nBe our protector and our guard.\nFrom all ill dreams defend our eyes,\nFrom nightly fears and fantasies;\nTread underfoot our ghostly foe,\nThat no pollution we may know.\nO Father, that we ask be done\nThrough Jesus Christ, thine only Son;\nWho, with the Holy Ghost and thee,\nDoth live and reign eternally. Amen.`],
+exam:['Examination of Conscience',`Take a quiet moment to look back over your day. Thank God for what was good, and notice where you fell short of love. Then ask for his mercy and pray the Act of Contrition.`],
+shr_n:['Short Reading (1 Peter 5:8-9)',`Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour: whom resist stedfast in the faith.\n\n1 Peter 5:8-9 (King James Version)`],
+conc_m:['Concluding Prayer',`Direct, we beseech thee, O Lord, our actions by thy holy inspirations, and carry them on by thy gracious assistance; that every prayer and work of ours may begin always from thee, and by thee be happily ended. Through Christ our Lord. Amen.`],
+conc_d:['Concluding Prayer',`Lord, stay with me through the rest of this day. Bless my work, keep me from sin, and help me to do all for your glory. Amen.`],
+conc_e:['Concluding Prayer',`Lighten our darkness, we beseech thee, O Lord; and by thy great mercy defend us from all perils and dangers of this night; for the love of thy only Son, our Saviour, Jesus Christ. Amen.`],
+conc_n:['Concluding Prayer',`Visit, we beseech thee, O Lord, this dwelling, and drive far from it all snares of the enemy; let thy holy angels dwell herein to preserve us in peace; and let thy blessing be always upon us. Through Christ our Lord. Amen.`],
+bless_m:['Dismissal',`Let us bless the Lord.\nThanks be to God.`],
+bless_n:['Night Blessing',`May the Lord almighty grant us a quiet night and a perfect end. Amen.`]});
+Object.assign(L,{
+lips:`Dómine, lábia mea apéries.\nEt os meum annuntiábit laudem tuam.`,
+vc:`Veni, Creator Spíritus,\nmentes tuórum vísita,\nimple superna grátia\nquæ tu creasti péctora.\nQui díceris Paráclitus,\naltissimi donum Dei,\nfons vivus, ignis, carítas,\net spiritalis unctio.\nTu septifórmis múnere,\ndigitus paternæ déxteræ,\ntu rite promissum Patris\nsermone ditans gúttura.\nAccende lumen sénsibus,\ninfúnde amorem córdibus,\ninfírma nostri córporis\nvirtúte firmans pérpeti.\nHostem repéllas lóngius\npacemque dones prótinus;\nductore sic te prǽvio\nvitémus omne nóxium.\nPer te sciámus da Patrem\nnoscámus atque Fílium,\nteque utríusque Spíritum\ncredámus omni témpore.\nDeo Patri sit glória\net Fílio, qui a mórtuis\nsurréxit, ac Paráclito,\nin sǽculorum sǽcula. Amen.`,
+teluc:`Te lucis ante términum,\nrerum Creator, póscimus,\nut pro tua cleméntia\nsis prǽsul et custodia.\nProcul recedant sómnia\net noctium phantasmáta;\nhostemque nostrum cómprime,\nne polluántur córpora.\nPrǽsta, Pater piíssime,\nPatrique compar Unice,\ncum Spíritu Paráclito\nregnans per omne sǽculum. Amen.`,
+conc_m:`Actiones nostras, quǽsumus, Dómine, aspirándo prǽveni et adiuvándo prósequere: ut cuncta nostra oratió et operatió a te semper incipiat et per te cœpta finiatur. Per Christum Dóminum nostrum. Amen.`,
+conc_n:`Visita, quǽsumus, Dómine, habitatiónem istam, et omnes insídias inimíci ab ea longe repélle: Angeli tui sancti habítent in ea, qui nos in pace custódiant; et benedictió tua sit super nos semper. Per Christum Dóminum nostrum. Amen.`,
+bless_m:`Benedicámus Dómino.\nDeo grátias.`,
+bless_n:`Noctem quiétam et finem perféctum concédat nobis Dóminus omnipótens. Amen.`});
+var HX=[
+{n:'Office of Readings',when:'Any time of day; traditionally before dawn.',has:`1. Opening and invitatory psalm\n2. Hymn\n3. Three psalms\n4. A long reading from Scripture\n5. A reading from the Church Fathers or the saints\n6. Te Deum on Sundays and feasts\n7. Concluding prayer`,link:'readings'},
+{n:'Lauds (Morning Prayer)',when:'In the morning. One of the two main Hours.',has:`1. Opening: Lord, open my lips, and the invitatory psalm (95, 100, 67, or 24)\n2. Hymn\n3. Psalmody: a morning psalm, an Old Testament canticle, and a psalm of praise, each with an antiphon and Glory Be\n4. Short reading and responsory\n5. The Canticle of Zechariah (Benedictus), with an antiphon\n6. Intercessions\n7. The Our Father\n8. Concluding prayer and blessing`,g:'hmor',link:'lauds'},
+{n:'Daytime Prayer',when:'Mid-morning (Terce), midday (Sext), or mid-afternoon (None). Pray one.',has:`1. Opening versicle\n2. Hymn\n3. Three psalm sections, with Glory Be\n4. Short reading and versicle\n5. Concluding prayer and dismissal`,g:'hmid',link:'sext'},
+{n:'Vespers (Evening Prayer)',when:'In the evening. The other main Hour.',has:`1. Opening versicle\n2. Hymn\n3. Psalmody: two psalms and a New Testament canticle\n4. Short reading and responsory\n5. The Canticle of Mary (Magnificat), with an antiphon\n6. Intercessions\n7. The Our Father\n8. Concluding prayer and blessing`,g:'hev',link:'vespers'},
+{n:'Compline (Night Prayer)',when:'Before bed.',has:`1. Opening and a short examination of conscience\n2. Hymn\n3. Psalmody (traditionally Psalms 4, 91, and 134)\n4. Short reading\n5. Responsory: Into your hands, Lord\n6. The Canticle of Simeon (Nunc Dimittis)\n7. Concluding prayer\n8. Blessing and a Marian antiphon, such as Hail, Holy Queen`,g:'hnight',link:'compline'}];
+function hours(){
+ app.textContent='';app.appendChild(el('h1',0,'Liturgy of the Hours'));
+ app.appendChild(el('p','sub',`The Church's prayer through the day. Each hour shows what it contains, lets you pray a simplified version here, and links to today's full official text.`));
+ langBar();
+ var hr=new Date().getHours(),now=hr<10?1:hr<15?2:hr<20?3:4;
+ var intro=el('details','card');intro.appendChild(el('summary',0,'How the Hours work'));
+ intro.appendChild(el('p',0,`The Liturgy of the Hours, also called the Divine Office, is the daily prayer of the Church, built mostly from the Psalms. It sanctifies the day at set times.\n\nTwo Hours are the hinges of the day: Morning Prayer (Lauds) and Evening Prayer (Vespers). Each includes a Gospel canticle: Zechariah's (Benedictus) in the morning and Mary's (Magnificat) in the evening.\n\nThe Psalms are prayed over a four-week cycle. Night Prayer (Compline) closes the day, with Simeon's canticle (Nunc Dimittis). Priests and religious pray all the Hours, and lay people are warmly invited to pray as many as they can. Morning and Evening Prayer are the best place to start.`));app.appendChild(intro);
+ HX.forEach(function(r,j){
+  var d=el('details','card');if(j==now)d.open=true;
+  d.appendChild(el('summary',0,r.n+(j==now?' (now)':'')));
+  d.appendChild(el('p','tr',r.when));
+  var h=el('div','tag','What it contains');h.style.margin='12px 0 2px';d.appendChild(h);d.appendChild(el('p',0,r.has));
+  if(r.g){var b=el('button','b sm','Pray a simplified version now');b.style.margin='12px 8px 0 0';b.onclick=function(){chap(r.g)};d.appendChild(b)}
+  var a=el('a',0,"Open today's full text");a.href='https://universalis.com/'+r.link+'.htm';a.target='_blank';a.rel='noopener';
+  a.style.cssText='display:inline-block;margin-top:12px;padding:9px 14px;border:1px solid var(--gold);border-radius:10px;color:var(--acc);text-decoration:none;font-weight:600;font-size:.9rem';d.appendChild(a);
+  app.appendChild(d)});
+ app.appendChild(el('p','note',`The official Hours follow a four-week cycle of psalms and change every day, with readings, antiphons, and prayers for each day. Those texts are licensed, so they cannot be copied into this app. The simplified versions here use real public-domain texts and keep the traditional shape of each Hour. Their psalms follow a simple weekly rotation, and some are shortened to selected verses, as each title says. Night Prayer uses the traditional Psalms 4, 91, and 134. For the exact prayer of the Church today, use the Open today's full text button (Universalis, a free website).`));
+}
 function build(){
  steps=[];
  function add(k,note,bead){steps.push({k:k,note:note,bead:bead})}
@@ -2020,7 +2149,7 @@ function rosary(){
  var rl=el('a','note','Mass readings for today (USCCB)');rl.href='https://bible.usccb.org/daily-bible-reading';rl.target='_blank';rl.rel='noopener';rl.style.display='block';rl.style.textAlign='center';rl.style.color='var(--acc)';app.appendChild(rl);if(!CHM)seasonCard();
  var s=steps[i];
  var bar=el("div","bar");var f=el("div");f.style.width=((i+1)/steps.length*100)+"%";bar.appendChild(f);app.appendChild(bar);
- var c=el("div","card");
+ var c=el("div","card main");
  var tg=FN(s);if(tg)c.appendChild(el("div","tag",tg));
  if(s.mys){var fm=(!CHM&&lang=="fo")?FM[s.mys]:null;var mm=el("p","big",fm?s.dec+") "+fm[0]:(CHM?CHL:"Mystery ")+s.dec+": "+s.mys);mm.style.margin="6px 0";c.appendChild(mm);var sc=CHM?null:SCR[s.mys];if(fm){var sp0=el('p','tr',fm[2]+(s.bead?'':': '+fm[1]));sp0.style.fontStyle='italic';c.appendChild(sp0)}else if(sc){var sp=el('p','tr',s.bead?sc[0]:sc[0]+' (Douay-Rheims): '+sc[1]+(sc[2]?'  Fruit of the mystery: '+sc[2]+'.':''));sp.style.fontStyle='italic';c.appendChild(sp)}if(SRON&&!CHM&&lang!='fo'&&s.bead&&SR[s.mys]){var bb2=SR[s.mys].split('\n')[s.bead-1].split('|');var bt=el('p',0,bb2[1]);bt.style.fontWeight='bold';bt.style.marginTop='8px';c.appendChild(bt);c.appendChild(el('p','tr',bb2[0]+' (paraphrase)'))}}
  c.appendChild(el("h2",0,P[s.k][0]));
@@ -2028,9 +2157,9 @@ function rosary(){
  if(s.dec){var d=el("div","dots");for(var b=1;b<=(s.n||10);b++){d.appendChild(el("i",b<=(s.bead||0)?"f":""))}c.appendChild(d)}
  app.appendChild(c);
  var r=el("div","row stick");
- var bk=el("button","b g","Back");bk.onclick=function(){if(i>0){i--;rosary()}};
+ var bk=el("button","b g","Back");bk.onclick=function(){if(i>0){i--;rosary();toCard()}};
  var nx=el("button","b",i==steps.length-1?"Amen — restart":"Next");
- nx.onclick=function(){i=i<steps.length-1?i+1:0;rosary();window.scrollTo(0,0)};
+ nx.onclick=function(){i=i<steps.length-1?i+1:0;rosary();toCard()};
  r.appendChild(bk);r.appendChild(nx);app.appendChild(r);
  var sr=el('button','b g',SRON?'Scriptural Rosary: On':'Scriptural Rosary: Off');sr.style.width='100%';sr.style.marginTop='12px';sr.onclick=function(){SRON=!SRON;sv('pc-sr',SRON);rosary()};if(!CHM)app.appendChild(sr);
  if(SYN){var au=el('div','row');var sb=el('button','b g','Listen');sb.onclick=function(){AUTO=false;speakStep();rosary()};var pb=el('button','b g',AUTO?'Stop praying along':'Pray along');pb.onclick=function(){AUTO=!AUTO;if(AUTO)speakStep();else{stopSay();SI=null}rosary()};au.appendChild(sb);au.appendChild(pb);app.appendChild(au)}
@@ -2051,5 +2180,614 @@ function prayers(){
 function show(t){tab=t;app.classList.add('pg');setTimeout(function(){app.classList.remove('pg')},400);if(t!=0){AUTO=false;SI=null;stopSay()}for(var j=0;j<5;j++)document.getElementById('t'+j).className=j==t?'on':'';[rosary,prayers,hours,devo,me][t]();window.scrollTo(0,0)}
 [0,1,2,3,4].forEach(function(j){document.getElementById('t'+j).onclick=function(){show(j)}});
 build();var ri=ls('pc-ri',null);if(ri&&ri.d==today()&&ri.set==set&&ri.i<steps.length)i=ri.i;app.classList.add('pg');setTimeout(function(){app.classList.remove('pg')},400);rosary();
-</script><script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
+</script><script id="extras">
+// ===== Helpers =====
+function toCard(){var c=app.querySelector('.card.main');if(!c)return;var y=c.getBoundingClientRect().top+window.scrollY-12;window.scrollTo({top:Math.max(0,y),behavior:'instant'})}
+function shareTxt(title,text){P._tmp=[title,text];shareCard('_tmp')}
+function shBtn(title,text,lbl){var b=el('button','fav',lbl||'Share');b.onclick=function(){shareTxt(title,text)};return b}
+function d0(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate())}
+function addD(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x}
+function fmtD(d){return d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}
+function fmtL(d){return d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}
+function fmtM(d){return d.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}
+function dayDiff(a,b){return Math.round((d0(a)-d0(b))/864e5)}
+function addTag(c,t){var g=el('div','tag',t);g.style.textAlign='left';g.style.margin='14px 0 2px';c.appendChild(g)}
+
+// ===== Journeys: logic =====
+function advStart(Y){var av=new Date(Y,11,25);av.setDate(25-((av.getDay()||7)+21));return av}
+function advPlan(){var T=d0(new Date()),Y=T.getFullYear();if(T>new Date(Y,11,24))Y++;
+ var s=advStart(Y),end=new Date(Y,11,24),list=[],k=0;
+ for(var d=new Date(s);d<=end;d=addD(d,1)){if(d.getMonth()==11&&d.getDate()>=17)list.push({o:d.getDate()-17,d:new Date(d)});else{list.push({a:Math.min(k,ADV.length-1),d:new Date(d)});k++}}
+ return {start:s,list:list,inSeason:T>=s,today:dayDiff(T,s)}}
+function lentPlan(){var T=d0(new Date()),Y=T.getFullYear();if(T>addD(easterOf(Y),-1))Y++;
+ var ash=addD(easterOf(Y),-46),list=[];for(var k=0;k<46;k++)list.push({l:k,d:addD(ash,k)});
+ return {start:ash,list:list,inSeason:T>=ash,today:dayDiff(T,ash)}}
+function consStart(){var s=ls('pc-cons',null);if(!s)return null;var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2])}
+function consDay(){var s=consStart();return s?dayDiff(new Date(),s):null}
+var MARIAN=[['12-08','the Immaculate Conception'],['01-01','Mary, Mother of God'],['02-11','Our Lady of Lourdes'],['03-25','the Annunciation'],['05-13','Our Lady of Fatima'],['05-31','the Visitation'],['08-15','the Assumption'],['08-22','the Queenship of Mary'],['09-08','the Nativity of Mary'],['10-07','Our Lady of the Rosary'],['12-12','Our Lady of Guadalupe']];
+function consOptions(){var T=d0(new Date()),out=[];
+ [T.getFullYear(),T.getFullYear()+1].forEach(function(Y){MARIAN.forEach(function(m){var f=new Date(Y,+m[0].slice(0,2)-1,+m[0].slice(3)),s=addD(f,-33);if(s>=T)out.push([s,f,m[1]])})});
+ out.sort(function(a,b){return a[0]-b[0]});return out.slice(0,3)}
+function jEntry(kind,ix){
+ if(kind=='advent'){var p=advPlan(),e=p.list[ix];if(e.o!=null){var o=OANT[e.o];return {t:o[0],lat:o[1],ref:o[2],body:o[3],step:o[4],d:e.d}}var a=ADV[e.a];return {t:a[0],ref:a[1],body:a[2],step:a[3],d:e.d}}
+ if(kind=='lent'){var q=lentPlan(),r=LENT[ix];return {t:r[0],ref:r[1],body:r[2],step:r[3],d:q.list[ix].d}}
+ if(ix>=33)return {t:'Consecration day',body:'Today you give yourself to Jesus through Mary. If you can, go to Mass and receive Communion, then pray the Act of Consecration below. Many people renew it every year on the same feast.',consact:1};
+ var c=CONS[ix];return {t:c[0],ref:c[1],body:c[2]}}
+function jLen(kind){return kind=='advent'?advPlan().list.length:kind=='lent'?46:34}
+function jName(kind){return kind=='advent'?'Advent':kind=='lent'?'Lent':'33-Day Consecration'}
+function jToday(kind){if(kind=='advent'){var a=advPlan();return a.inSeason?a.today:-1}if(kind=='lent'){var l=lentPlan();return l.inSeason?l.today:-1}var c=consDay();return c==null||c<0?-1:Math.min(c,33)}
+function jRender(kind,ix){
+ var tdy=jToday(kind),n=jLen(kind);if(ix==null)ix=tdy>=0?tdy:0;ix=Math.max(0,Math.min(n-1,ix));
+ tab=3;for(var j=0;j<5;j++)document.getElementById('t'+j).className=j==3?'on':'';
+ app.textContent='';var back=el('button','fav','‹ All journeys');back.onclick=function(){openDevo('Journeys')};app.appendChild(back);
+ app.appendChild(el('h1',0,jName(kind)));
+ if(kind=='cons'&&!consStart()){consIntro();trUI();navTr();window.scrollTo(0,0);return}
+ var sub;
+ if(kind=='advent'){var a=advPlan();sub=a.inSeason?'Advent began '+fmtD(a.start):'Preview. Advent begins '+fmtL(a.start)}
+ else if(kind=='lent'){var l=lentPlan();sub=l.inSeason?'Lent began on Ash Wednesday, '+fmtD(l.start):'Preview. Lent begins on Ash Wednesday, '+fmtM(l.start)}
+ else{var cd=consDay();sub=cd<0?'Preview. You begin on '+fmtL(consStart()):cd>33?'Completed. You can read back through any day.':'Begun '+fmtD(consStart())}
+ app.appendChild(el('p','sub',sub));
+ var e=jEntry(kind,ix),c=el('div','card main');
+ var tg='Day '+(ix+1)+' of '+n;if(e.d)tg+=' · '+fmtD(e.d);if(ix==tdy)tg+=' · today';c.appendChild(el('div','tag',tg));
+ if(kind=='cons'){CONSPH.forEach(function(ph){if(ix>=ph[0]&&ix<=ph[1]){var w=el('p','tr',ph[2]+' (days '+(ph[0]+1)+'-'+(ph[1]+1)+')');w.style.textAlign='center';c.appendChild(w)}})}
+ c.appendChild(el('h2',0,e.t));if(e.lat){var lt=el('p','lat',e.lat);c.appendChild(lt)}
+ if(e.ref){var rf=el('p','tr','Read: '+e.ref);rf.style.fontWeight='600';c.appendChild(rf)}
+ c.appendChild(el('p',e.lat?'lat':0,e.body));
+ if(e.step){addTag(c,"Today's step");c.appendChild(el('p',0,e.step))}
+ var shareText=(e.lat?e.lat+'\n\n':'')+e.body+(e.ref?'\n\n'+e.ref:'')+(e.step?'\n\nToday: '+e.step:'');
+ var sr=el('div');sr.style.marginTop='12px';sr.appendChild(shBtn(jName(kind)+', day '+(ix+1)+': '+e.t,shareText));c.appendChild(sr);
+ app.appendChild(c);
+ var prs=[];if(kind=='cons'){if(ix>=33)prs=['vc','avemaris','consact'];else CONSPH.forEach(function(ph){if(ix>=ph[0]&&ix<=ph[1])prs=ph[3]})}
+ if(prs.length){var h=el('div','tag',ix>=33?'Prayers for today':'Prayers for each day of this week');h.style.margin='16px 0 4px';app.appendChild(h);
+  prs.forEach(function(k){var d=el('details','card');if(k=='consact')d.open=true;d.appendChild(el('summary',0,P[k][0]));bodies(d,k);app.appendChild(d)})}
+ var r=el('div','row stick'),bk=el('button','b g','Previous'),nx=el('button','b',ix<n-1?'Next':'Done');
+ bk.disabled=ix==0;if(ix==0)bk.style.opacity='.4';bk.onclick=function(){jRender(kind,ix-1)};nx.onclick=function(){if(ix<n-1)jRender(kind,ix+1);else openDevo('Journeys')};
+ r.appendChild(bk);r.appendChild(nx);app.appendChild(r);
+ if(tdy>=0&&ix!=tdy){var tb=el('button','b g sm','Go to today');tb.style.width='100%';tb.style.marginTop='10px';tb.onclick=function(){jRender(kind,tdy)};app.appendChild(tb)}
+ if(kind=='cons'){var rs=el('button','fav','Start over');rs.style.marginTop='18px';rs.onclick=function(){if(rs.dataset.k){sv('pc-cons',null);jRender('cons')}else{rs.dataset.k=1;rs.textContent='Tap again to start over'}};app.appendChild(rs)}
+ trUI();navTr();window.scrollTo(0,0)}
+function consIntro(){
+ app.appendChild(el('p','sub','In the tradition of St. Louis de Montfort.'));
+ var c=el('div','card');
+ c.appendChild(el('p',0,'For 33 days you prepare, then on the 34th day you give yourself entirely to Jesus through Mary. The days move through four stages: letting go of the spirit of the world, knowing yourself, knowing Mary, and knowing Jesus. Each day has a short reading and reflection, and each stage has a few prayers to pray daily. It takes about fifteen minutes a day.'));
+ c.appendChild(el('p','tr','Many people time it so that the consecration falls on a feast of Mary.'));
+ addTag(c,'Choose your start');
+ var T=d0(new Date());
+ function start(d){sv('pc-cons',fmt(d));jRender('cons')}
+ var b0=el('button','b','Start today');b0.style.cssText='width:100%;margin-top:8px';b0.onclick=function(){start(T)};c.appendChild(b0);
+ consOptions().forEach(function(o){var b=el('button','b g sm','Start '+fmtD(o[0])+', consecrate on '+fmtD(o[1])+' ('+o[2]+')');b.style.cssText='width:100%;margin-top:8px;text-align:left';b.onclick=function(){start(o[0])};c.appendChild(b)});
+ app.appendChild(c)}
+function jStatus(kind){
+ if(kind=='advent'){var a=advPlan();return a.inSeason?'Today is day '+(a.today+1)+': '+jEntry('advent',a.today).t:'Begins '+fmtL(a.start)}
+ if(kind=='lent'){var l=lentPlan();return l.inSeason?'Today is day '+(l.today+1)+': '+jEntry('lent',l.today).t:'Begins on Ash Wednesday, '+fmtM(l.start)}
+ var s=consStart();if(!s)return 'Start any day';var d=consDay();if(d<0)return 'Begins '+fmtL(s);if(d>33)return 'Completed';return d==33?'Today is your consecration day':'Today is day '+(d+1)+' of 33'}
+function journeysUI(){
+ [['advent','Advent','Prepare for Christmas one day at a time, ending with the O Antiphons.'],['lent','Lent','Forty days of prayer, fasting, and giving, through Holy Week.'],['cons','33-Day Consecration','Give yourself to Jesus through Mary, in the tradition of St. Louis de Montfort.']].forEach(function(j){
+  var c=el('div','card');c.appendChild(el('h2',0,j[1]));c.appendChild(el('p','tr',j[2]));
+  var st=el('p',0,jStatus(j[0]));st.style.fontWeight='600';st.style.marginTop='6px';c.appendChild(st);
+  var b=el('button','b sm','Open');b.style.marginTop='10px';b.onclick=function(){jRender(j[0])};c.appendChild(b);app.appendChild(c)})}
+seasonCard=function(){
+ var a=advPlan(),l=lentPlan(),kind=null,ix;
+ if(a.inSeason&&a.today>=0&&a.today<a.list.length){kind='advent';ix=a.today}else if(l.inSeason&&l.today>=0&&l.today<46){kind='lent';ix=l.today}
+ if(!kind)return;var b=el('button','b g sm',jName(kind)+' · Day '+(ix+1)+': '+jEntry(kind,ix).t+' ›');b.style.cssText='width:100%;margin:6px 0';b.onclick=function(){jRender(kind,ix)};app.appendChild(b)};
+
+// ===== Curious: 7 days =====
+var CUR=[
+['Is anyone there?',`Many people wonder whether God exists, or whether he cares about them. You do not need to be sure in order to begin. People have prayed honestly for thousands of years, often in the middle of doubt.`,'Psalm 139:1-12',`Once today, say this honestly, out loud or in your head: God, if you are there, show me.`,`What would change for you if God were real and cared about you personally?`],
+['Who is Jesus?',`Jesus of Nazareth is one of the most influential people in history. Christians believe he is more than a wise teacher: he is God come close to us, someone you can actually know.`,'Mark 1 (the first chapter of the shortest Gospel, about ten minutes)',`As you read, notice how Jesus treats people, especially those others avoid.`,`Which moment in the reading stood out to you, and why?`],
+['Why the cross?',`The cross was a Roman instrument of torture and shame. Christians see in it the clearest picture of God's love: he goes all the way into suffering and death to bring us back to himself.`,'Luke 23:33-46',`Look at a crucifix or a picture of the cross for one quiet minute.`,`What does it mean to you that Jesus prayed, Father, forgive them, while he was being crucified?`],
+['Did he really rise?',`Christianity stands or falls on the claim that Jesus rose from the dead. His frightened friends went from hiding behind locked doors to giving their lives for this message.`,'1 Corinthians 15:3-8 and Luke 24:1-12',`Write down your honest questions. Questions are welcome; faith is not afraid of them.`,`If it is true, what follows for your life?`],
+['Talking with God',`Prayer is simply speaking and listening to God. When his friends asked Jesus how to pray, he gave them a prayer that Christians all over the world still pray every day.`,'Matthew 6:5-13',`Pray the Our Father slowly (Prayers tab), or try the five-minute guide in Start Here.`,`If you could say one thing to God, what would it be?`],
+['Not alone',`Faith is not meant to be lived alone. Catholics gather every Sunday at Mass to hear Scripture, pray together, and receive Jesus in the Eucharist. Visitors are always welcome, with no expectations.`,'Acts 2:42-47',`Read "If You Are Visiting" in The Mass section of this tab.`,`What would make it easier for you to visit a church?`],
+['What now?',`There is no pressure and no deadline. God's door stays open. If you want to keep exploring: keep a small daily prayer, read one Gospel slowly, and talk with a Christian friend or a priest about your questions.`,'Luke 15:11-24',`Choose one small next step, and write it down.`,`Where are you now, after these seven days?`]];
+function curiousUI(){
+ var dn=ls('pc-cdone',[]),cd=ls('pc-cday',0),c=el('div','card');
+ c.appendChild(el('p','tr','A gentle seven-day path for anyone curious about faith. About ten minutes a day. No sign-up, no pressure, and nothing you have to believe in advance.'));
+ var ch=el('div','chips');for(var k=0;k<7;k++)(function(k){var b=el('button','chip'+(k==cd?' on':'')+(dn.indexOf(k)>-1?' done':''),String(k+1));b.setAttribute('aria-label','Day '+(k+1));b.onclick=function(){sv('pc-cday',k);devo()};ch.appendChild(b)})(k);c.appendChild(ch);
+ var d=CUR[cd];c.appendChild(el('div','tag','Day '+(cd+1)+' of 7'));c.appendChild(el('h2',0,d[0]));c.appendChild(el('p',0,d[1]));
+ addTag(c,'Read');c.appendChild(el('p',0,d[2]));addTag(c,'Try this');c.appendChild(el('p',0,d[3]));addTag(c,'Think about');c.appendChild(el('p','lat',d[4]));
+ var row=el('div','row'),isd=dn.indexOf(cd)>-1,mb=el('button','b'+(isd?' g':''),isd?'Done':'Mark day '+(cd+1)+' done');
+ mb.onclick=function(){if(isd)dn.splice(dn.indexOf(cd),1);else{dn.push(cd);if(cd<6)sv('pc-cday',cd+1)}sv('pc-cdone',dn);devo()};row.appendChild(mb);c.appendChild(row);
+ var sh=el('div');sh.style.marginTop='12px';var iv=el('button','fav','Invite a friend');iv.onclick=function(){inviteCurious(iv)};sh.appendChild(iv);var sb2;sh.appendChild(sb2=shBtn('Day '+(cd+1)+': '+d[0],d[1]+'\n\nRead: '+d[2]+'\n\nTry this: '+d[3]));sb2.style.marginLeft='8px';c.appendChild(sh);
+ c.appendChild(el('p','tr','If a friend sent you this, it is because they care about you.'));
+ app.appendChild(c)}
+function inviteCurious(btn){
+ var u=location.href.split('#')[0]+'#curious',top=true;try{top=window.top===window}catch(e){top=false}
+ var txt='A gentle seven-day path for anyone curious about faith. About ten minutes a day, no pressure.';
+ var data=(top&&/^https:/.test(u))?{title:'Curious? 7 days',text:txt,url:u}:{title:'Curious? 7 days',text:txt+'\n\n'+CUR.map(function(d,k){return 'Day '+(k+1)+': '+d[0]}).join('\n')};
+ function copied(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Invite a friend';trUI()},1800)}
+ if(navigator.share)navigator.share(data).catch(function(){});
+ else if(navigator.clipboard)navigator.clipboard.writeText(data.text+(data.url?'\n'+data.url:'')).then(copied).catch(function(){})}
+
+// ===== Tap-the-beads Rosary =====
+var BEADS=ls('pc-beads',true);
+function beadIds(){var m=[];steps.forEach(function(s,ix){var id;
+ if(ix<=1)id='C';else if(ix==2)id='L0';else if(ix<=5)id='s'+(ix-2);else if(ix==6)id='L1';
+ else if(s.dec){if(s.k=='our')id=s.dec==1?'L1':'D'+s.dec;else if(s.k=='hail')id='d'+s.dec+'_'+s.bead;else id=s.dec<5?'D'+(s.dec+1):'M'}
+ else id=ix==steps.length-1?'C':'M';m.push(id)});return m}
+function beadRing(){
+ var ns='http://www.w3.org/2000/svg',map=beadIds(),cur=map[i],done={};for(var k=0;k<i;k++)done[map[k]]=1;
+ var svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 300 380');svg.setAttribute('class','beads');svg.setAttribute('role','img');svg.setAttribute('aria-label','Rosary beads. Tap a bead to jump to that prayer.');
+ function mk(t,a,p){var e=document.createElementNS(ns,t);for(var x in a)e.setAttribute(x,a[x]);(p||svg).appendChild(e);return e}
+ var cx=150,cy=112,R=100,pos={},slots=[];
+ mk('circle',{cx:cx,cy:cy,r:R,'class':'chain'});mk('line',{x1:cx,y1:cy+R,x2:cx,y2:322,'class':'chain'});
+ for(var d=1;d<=5;d++){for(var h=1;h<=10;h++)slots.push(['d'+d+'_'+h,1]);if(d<5)slots.push(['D'+(d+1),1.9])}
+ var tot=0,cum=[0];for(var k=1;k<slots.length;k++){tot+=(slots[k][1]+slots[k-1][1])/2;cum.push(tot)}
+ var a0=Math.PI/2+0.3,a1=Math.PI/2+2*Math.PI-0.3;
+ slots.forEach(function(s,k){var a=a0+(a1-a0)*cum[k]/tot;pos[s[0]]=[cx+R*Math.cos(a),cy+R*Math.sin(a),s[1]>1?6.6:4.4]});
+ pos.M=[cx,cy+R+4,0];pos.L1=[cx,cy+R+28,6.6];pos.s3=[cx,cy+R+46,4.4];pos.s2=[cx,cy+R+60,4.4];pos.s1=[cx,cy+R+74,4.4];pos.L0=[cx,cy+R+94,6.6];pos.C=[cx,346,0];
+ Object.keys(pos).forEach(function(id){
+  var p=pos[id],g=mk('g',{'class':id==cur?'cur':done[id]?'done':''});
+  mk('circle',{cx:p[0],cy:p[1],r:id=='C'?24:id=='M'?9:p[2]>5?7.5:5.2,'class':'hit'},g);
+  if(id=='C')mk('path',{d:'M150 324V374M137 338H163','class':'cross'},g);
+  else if(id=='M')mk('path',{d:'M150 '+(p[1]-8)+'l7 8l-7 8l-7-8z','class':'b'},g);
+  else{if(id==cur)mk('circle',{cx:p[0],cy:p[1],r:p[2]+4.5,'class':'halo'},g);mk('circle',{cx:p[0],cy:p[1],r:p[2],'class':'b'},g)}
+  g.addEventListener('click',function(){var ix=map.indexOf(id);if(ix>-1&&ix!=i){i=ix;rosary()}})});
+ return svg}
+
+// ===== Rosary page extras =====
+function rosExtras(){
+ if(CHM)return;
+ var fdP=null,rl=null;
+ app.querySelectorAll('.note').forEach(function(n){if(n.tagName=='P'&&n.textContent.indexOf('Today: ')==0)fdP=n;if(n.tagName=='A'&&n.textContent.indexOf('Mass readings')==0)rl=n});
+ if(rl){var line=el('div','todayline');
+  if(fdP){var b=el('button','tl',fdP.textContent.replace('Today: ','')+' ›');b.onclick=function(){openDevo('Saint of the Day')};line.appendChild(b);line.appendChild(el('span','sep','·'));fdP.remove()}
+  var a=el('a','tl',"Today's readings ›");a.href=rl.href;a.target='_blank';a.rel='noopener';line.appendChild(a);rl.replaceWith(line)}
+ var bar=app.querySelector('.bar'),mc=app.querySelector('.card.main'),s=steps[i];
+ if(BEADS&&bar){var w=el('div','beadwrap');w.appendChild(beadRing());bar.parentNode.insertBefore(w,bar);bar.style.display='none';if(mc){var dd=mc.querySelector('.dots');if(dd)dd.remove()}}
+ if(mc&&s&&s.mys&&s.k=='our'&&!s.bead){var fm=lang=='fo'?FM[s.mys]:null,sc=SCR[s.mys];
+  var t=fm?(s.dec+') '+fm[0]):('Mystery '+s.dec+': '+s.mys),x=fm?(fm[1]+'\n\n'+fm[2]):(sc?('“'+sc[1]+'”\n'+sc[0]+(sc[2]?'\n\nFruit of the mystery: '+sc[2]:'')):'');
+  var sb=shBtn(t,x,'Share this mystery');sb.style.marginTop='12px';mc.appendChild(sb)}
+ var sr=[].filter.call(app.querySelectorAll('button'),function(b){return b.textContent.indexOf('Scriptural Rosary')==0})[0];
+ if(sr){var row=el('div','row');sr.parentNode.insertBefore(row,sr);sr.textContent=SRON?'Scripture: On':'Scripture: Off';sr.style.width='auto';sr.style.marginTop='0';sr.style.flex='1';row.appendChild(sr);
+  var bt=el('button','b g',BEADS?'Beads: On':'Beads: Off');bt.style.flex='1';bt.onclick=function(){BEADS=!BEADS;sv('pc-beads',BEADS);rosary()};row.appendChild(bt)}}
+
+// ===== Journal with share =====
+function journalUI(c,btn){
+ var jn=ls('pc-jn',[]),flt=ls('pc-jf','all');
+ var ta=el('textarea','inp');ta.rows=3;ta.placeholder='Write a prayer, a thought, or something you are thankful for';c.appendChild(ta);
+ btn(c,'Save entry',function(){var t=ta.value.trim();if(!t)return;jn.unshift({d:today(),t:t,a:false});sv('pc-jn',jn);me()});
+ var row=el('div');row.style.marginTop='12px';
+ [['all','All'],['ans','Answered']].forEach(function(o){var b=el('button','fav',o[1]+(flt==o[0]?' (showing)':''));b.style.marginRight='8px';b.onclick=function(){sv('pc-jf',o[0]);me()};row.appendChild(b)});c.appendChild(row);
+ var shown=jn.filter(function(e){return flt=='all'||e.a});
+ if(!shown.length)c.appendChild(el('p','tr',flt=='all'?'No entries yet.':'No answered prayers yet. Mark an entry as answered when you see God at work.'));
+ shown.forEach(function(e){var ji=jn.indexOf(e),r=el('div','item');r.style.flexDirection='column';r.style.alignItems='stretch';
+  var h=el('div','tag',e.d+(e.a?'  ·  answered':''));h.style.textAlign='left';r.appendChild(h);r.appendChild(el('p',0,e.t));
+  var br=el('div'),a=el('button','fav',e.a?'Mark as not answered':'Mark as answered'),d=el('button','fav','Delete'),sb=shBtn('From my prayer journal',e.t);
+  d.style.marginLeft='8px';sb.style.marginLeft='8px';
+  a.onclick=function(){e.a=!e.a;sv('pc-jn',jn);me()};d.onclick=function(){if(d.dataset.k){jn.splice(ji,1);sv('pc-jn',jn);me()}else{d.dataset.k=1;d.textContent='Tap again to delete'}};
+  br.appendChild(a);br.appendChild(sb);br.appendChild(d);r.appendChild(br);c.appendChild(r)})}
+
+// ===== Saint of the day =====
+CAL['07-29']='St. Olaf of Norway';
+var SB={
+'01-01':['m',`On the eighth day of Christmas the Church honors Mary as the Mother of God (Theotokos), a title affirmed at the Council of Ephesus in 431. It is also the World Day of Peace.`],
+'01-06':['l',`Wise men from the East follow a star to Bethlehem and worship the Christ Child (Matthew 2:1-12). The feast shows that Jesus came for every nation.`],
+'01-17':['s',`Anthony of Egypt (c. 251-356) gave away his inheritance and lived for decades as a hermit in the desert. He is honored as the father of monks.`],
+'01-21':['s',`Agnes was a young Roman martyr who died around 304 rather than give up her consecration to Christ. Her name is in the First Eucharistic Prayer.`],
+'01-24':['s',`Francis de Sales (1567-1622), Bishop of Geneva, taught that holiness is for everyone, not only priests and religious. His Introduction to the Devout Life is still widely read. He is patron of writers and journalists.`],
+'01-25':['s',`Saul persecuted the first Christians until the risen Jesus met him on the road to Damascus (Acts 9). He became Paul, the apostle to the nations, and wrote much of the New Testament.`,'e_paul','Saint Paul, pray for us.'],
+'01-28':['s',`Thomas Aquinas (1225-1274), a Dominican friar, is one of the Church's greatest theologians. His Summa Theologiae shows how faith and reason belong together. He is patron of students and schools.`],
+'01-31':['s',`John Bosco (1815-1888), a priest in Turin, cared for poor and abandoned boys through schools, workshops, and play. He founded the Salesians.`],
+'02-02':['l',`Forty days after his birth, Mary and Joseph present Jesus in the Temple, where Simeon and Anna recognize him (Luke 2:22-38). Candles are blessed today, so it is also called Candlemas.`,'nunc'],
+'02-03':['s',`Blaise was a bishop and martyr in Armenia in the 300s. By tradition he saved a boy who was choking on a fish bone, so throats are blessed on his feast.`],
+'02-05':['s',`Agatha was a young martyr of Sicily in the 200s who stayed faithful to Christ under torture. She is patron of those with breast disease and of nurses.`,'s_agatha'],
+'02-10':['s',`Scholastica (c. 480-543), twin sister of St. Benedict, led a community of nuns. Tradition says her prayer brought a storm, so she could speak with her brother about God through one last night.`],
+'02-11':['m',`In 1858 Mary appeared eighteen times to Bernadette Soubirous at Lourdes in France and called herself the Immaculate Conception. Lourdes became a place of prayer for the sick, and this is also the World Day of the Sick.`],
+'02-14':['s',`Cyril and Methodius, brothers from Thessalonica in the 800s, brought the Gospel to the Slavic peoples and created an alphabet for their language. They are patrons of Europe.`],
+'02-22':['l',`This feast honors the mission Christ gave to Peter, to lead and strengthen the Church (Matthew 16:18-19), and the unity of the Church around his successor, the Pope.`,0,'Saint Peter, pray for us.'],
+'03-07':['s',`Perpetua, a young noblewoman and mother, and Felicity, a slave who had just given birth, were martyred together at Carthage in 203. Perpetua's own account of her imprisonment survives.`],
+'03-17':['s',`Patrick (5th century) was taken from Britain to Ireland as a slave, escaped, and later returned as a bishop to preach the Gospel. Tradition says he used the shamrock to explain the Trinity.`,'patrick'],
+'03-19':['s',`Joseph, a just man and a carpenter of Nazareth, was the husband of Mary and the foster father of Jesus. He protected the Holy Family and is patron of the universal Church.`,'joseph'],
+'03-25':['l',`The angel Gabriel announces to Mary that she will bear the Son of God, and she says yes (Luke 1:26-38). The Word becomes flesh, nine months before Christmas.`,'angelus'],
+'04-25':['s',`Mark, a companion of Peter and Paul, wrote the earliest and shortest Gospel. His symbol is the lion, and tradition says he founded the Church in Alexandria.`],
+'04-29':['s',`Catherine of Siena (1347-1380) was a laywoman of deep prayer who cared for the sick and urged the Pope to return from Avignon to Rome. She is a Doctor of the Church and a patron of Europe and Italy.`,'s_cath'],
+'05-01':['s',`Pius XII set this feast in 1955 to honor the dignity of human work, after Joseph the carpenter, who worked to provide for Jesus and Mary.`,'s_joseph','Saint Joseph, pray for us.'],
+'05-03':['s',`Philip, from Bethsaida, brought Nathanael to Jesus. James, son of Alphaeus, is often called James the Less. Both were apostles who gave their lives preaching Christ.`],
+'05-13':['m',`In 1917 Mary appeared six times to three shepherd children at Fatima in Portugal, asking for prayer, penance, and the daily Rosary. Two of the children, Francisco and Jacinta Marto, are now saints.`,'fatima'],
+'05-14':['s',`Matthias was chosen by lot to take the place of Judas among the Twelve (Acts 1:21-26). He had followed Jesus from his baptism to the Ascension.`],
+'05-22':['s',`Rita of Cascia (1381-1457) endured a hard marriage and lost her husband and sons, then became an Augustinian nun. She is patron of impossible causes.`],
+'05-26':['s',`Philip Neri (1515-1595), the joyful apostle of Rome, drew people to God through humor, warmth, and prayer, and founded the Oratory.`],
+'05-31':['m',`Mary hurries to visit her cousin Elizabeth, the child in Elizabeth's womb leaps for joy, and Mary sings the Magnificat (Luke 1:39-56).`,'magnificat'],
+'06-13':['s',`Anthony of Padua (1195-1231), a Franciscan from Lisbon, was a powerful preacher and is a Doctor of the Church. Many ask his help to find lost things.`,'s_anthony'],
+'06-21':['s',`Aloysius Gonzaga (1568-1591) gave up a noble inheritance to become a Jesuit. He died at 23 after caring for plague victims in Rome. He is patron of young people.`],
+'06-22':['s',`Thomas More, Chancellor of England, and John Fisher, Bishop of Rochester, were executed in 1535 for refusing to accept the king as head of the Church in England.`],
+'06-24':['s',`John the Baptist, son of Zechariah and Elizabeth, prepared the way for Jesus and baptized him in the Jordan. Only he, Mary, and Jesus have their births celebrated in the Church's calendar.`,'benedictus','Saint John the Baptist, pray for us.'],
+'06-29':['s',`Peter, the fisherman Jesus made the rock of his Church, and Paul, the apostle to the nations, were both martyred in Rome under the emperor Nero.`,'e_paul'],
+'07-03':['s',`Thomas doubted the Resurrection until he saw the risen Jesus, then made the great confession: My Lord and my God (John 20:28). Tradition says he preached the Gospel in India.`],
+'07-11':['s',`Benedict of Nursia (c. 480-547) founded the monastery of Monte Cassino and wrote the Rule that shaped monastic life in the West: pray and work. He is a patron of Europe.`,'s_ben'],
+'07-16':['m',`Mount Carmel in the Holy Land was home to hermits who became the Carmelite order, devoted to Mary. Many Catholics wear the brown scapular as a sign of her protection.`],
+'07-22':['s',`Mary Magdalene, freed by Jesus from seven demons, followed him to the cross and was the first to see him risen (John 20:11-18). She is called the apostle to the apostles.`,'s_magd'],
+'07-23':['s',`Bridget of Sweden (1303-1373), a wife, mother of eight, and later a widow, founded the Order of the Most Holy Saviour, the Bridgettines. She is a patron of Europe, and the Fifteen Prayers in this app are linked to her name.`,'br1'],
+'07-25':['s',`James, son of Zebedee and brother of John, was the first of the apostles to be martyred (Acts 12:2). His shrine at Santiago de Compostela in Spain draws pilgrims from all over the world.`],
+'07-26':['s',`By tradition, Joachim and Anne were the parents of the Virgin Mary and the grandparents of Jesus. They are patrons of grandparents.`],
+'07-29':['s',`Olaf Haraldsson, King of Norway, worked to bring the Christian faith to Norway and died at the Battle of Stiklestad in 1030. He is patron of Norway, and his feast, Ólavsøka, is the Faroese national day.`,0,'Saint Olaf, pray for us.'],
+'07-31':['s',`Ignatius of Loyola (1491-1556), a Spanish soldier who turned to God while recovering from a wound, founded the Jesuits and wrote the Spiritual Exercises. His motto: for the greater glory of God.`,'ignatius'],
+'08-01':['s',`Alphonsus Liguori (1696-1787), a lawyer who became a priest, founded the Redemptorists and wrote much on prayer and on Mary. He is a Doctor of the Church.`],
+'08-04':['s',`John Vianney (1786-1859), the parish priest of Ars in France, spent many hours a day hearing confessions. He is patron of parish priests.`],
+'08-06':['l',`On the mountain Jesus is transfigured in glory before Peter, James, and John, and the Father says: This is my beloved Son; listen to him (Mark 9:2-8).`],
+'08-08':['s',`Dominic (1170-1221) founded the Order of Preachers, the Dominicans, to preach the Gospel. The Rosary has long been linked with his name.`],
+'08-09':['s',`Edith Stein (1891-1942), a Jewish philosopher, became a Catholic and a Carmelite nun, taking the name Teresa Benedicta of the Cross. She was killed at Auschwitz and is a patron of Europe.`],
+'08-10':['s',`Lawrence, a deacon of Rome, cared for the poor and was martyred in 258. Tradition says that when he was ordered to hand over the Church's treasures, he presented the poor.`],
+'08-11':['s',`Clare of Assisi (1194-1253), inspired by St. Francis, founded the Poor Clares, a life of poverty and prayer.`],
+'08-14':['s',`Maximilian Kolbe (1894-1941), a Polish Franciscan priest, gave his life in place of a father of a family at Auschwitz. He is patron of prisoners.`],
+'08-15':['m',`At the end of her earthly life, Mary was taken up body and soul into heavenly glory. Pius XII defined this as dogma in 1950.`],
+'08-22':['m',`One week after the Assumption, the Church honors Mary as Queen of heaven and earth, crowned in glory beside her Son.`,'queen'],
+'08-24':['s',`Bartholomew, one of the Twelve, is often identified with Nathanael, of whom Jesus said: here is a true Israelite, in whom there is no deceit (John 1:47).`],
+'08-27':['s',`Monica (331-387) prayed for many years for her son Augustine, who finally turned to Christ. She is patron of mothers and of all who pray for loved ones far from God.`],
+'08-28':['s',`Augustine of Hippo (354-430) lived a restless youth before his conversion, then became a bishop and one of the greatest teachers of the Church. His Confessions tell his story.`,'augustine'],
+'09-08':['m',`The Church celebrates the birthday of the Virgin Mary, nine months after the feast of her Immaculate Conception.`],
+'09-14':['l',`This feast honors the cross of Christ, once an instrument of death and now the sign of salvation. Tradition links it to St. Helena's finding of the true cross in Jerusalem.`,'stn12'],
+'09-15':['m',`The day after the feast of the Cross, the Church honors the sorrows of Mary, above all her standing at the foot of the cross (John 19:25-27). The Seven Sorrows chaplet is in the Devotions tab.`],
+'09-21':['s',`Matthew, a tax collector, left his table when Jesus said: Follow me (Matthew 9:9). He became an apostle and wrote the first Gospel.`],
+'09-23':['s',`Pio of Pietrelcina (1887-1968), a Capuchin friar known as Padre Pio, bore the wounds of Christ for fifty years and spent long hours hearing confessions.`,'s_pio'],
+'09-27':['s',`Vincent de Paul (1581-1660), a French priest, gave his life to serving the poor, the sick, and prisoners. He founded the Vincentians and, with St. Louise de Marillac, the Daughters of Charity.`],
+'09-29':['a',`Michael defends God's people against evil, Gabriel brought the good news to Mary, and Raphael guided Tobias and healed his father (Book of Tobit).`,'e_tax','Holy Archangels Michael, Gabriel, and Raphael, pray for us.'],
+'09-30':['s',`Jerome (c. 347-420) translated the Bible into Latin, the Vulgate. He taught that ignorance of Scripture is ignorance of Christ. He is patron of translators.`],
+'10-01':['s',`Therese of Lisieux (1873-1897), a Carmelite nun who died at 24, taught the Little Way: doing small things with great love. She is a Doctor of the Church and patron of missions.`,'s_therese'],
+'10-02':['a',`The Church celebrates the angels God gives to guard each person (Matthew 18:10).`,'angel','Holy Guardian Angels, pray for us.'],
+'10-04':['s',`Francis of Assisi (1181-1226) left his wealth to live in poverty, joy, and love for all creation, and founded the Franciscans.`,'s_fran1'],
+'10-07':['m',`This feast gives thanks for Mary's help through the Rosary. It began after the naval battle of Lepanto in 1571, when Christians across Europe prayed the Rosary.`,'queen'],
+'10-15':['s',`Teresa of Avila (1515-1582), a Spanish Carmelite, reformed her order and wrote classic works on prayer such as The Interior Castle. In 1970 she became the first woman named a Doctor of the Church.`,'s_teresa'],
+'10-18':['s',`Luke, a physician and companion of St. Paul, wrote the Gospel of Luke and the Acts of the Apostles. His Gospel shows the mercy of Jesus to the poor and to sinners.`,'s_luke'],
+'10-22':['s',`Karol Wojtyla (1920-2005) from Poland was Pope from 1978 to 2005. He traveled the world, began World Youth Day, and spoke tirelessly for human dignity. His famous call: Be not afraid.`],
+'10-28':['s',`Simon the Zealot and Jude Thaddeus were apostles who, by tradition, preached together and were martyred. Jude is patron of desperate cases.`],
+'11-01':['s',`The Church honors all the saints in heaven, known and unknown, and remembers that every one of us is called to be holy.`,'saints','All holy men and women, pray for us.'],
+'11-02':['d',`The Church prays for all the faithful departed who are being purified before entering heaven. It is a day to remember and pray for those we have lost.`,'eternal','Eternal rest grant unto them, O Lord, and let perpetual light shine upon them.'],
+'11-03':['s',`Martin de Porres (1579-1639), a Dominican brother in Lima, Peru, of Spanish and African descent, cared for the sick and the poor of every background. He is patron of racial harmony.`],
+'11-04':['s',`Charles Borromeo (1538-1584), Archbishop of Milan, worked to renew the Church after the Council of Trent, founded seminaries, and stayed to care for his people during the plague.`],
+'11-09':['l',`The Lateran Basilica in Rome is the Pope's cathedral, called the mother and head of all churches. Its feast celebrates unity with the Church of Rome.`],
+'11-11':['s',`Martin of Tours (c. 316-397), a Roman soldier, cut his cloak in half for a freezing beggar and later saw Christ wearing it in a dream. He became a monk and a bishop.`,'s_martin'],
+'11-15':['s',`Albert the Great (c. 1200-1280), a German Dominican, was a scientist, philosopher, and the teacher of St. Thomas Aquinas. He is patron of scientists.`],
+'11-17':['s',`Elizabeth of Hungary (1207-1231), a princess, used her wealth to build a hospital and to serve the poor with her own hands. She died at 24.`],
+'11-22':['s',`Cecilia was an early Roman martyr. Tradition says she sang to God in her heart, so she is patron of music and musicians.`],
+'11-25':['s',`Catherine of Alexandria, by tradition a learned young woman of the early 300s, defended the faith before scholars and was martyred. She is patron of students and philosophers.`],
+'11-30':['s',`Andrew, a fisherman and the brother of Peter, was first a disciple of John the Baptist and then brought Peter to Jesus (John 1:40-42). He is patron of Scotland.`],
+'12-03':['s',`Francis Xavier (1506-1552), one of the first Jesuits, preached the Gospel in India, Southeast Asia, and Japan. He is patron of missions.`],
+'12-06':['s',`Nicholas, a bishop of Myra in the 300s, was known for secret generosity to people in need. He inspired the figure of Santa Claus.`],
+'12-07':['s',`Ambrose (c. 340-397), Bishop of Milan, was a great preacher and a defender of the Church. He baptized St. Augustine and is a Doctor of the Church.`],
+'12-08':['m',`The Church celebrates that Mary was preserved from original sin from the first moment of her conception, by the grace of God. Pius IX defined this dogma in 1854.`,'subtuum'],
+'12-12':['m',`In 1531 Mary appeared to Juan Diego, an Indigenous man, near Mexico City, and left her image on his cloak. She is patroness of the Americas.`],
+'12-13':['s',`Lucy was a young martyr of Syracuse in Sicily, around 304. Her name means light, and her feast is kept with candles in the dark of the Nordic winter.`],
+'12-14':['s',`John of the Cross (1542-1591), a Carmelite friar, helped St. Teresa of Avila reform their order. While imprisoned he wrote some of the greatest poems of Spanish literature. He is a Doctor of the Church.`],
+'12-25':['l',`Christmas: the Son of God is born of the Virgin Mary in Bethlehem. The Word became flesh and dwelt among us (John 1:14).`],
+'12-26':['s',`Stephen, one of the first deacons, was stoned to death while forgiving his killers (Acts 7). He is the first Christian martyr.`],
+'12-27':['s',`John, the beloved disciple, stood at the cross and took Mary into his home. He wrote the Gospel of John and three letters, and by tradition the Book of Revelation.`,'s_john'],
+'12-28':['s',`The Holy Innocents were the little boys of Bethlehem killed by King Herod in his attempt to kill the infant Jesus (Matthew 2:16-18).`,0,'Holy Innocents, pray for us.']
+};
+var MVB={
+'Ash Wednesday':['l',`Lent begins. Ashes are placed on the forehead with the words: Remember that you are dust, and to dust you shall return. It is a day of fasting and abstinence.`],
+'Palm Sunday':['l',`Jesus enters Jerusalem as the crowds wave palms and cry Hosanna (Matthew 21:1-11). Holy Week begins.`],
+'Holy Thursday':['l',`At the Last Supper Jesus washes his disciples' feet and gives us the Eucharist and the priesthood (John 13:1-15).`],
+'Good Friday':['l',`Jesus dies on the cross for our salvation. It is a day of fasting and abstinence, and the cross is venerated in the afternoon liturgy.`,'stn12'],
+'Holy Saturday':['l',`The Church waits in silence at the tomb. After dark, the Easter Vigil begins with the new fire and the Easter candle.`],
+'Easter Sunday':['l',`Christ is risen! The tomb is empty, and death has lost its power (Matthew 28:1-10). The greatest feast of the year, celebrated for fifty days.`,'regina'],
+'Divine Mercy Sunday':['l',`The Sunday after Easter celebrates God's mercy, as revealed to St. Faustina. The Divine Mercy Chaplet is in the Devotions tab.`],
+'The Ascension (a Sunday in some countries)':['l',`Forty days after Easter, Jesus is taken up into heaven, promising to be with us always (Acts 1:6-11).`],
+'Pentecost Sunday':['l',`The Holy Spirit comes upon Mary and the apostles as wind and tongues of fire, and the Church is sent out to the world (Acts 2:1-11).`,'vc'],
+'Trinity Sunday':['l',`The Church adores the one God in three Persons: Father, Son, and Holy Spirit.`,'glory'],
+'Corpus Christi (a Sunday in some countries)':['l',`The feast of the Body and Blood of Christ celebrates Jesus truly present in the Eucharist, often with a procession through the streets.`,'anima'],
+'The Sacred Heart of Jesus':['l',`This feast honors the heart of Jesus, pierced on the cross, as the sign of his love for every person.`,'sacredheart'],
+'Immaculate Heart of Mary':['m',`The day after the Sacred Heart, the Church honors the heart of Mary, who kept all these things and pondered them in her heart (Luke 2:19).`],
+'Christ the King':['l',`On the last Sunday of the Church's year, we honor Jesus as King of the universe, whose kingdom is truth, love, and peace.`]
+};
+function mmdd(d){return ('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function saintLine(name,e){if(e[3])return e[3];if(e[0]=='s')return name.replace(/^Sts\. /,'Saints ').replace(/^St\. /,'Saint ').replace(/, Spouse of Mary$/,'')+', pray for us.';if(e[0]=='m')return 'Holy Mary, Mother of God, pray for us.';return ''}
+function saintCard(){
+ var n=new Date(),k=mmdd(n),f=feast(),c=el('div','card'),items=[];
+ var dt=el('div','tag',n.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}));c.appendChild(dt);
+ if(f)f.split(' / ').forEach(function(nm){if(MVB[nm])items.push([nm.replace(/ \(a Sunday in some countries\)/,''),MVB[nm]])});
+ if(CAL[k]&&SB[k])items.push([CAL[k],SB[k]]);
+ if(!items.length){var ks=Object.keys(SB).filter(function(x){return SB[x][0]=='s'}),doy=Math.floor((n-new Date(n.getFullYear(),0,0))/864e5),kk=ks[doy%ks.length];
+  c.appendChild(el('p','tr','No feast in this calendar today. A saint to meet:'));items.push([CAL[kk],SB[kk],kk])}
+ items.forEach(function(it,ix){var nm=it[0],e=it[1];
+  var h=el('h2',0,nm);if(ix)h.style.marginTop='18px';c.appendChild(h);
+  if(it[2]){var fd=new Date(2000,+it[2].slice(0,2)-1,+it[2].slice(3));c.appendChild(el('p','tr','Feast day: '+fd.toLocaleDateString(undefined,{month:'long',day:'numeric'})))}
+  c.appendChild(el('p',0,e[1]));var ln=saintLine(nm,e);if(ln){var lp=el('p','lat',ln);lp.style.marginTop='8px';c.appendChild(lp)}
+  var row=el('div');row.style.marginTop='12px';row.appendChild(shBtn(nm,e[1]+(ln?'\n\n'+ln:''),'Share'));
+  if(e[2]&&P[e[2]]){var pb=el('button','fav','Open prayer');pb.style.marginLeft='8px';pb.onclick=function(){qs=P[e[2]][0];show(1)};row.appendChild(pb)}
+  c.appendChild(row)});
+ for(var d=1;d<60;d++){var nx=new Date(n.getFullYear(),n.getMonth(),n.getDate()+d),f2=feastOn(nx);if(f2){var np=el('p','tr','Next: '+f2+', '+nx.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}));np.style.marginTop='14px';c.appendChild(np);break}}
+ app.appendChild(c)}
+function openDevo(name){var o=ls('pc-dv',['Guided Prayers']);if(o.indexOf(name)<0)o.push(name);sv('pc-dv',o);show(3);
+ setTimeout(function(){var g=[].filter.call(document.querySelectorAll('.gh'),function(x){return x.dataset.g==name})[0];if(g)g.scrollIntoView({behavior:'smooth',block:'start'})},60)}
+
+// ===== Journeys: content =====
+// [title, suggested reading, reflection, small step]
+var ADV=[
+['Stay awake','Mark 13:33-37',`Advent begins with Jesus' call to be watchful. Not anxious, but alert, the way you wait for someone you love to come home.`,`Set aside five quiet minutes today with your phone in another room.`],
+['Walk in the light','Isaiah 2:1-5',`Isaiah sees the nations streaming to the Lord's mountain and swords beaten into ploughshares. Advent is a season of hope for a world at peace.`,`Pray for peace in one place of conflict you have heard about.`],
+['Only say the word','Matthew 8:5-11',`The centurion trusts that one word from Jesus is enough. His words are still spoken before Communion at every Mass.`,`Bring one need to Jesus in a single, simple sentence.`],
+['A shoot from the stump','Isaiah 11:1-10',`From a stump that looks dead, new life springs. God often begins where we have given up.`,`Name one situation where you need hope, and give it to God.`],
+['The Lord is my light','Psalm 27:1-14',`The psalmist asks for one thing only: to dwell in the house of the Lord and gaze on his beauty.`,`Pray Psalm 27:1 when you wake and before you sleep.`],
+['Built on rock','Matthew 7:21-27',`Hearing Jesus is not enough; the wise build their lives on his words.`,`Choose one teaching of Jesus and act on it today.`],
+['Compassion for the crowds','Matthew 9:35-10:1',`Jesus sees the tired and harassed crowds and his heart goes out to them.`,`Do one kind thing for someone who looks tired or alone.`],
+['Prepare the way','Mark 1:1-8',`John the Baptist calls people to turn back to God. Preparing for Christmas starts in the heart.`,`Plan a time to go to Confession before Christmas.`],
+['Comfort my people','Isaiah 40:1-11',`God speaks tenderly and carries his people like a shepherd carries lambs.`,`Send a message of comfort to someone who is grieving or struggling.`],
+['Through the roof','Luke 5:17-26',`Friends lower a paralyzed man through a roof to reach Jesus. Their faith carries him.`,`Pray by name for a friend, bringing them to Jesus the way those friends did.`],
+['The one who is lost','Matthew 18:12-14',`The shepherd leaves the ninety-nine to find the one that wandered off. No one is forgotten.`,`Reach out to someone you have lost touch with.`],
+['Come to me','Matthew 11:28-30',`Jesus invites the weary and burdened to rest in him.`,`Bring your heaviest worry to God, and try to leave it with him.`],
+['Do not fear','Isaiah 41:13-20',`The Lord takes us by the hand and says: Do not fear, I will help you.`,`Write down one fear, and pray over it.`],
+['Wisdom is shown in her deeds','Matthew 11:16-19',`People found reasons to dismiss both John and Jesus. It is easy to be busy and miss God.`,`Turn off one distraction tonight and pray instead.`],
+['Rejoice in the Lord always','Philippians 4:4-7',`The third week of Advent is about joy: the Lord is near. Do not worry about anything, but bring everything to God with thanksgiving.`,`Thank God for three specific gifts from this week.`],
+['What should we do?','Luke 3:10-18',`John's answer is practical: whoever has two coats should share with the one who has none.`,`Give something away to someone in need.`],
+['The desert will bloom','Isaiah 35:1-10',`Dry land bursts into flower, the blind see, and the lame leap. God makes all things new.`,`Notice one beautiful thing in creation today, and praise God for it.`],
+['Are you the one?','Matthew 11:2-11',`From prison, John sends Jesus an honest question. Jesus does not scold him; he answers.`,`Bring God an honest question of your own.`],
+['Sing a new song','Psalm 96',`All creation is invited to rejoice before the Lord, for he comes.`,`Sing or listen to an Advent hymn, such as O Come, O Come, Emmanuel.`],
+['My soul waits for the Lord','Psalm 130:5-6',`More than watchmen wait for the morning, we wait for the Lord. Waiting is itself a kind of prayer.`,`Spend five minutes in silent waiting before God.`]];
+// O Antiphons, December 17-23, then Christmas Eve: [title, Latin title, reading, antiphon, step]
+var OANT=[
+['O Wisdom','O Sapientia','Sirach 24:3; Wisdom 8:1',`O Wisdom, who came forth from the mouth of the Most High, reaching from end to end and ordering all things mightily and sweetly: come, and teach us the way of prudence.`,`From today until Christmas, the Church sings one O Antiphon each evening. Pray this one slowly three times.`],
+['O Lord and Ruler','O Adonai','Exodus 3:1-6',`O Adonai, and leader of the house of Israel, who appeared to Moses in the flame of the burning bush and gave him the law on Sinai: come, and with an outstretched arm redeem us.`,`Pray the antiphon, and thank God for one way he has guided you.`],
+['O Root of Jesse','O Radix Jesse','Isaiah 11:10',`O Root of Jesse, who stands as a sign for the peoples, before whom kings shall keep silence and whom the nations shall seek: come, and deliver us, and delay no longer.`,`Pray the antiphon for someone who is waiting for help.`],
+['O Key of David','O Clavis David','Isaiah 22:22',`O Key of David and scepter of the house of Israel, who opens and no one shuts, who shuts and no one opens: come, and lead the prisoner out of the prison house, those who sit in darkness and the shadow of death.`,`Ask Jesus to unlock one thing in you that feels stuck.`],
+['O Dawn of the East','O Oriens','Malachi 4:2',`O Dayspring, splendor of eternal light and sun of justice: come, and give light to those who sit in darkness and the shadow of death.`,`Today is near the darkest day of the year. Light a candle and pray the antiphon.`],
+['O King of the Nations','O Rex Gentium','Ephesians 2:14-20',`O King of the nations and their desire, the cornerstone who makes both one: come, and save the human race, which you fashioned from clay.`,`Pray for unity in your family and among Christians.`],
+['O God with Us','O Emmanuel','Isaiah 7:14',`O Emmanuel, our King and lawgiver, the hope of the nations and their Savior: come and save us, O Lord our God.`,`Read the first letters of the Latin titles backwards: ERO CRAS, meaning tomorrow I will come.`],
+['Tonight the waiting ends','Luke 2:1-14',`Tonight the Church celebrates the birth of the Savior. The Word became flesh and dwelt among us.`,`Go to Christmas Mass, and spend a moment in prayer at a crib.`]];
+var LENT=[
+['Return to me','Joel 2:12-18',`Lent begins with ashes and an invitation: return to the Lord with your whole heart. The three classic practices are prayer, fasting, and almsgiving.`,`Choose your Lent: one prayer to add, one thing to fast from, and one way to give.`],
+['Choose life','Deuteronomy 30:15-20',`God sets before us life and death and asks us to choose life, by loving him and walking in his ways.`,`Pick one small daily choice that you will make for God this Lent.`],
+['The fast God chooses','Isaiah 58:1-9',`The fast God wants is to free the oppressed, share bread with the hungry, and not turn away from our own.`,`Abstain from meat today, and give what you save to someone in need.`],
+['Not the healthy, but the sick','Luke 5:27-32',`Jesus calls Levi the tax collector and eats with sinners. He came for people exactly like us.`,`Thank Jesus for calling you as you are.`],
+['Into the desert','Matthew 4:1-11',`Jesus is tempted in the desert and answers each temptation with the word of God.`,`Learn one verse of Scripture by heart, to use when you are tempted.`],
+['You did it to me','Matthew 25:31-46',`Whatever we do for the least of his brothers and sisters, we do for Jesus.`,`Do one work of mercy today (the list is in the Devotions tab, under Learn the Faith).`],
+['When you pray','Matthew 6:7-15',`Jesus teaches us not to heap up words, and gives us the Our Father.`,`Pray the Our Father slowly, one phrase with each breath.`],
+['The sign of Jonah','Luke 11:29-32',`The people of Nineveh turned back to God at Jonah's preaching. Someone greater than Jonah is here.`,`Name one thing you need to turn away from.`],
+['Ask, seek, knock','Matthew 7:7-12',`The Father loves to give good things to those who ask him.`,`Ask God for one thing, with trust.`],
+['First be reconciled','Matthew 5:20-26',`Before bringing a gift to the altar, Jesus says, go and make peace with your brother.`,`Make peace with someone, or pray for the grace to.`],
+['Love your enemies','Matthew 5:43-48',`Jesus asks us to love our enemies and pray for those who persecute us.`,`Pray by name for someone who has hurt you.`],
+['Listen to him','Mark 9:2-10',`On the mountain the disciples see Jesus in glory, and the Father says: Listen to him.`,`Read today's Gospel slowly, twice.`],
+['Be merciful','Luke 6:36-38',`Be merciful as your Father is merciful. The measure you give is the measure you will receive.`,`Do not judge anyone today, and notice when you are tempted to.`],
+['The greatest is the servant','Matthew 23:1-12',`Whoever humbles himself will be exalted.`,`Do one hidden task that nobody will thank you for.`],
+['Can you drink the cup?','Matthew 20:17-28',`The Son of Man came not to be served but to serve, and to give his life.`,`Offer up a small discomfort today for someone who is suffering.`],
+['The rich man and Lazarus','Luke 16:19-31',`The rich man was not cruel; he simply never saw the poor man at his gate.`,`Notice someone in need whom you usually walk past.`],
+['The rejected stone','Matthew 21:33-43',`The stone the builders rejected has become the cornerstone.`,`Pray the Stations of the Cross (in the Devotions tab).`],
+['The prodigal son','Luke 15:1-3, 11-32',`The father runs to meet his son while he is still far off. That is how God waits for us.`,`Go to Confession this week if you can.`],
+['Living water','John 4:5-42',`At the well, Jesus offers a thirsty woman living water. He knows her whole story and does not turn away.`,`Tell Jesus honestly what you are thirsty for.`],
+['No prophet in his own town','Luke 4:24-30',`Jesus was not accepted in his hometown. Faith can be hardest to share with those closest to us.`,`Pray for your family and friends, and trust God with their story.`],
+['Seventy times seven','Matthew 18:21-35',`Peter asks how often he must forgive. Jesus answers: without counting.`,`Forgive one old hurt, even if only in prayer for now.`],
+['To fulfill, not abolish','Matthew 5:17-19',`Jesus came to bring God's law to its fullness, which is love.`,`Read the Ten Commandments (Devotions, Catechism Q&A) and examine one.`],
+['The stronger man','Luke 11:14-23',`Jesus is stronger than every evil. Whoever is not with him is against him.`,`Pray the Prayer to St. Michael.`],
+['The greatest commandment','Mark 12:28-34',`Love God with all your heart, and your neighbor as yourself.`,`Show love to God and to one neighbor in a concrete way today.`],
+['Two men went up to pray','Luke 18:9-14',`The tax collector simply says: God, be merciful to me, a sinner. He goes home justified.`,`Pray the Jesus Prayer several times today: Lord Jesus Christ, Son of God, have mercy on me, a sinner.`],
+['I was blind, now I see','John 9:1-41',`Laetare Sunday: Lent is half over. Jesus opens the eyes of a man born blind.`,`Thank God for one way he has opened your eyes.`],
+['Go, your son will live','John 4:43-54',`An official believes Jesus' word and goes home, and his son is healed.`,`Trust Jesus with one person you are worried about.`],
+['Do you want to be healed?','John 5:1-16',`Jesus asks a man who has been ill for thirty-eight years whether he wants to get well.`,`Ask Jesus to heal one wound in you.`],
+['The Father is at work','John 5:17-30',`The Son does what he sees the Father doing.`,`Offer your work today to God.`],
+['The Scriptures speak of me','John 5:31-47',`All of Scripture points to Jesus.`,`Read one whole chapter of a Gospel.`],
+['His hour had not yet come','John 7:1-2, 10, 25-30',`Opposition to Jesus grows, but he keeps doing the Father's will.`,`Fast from one comfort today.`],
+['No one ever spoke like this','John 7:40-53',`Even the guards sent to arrest Jesus come back amazed at his words.`,`Share something good about Jesus with a friend, gently and without pressure.`],
+['I am the resurrection','John 11:1-45',`Jesus weeps at the tomb of his friend Lazarus, then calls him out alive.`,`Pray for someone you love who has died.`],
+['Neither do I condemn you','John 8:1-11',`Jesus does not condemn the woman caught in sin; he sends her out to begin again.`,`Receive God's mercy, and let go of shame over a sin you have already confessed.`],
+['When you lift up the Son of Man','John 8:21-30',`When Jesus is lifted up on the cross, we will know who he is.`,`Spend a few minutes looking at a crucifix.`],
+['The truth will set you free','John 8:31-42',`If you remain in my word, you will know the truth, and the truth will set you free.`,`Be fully honest in one difficult situation.`],
+['Before Abraham was, I AM','John 8:51-59',`Jesus speaks the divine name. He is God with us.`,`Pray a Glory Be slowly, as an act of adoration.`],
+['The Father is in me','John 10:31-42',`Even if you do not believe me, Jesus says, believe the works I do.`,`Pray the Sorrowful Mysteries of the Rosary.`],
+['One man for the people','John 11:45-56',`The leaders decide that Jesus must die. Holy Week is near.`,`Plan which Holy Week services you will go to.`],
+['Hosanna','Matthew 21:1-11',`Palm Sunday: the crowds welcome Jesus as king. Within days, many will turn against him.`,`Keep your palm near a crucifix or picture of Jesus this week.`],
+['Mary anoints Jesus','John 12:1-11',`Mary of Bethany pours costly perfume on Jesus' feet, and the house fills with the fragrance.`,`Give Jesus something costly today: unhurried time in silent prayer.`],
+['One of you will betray me','John 13:21-33, 36-38',`Judas goes out into the night, and Peter promises more than he can keep.`,`Pray for anyone you have let down, and for anyone who has let you down.`],
+['Is it I, Lord?','Matthew 26:14-25',`Each disciple asks: Is it I? Today is sometimes called Spy Wednesday.`,`Examine your conscience tonight.`],
+['He loved them to the end','John 13:1-15',`Holy Thursday: Jesus washes his disciples' feet and gives us the Eucharist.`,`Go to the evening Mass of the Lord's Supper, and stay a while to pray afterward.`],
+['It is finished','John 18:1-19:42',`Good Friday: Jesus gives his life on the cross. It is a day of fasting and abstinence.`,`Fast today and venerate the cross at the afternoon service. The Divine Mercy novena traditionally begins today.`],
+['The great silence','Matthew 27:57-66',`Holy Saturday: Jesus lies in the tomb, and the Church waits beside it in silence.`,`Keep the day quiet. Tonight, go to the Easter Vigil if you can.`]];
+// 33-day consecration: [title, reading, reflection]
+var CONS=[
+['Why begin?','Romans 12:1-2',`For thirty-three days you will make room for God, so that you can give yourself entirely to Jesus through Mary. The first twelve days are about letting go of the spirit of the world.`],
+['Two masters','Matthew 6:24',`No one can serve two masters. What competes with God for your heart: money, approval, comfort, control?`],
+['Treasure in heaven','Matthew 6:19-21',`Where your treasure is, there your heart will be. What do you spend most of your time and thoughts on?`],
+['The narrow gate','Matthew 7:13-14',`The way to life is narrow, and the easy road is crowded. Following Christ often means going against the current.`],
+['Salt and light','Matthew 5:13-16',`You are salt and light for others. The world is not the enemy; it is the place we are sent.`],
+['Do not love the world','1 John 2:15-17',`The world and its desires pass away, but whoever does the will of God remains forever.`],
+['The rich young man','Mark 10:17-27',`Jesus looked at him and loved him, and asked for everything. He went away sad. What is Jesus asking of you?`],
+['Seek first the kingdom','Matthew 6:25-34',`Do not worry about tomorrow. Seek God's kingdom first, and the rest will be given.`],
+['Blessed are the poor in spirit','Matthew 5:1-12',`The Beatitudes turn the world's values upside down. Read them slowly as a portrait of Jesus.`],
+['Pruned to bear fruit','John 15:1-8',`The Father prunes the branches that bear fruit. Some losses make room for new life.`],
+['Our citizenship is in heaven','Philippians 3:17-21',`We are pilgrims here. Our true home is with God.`],
+['Losing to find','Matthew 16:24-26',`Whoever loses his life for Christ will find it. Tomorrow you turn to knowing yourself.`],
+['Search me, O God','Psalm 139:1-12, 23-24',`The next seven days are about knowing yourself honestly, as God knows you: completely, and with love.`],
+['Gentle and humble of heart','Matthew 11:28-30',`Learn from me, Jesus says, for I am gentle and humble of heart. Where do you need his gentleness?`],
+['The Pharisee and the tax collector','Luke 18:9-14',`Humility is simply the truth about ourselves before God.`],
+['The log in my own eye','Matthew 7:1-5',`It is easier to see others' faults than our own. Ask the Holy Spirit to show you one of yours.`],
+['Without me you can do nothing','John 15:5',`On our own we cannot become holy. Everything good is grace.`],
+['My grace is enough','2 Corinthians 12:7-10',`God's power is made perfect in weakness. Your weakness is not an obstacle to him.`],
+['Coming to himself','Luke 15:11-24',`The prodigal son came to himself and went home. Tomorrow you turn to knowing Mary.`],
+['Full of grace','Luke 1:26-28',`The next seven days are about knowing Mary. God chose her and filled her with grace for her mission.`],
+['Let it be done to me','Luke 1:29-38',`Mary's yes changed history. Her whole life was a yes to God.`],
+['Mary hurries','Luke 1:39-56',`Mary carries Jesus to others. Real devotion to her always leads to Jesus and to serving others.`],
+['She pondered in her heart','Luke 2:15-19',`Mary kept everything and pondered it in her heart. She teaches us contemplation.`],
+['A sword will pierce your heart','Luke 2:33-35',`Mary's love cost her suffering. She understands ours.`],
+['Do whatever he tells you','John 2:1-11',`Mary's last recorded words in the Gospels point away from herself to Jesus.`],
+['Behold your mother','John 19:25-27',`From the cross, Jesus gives Mary to his disciple as his mother, and to us. Tomorrow you turn to knowing Jesus.`],
+['The Word became flesh','John 1:1-14',`The last seven days are about knowing Jesus Christ, the goal of everything. God became one of us.`],
+['All the treasures of wisdom','Colossians 2:2-3',`St. Louis de Montfort called Jesus the Eternal Wisdom. In him are hidden all the treasures of wisdom and knowledge.`],
+['The Good Shepherd','John 10:11-16',`He knows his sheep by name and lays down his life for them.`],
+['The bread of life','John 6:35, 51',`Jesus gives himself to us in the Eucharist. If you can, go to Mass on one weekday this week.`],
+['No greater love','John 15:12-15',`Jesus no longer calls us servants, but friends.`],
+['Obedient unto death','Philippians 2:5-11',`He emptied himself, even to death on a cross, and God exalted him above every name.`],
+['I am with you always','Matthew 28:18-20',`Tomorrow is your consecration day. If you can, go to Confession beforehand and to Mass tomorrow.`]];
+var CONSPH=[[0,11,'Letting go of the spirit of the world',['vc','avemaris']],[12,18,'Knowing yourself',['avemaris','loreto']],[19,25,'Knowing Mary',['avemaris','loreto','magnificat']],[26,32,'Knowing Jesus',['avemaris','anima','loreto']]];
+P.avemaris=['Hymn: Ave Maris Stella',`Hail, thou Star of Ocean,
+Portal of the sky,
+Ever Virgin Mother
+Of the Lord most high.
+
+O, by Gabriel's Ave,
+Uttered long ago,
+Eva's name reversing,
+Establish peace below.
+
+Break the captives' fetters,
+Light on blindness pour,
+All our ills expelling,
+Every bliss implore.
+
+Show thyself a Mother;
+Offer him our sighs,
+Who for us incarnate
+Did not thee despise.
+
+Virgin of all virgins,
+To thy shelter take us;
+Gentlest of the gentle,
+Chaste and gentle make us.
+
+Still, as on we journey,
+Help our weak endeavour,
+Till with thee and Jesus
+We rejoice for ever.
+
+Through the highest heaven,
+To the Almighty Three,
+Father, Son, and Spirit,
+One same glory be. Amen.`];
+L.avemaris=`Ave maris stella,
+Dei mater alma,
+atque semper virgo,
+felix cæli porta.
+
+Sumens illud Ave
+Gabriélis ore,
+funda nos in pace,
+mutans Evæ nomen.
+
+Solve vincla reis,
+profer lumen cæcis,
+mala nostra pelle,
+bona cuncta posce.
+
+Monstra te esse matrem,
+sumat per te preces,
+qui pro nobis natus
+tulit esse tuus.
+
+Virgo singuláris,
+inter omnes mitis,
+nos culpis solútos
+mites fac et castos.
+
+Vitam præsta puram,
+iter para tutum,
+ut vidéntes Iesum
+semper collætémur.
+
+Sit laus Deo Patri,
+summo Christo decus,
+Spirítui Sancto,
+tribus honor unus. Amen.`;
+P.consact=['Act of Consecration (St. Louis de Montfort, short form)',`I, (name), a faithless sinner, renew and ratify today in thy hands, O Immaculate Mother, the vows of my Baptism. I renounce forever Satan, his pomps and works, and I give myself entirely to Jesus Christ, the Incarnate Wisdom, to carry my cross after him all the days of my life, and to be more faithful to him than I have ever been before.
+
+In the presence of all the heavenly court, I choose thee this day for my Mother and Mistress. I deliver and consecrate to thee, as thy slave, my body and soul, my goods both interior and exterior, and even the value of all my good actions, past, present, and future, leaving to thee the entire and full right of disposing of me and all that belongs to me, without exception, according to thy good pleasure, for the greater glory of God, in time and in eternity. Amen.`];
+G['Marian'].push('avemaris');
+
+// ===== Faroese interface (draft translation, to be checked) =====
+var FOUI={
+'Rosary':'Rósukransur','Prayers':'Bønir','Hours':'Tíðir','Devotions':'Andakt','Me':'Eg',
+'Holy Rosary':'Rósukransur','Liturgy of the Hours':'Tíðabønir','My Prayer Life':'Mítt bønalív',
+'Traditional Catholic prayers. Tap to open.':'Siðbundnar katólskar bønir. Trýst fyri at lata upp.',
+'Longer practices and guides.':'Longri bønir og vegleiðingar.',
+'Saved privately on this device.':'Goymt bert á hesum tóli.',
+'Guided prayer. Tap Next after each step.':'Vegleidd bøn. Trýst á Næsta eftir hvørt stig.',
+'Back':'Aftur','Next':'Næsta','Previous':'Undan','Done':'Liðugt','Amen — restart':'Amen — byrja umaftur',
+'Listen':'Lurta','Pray along':'Bið við','Stop praying along':'Steðga',
+'Share':'Deil','Share this mystery':'Deil hendan loyndardómin','Copy text':'Avrita tekst','Close':'Lat aftur','Light card':'Ljóst kort','Dark card':'Myrkt kort',
+'Add to favorites':'Legg afturat yndisbønum','Remove from favorites':'Tak úr yndisbønum','Open prayer':'Lat bønina upp','Open':'Lat upp',
+'Search prayers':'Leita í bønunum','Expand all':'Lat alt upp','Collapse all':'Lat alt aftur',
+'Back to the Rosary':'Aftur til rósukransin',
+'Scripture: On':'Bíbliuorð: tendrað','Scripture: Off':'Bíbliuorð: sløkt','Beads: On':'Perlur: tendraðar','Beads: Off':'Perlur: sløktar',
+"Today's readings ›":'Lestrar dagsins ›',
+'Favorites':'Yndisbønir','Daily & Basic':'Dagligar bønir','Creeds':'Trúarjáttanir','For Every Need':'Í øllum tørvi','Short Daily Prayers':'Stuttar dagligar bønir',
+'Marian':'Mariubønir','Saints & Angels':'Halgimenn og einglar','Prayers to the Saints (short)':'Bønir til halgimenn (stuttar)','Litanies':'Litaniir',
+'Mass & Sacraments':'Messan og sakramentini','Canticles':'Lovsongir','For the Departed':'Fyri teimum deyðu','St. Bridget: Fifteen Prayers':'Heilaga Birgitta: Fimtan bønir',
+'Verse of the Day':'Dagsins bíbliuorð','Saint of the Day':'Dagsins halgimaður','Journeys':'Andaligar ferðir','Curious? 7 Days':'Forvitin? 7 dagar',
+'Start Here':'Byrja her','Guided Prayers':'Vegleiddar bønir','Patron Saint Finder':'Finn ein verndarhalgimann','Practices':'Siðvenjur','The Mass':'Messan',
+'Catechism Q&A':'Katekismus','Confession':'Skriftamál','Learn the Faith':'Lær trúnna','Coming Up':'Komandi hátíðir','More':'Meira',
+'Prayer Streak':'Bønadagar á rað','Fifteen Prayers of St. Bridget':'Fimtan bønir hjá heilagu Birgittu','Novena':'Novena','Prayer Intentions':'Bønaævni',
+'Prayer Journal':'Bønadagbók','My Daily Rule':'Mín dagliga bønaskipan','Backup and Restore':'Trygdaravrit','Voice for Read Aloud':'Rødd til upplestur','Text Size':'Tekststødd',
+'I prayed today':'Eg bað í dag','Save entry':'Goym','Delete':'Strika','Add':'Legg afturat',
+"Today's step":'Stig dagsins','Read':'Les','Try this':'Royn hetta','Think about':'Hugsa um','Invite a friend':'Bjóða einum vini','Go to today':'Far til dagin í dag',
+'‹ All journeys':'‹ Allar ferðir','Options':'Valmøguleikar','Settings':'Stillingar','Language':'Mál','Light':'Ljóst','Dark':'Myrkt','Joyful':'Gleðiríku','Luminous':'Ljósafullu','Sorrowful':'Sorgarfullu','Glorious':'Dýrdarríku','Advent':'Advent','Lent':'Fastan','33-Day Consecration':'33 daga vígsla'};
+var FOPRE={'Today: ':'Í dag: ','Day ':'Dagur '};
+function navTr(){document.querySelectorAll('nav span').forEach(function(s){if(!s.dataset.en)s.dataset.en=s.textContent;s.textContent=lang=='fo'&&FOUI[s.dataset.en]?FOUI[s.dataset.en]:s.dataset.en})}
+function trUI(){if(lang!='fo')return;
+ var w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,null),n,list=[];while((n=w.nextNode()))list.push(n);
+ list.forEach(function(t){var pe=t.parentNode;if(!pe||pe.closest('nav,script,style,.card p:not(.tr):not(.sub)'))return;var v=t.nodeValue,k=v.trim();if(!k)return;
+  if(FOUI[k]){t.nodeValue=v.replace(k,FOUI[k]);return}
+  for(var p in FOPRE)if(k.indexOf(p)==0&&/^(Today: |Day \d)/.test(k)&&pe.matches('.tag,.sub,.tl,button')){t.nodeValue=v.replace(p,FOPRE[p]).replace(/ of (\d+)/,' av $1');return}});
+ document.querySelectorAll('[placeholder]').forEach(function(e){var k=e.getAttribute('placeholder');if(FOUI[k])e.setAttribute('placeholder',FOUI[k])})}
+DV.push(['Faroese menu words to check',`The menus are a draft Faroese translation made by Claude. Please have a fluent speaker check them and send corrections.\n\n`+Object.keys(FOUI).map(function(k){return k+'  →  '+FOUI[k]}).join('\n')]);
+
+
+// ===== Settings, About, Welcome =====
+function applyTheme(){var t=ls('pc-theme','auto');if(t=='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t)}
+applyTheme();
+function segUI(c,opts,cur,fn){var d=el('div','seg');opts.forEach(function(o){var b=el('button',o[0]==cur?'on':'',o[1]);b.onclick=function(){fn(o[0])};d.appendChild(b)});c.appendChild(d)}
+function secT(c,t){c.appendChild(el('div','setsec',t))}
+function settingsUI(c,btn){
+ secT(c,'Language');segUI(c,[['both','Latin + English'],['la','Latin'],['en','English'],['fo','Føroyskt']],lang,function(v){lang=v;try{localStorage.setItem('pc-lang',v)}catch(e){}me()});
+ secT(c,'Appearance');segUI(c,[['auto','Automatic'],['light','Light'],['dark','Dark']],ls('pc-theme','auto'),function(v){sv('pc-theme',v);applyTheme();me()});
+ secT(c,'Text size');var r=el('div','setrow');var lb=el('span',0,fs+'%');lb.style.cssText='min-width:56px;text-align:center;font-weight:600';
+ [['A−',-10],['A+',10]].forEach(function(o,k){var b=el('button','b g sm',o[0]);b.style.flex='1';b.onclick=function(){fs=Math.max(80,Math.min(160,fs+o[1]));sv('pc-fs',fs);document.body.style.fontSize=fs+'%';lb.textContent=fs+'%'};r.appendChild(b);if(!k)r.appendChild(lb)});c.appendChild(r);
+ secT(c,'Rosary');var r2=el('div','setrow');
+ [['Beads',function(){return BEADS},function(){BEADS=!BEADS;sv('pc-beads',BEADS)}],['Scripture',function(){return SRON},function(){SRON=!SRON;sv('pc-sr',SRON)}]].forEach(function(o){var b=el('button','b g sm',o[0]+': '+(o[1]()?'On':'Off'));b.style.flex='1';b.onclick=function(){o[2]();me()};r2.appendChild(b)});c.appendChild(r2);
+ secT(c,'Read-aloud voice');voiceUI(c,btn);
+ secT(c,'Welcome');var w=el('button','fav','Show the welcome screen');w.style.marginTop='4px';w.onclick=function(){welcome(true)};c.appendChild(w)}
+function aboutUI(c){
+ function para(t,cl){c.appendChild(el('p',cl||0,t))}
+ para('Sursum takes its name from Sursum corda, "Lift up your hearts," the words that open the great prayer of every Mass.');
+ para('It is a free Catholic prayer app: the Rosary, traditional prayers in English, Latin and Faroese, the Liturgy of the Hours, devotions, and gentle guides for anyone curious about faith.');
+ secT(c,'Privacy');para('There are no accounts, ads, or tracking. Your favorites, intentions, journal and progress are saved only on this device and are never sent anywhere. The app loads its fonts from Google Fonts, and links such as Today\'s readings open other websites.');
+ secT(c,'Where the texts come from');para('Traditional prayers are given in common English wording, with Latin in its traditional forms. Scripture quotations are from the King James Version and the Douay-Rheims Bible, both in the public domain. The Faroese prayers were supplied by the app\'s creator from Faroese prayer texts.');
+ para('Many texts were written or translated with the help of Claude, an AI assistant: the saint lives, the journey reflections, the guides, many short prayers, and the Faroese menus. They have not yet been checked by a priest. For anything official, use an approved prayer book or ask a priest.','tr');
+ secT(c,'Please note');para('This is a personal project, not an official publication of the Catholic Church.');
+ var v=el('p','tr','Version 3 · October 2026');v.style.marginTop='14px';c.appendChild(v)}
+function welcome(force){
+ if(!force&&ls('pc-welcomed',false))return;
+ var ov=el('div','welcome'),inn=el('div','inner');ov.appendChild(inn);
+ function close(){sv('pc-welcomed',true);if(ov.parentNode)ov.parentNode.removeChild(ov)}
+ inn.appendChild(el('div','mark','✠︎'));var h=el('h1',0,'Sursum');h.style.marginTop='6px';inn.appendChild(h);var tg=el('p','lat','Lift up your hearts');tg.style.cssText='margin:8px 0 14px;color:var(--gold)';inn.appendChild(tg);
+ inn.appendChild(el('p',0,'Catholic prayers, the Rosary, and gentle guides for every day.'));
+ inn.appendChild(el('p','tr','Free and private. No account, no ads, and nothing you do here leaves your phone.'));
+ [['b','Curious about faith? Start here',function(){openDevo('Curious? 7 Days')}],['b g','Pray the Rosary',function(){show(0)}],['b g','Just look around',function(){show(1)}]].forEach(function(o){var b=el('button',o[0],o[1]);b.onclick=function(){close();o[2]()};inn.appendChild(b)});
+ var ab=el('button','lk','About this app');ab.onclick=function(){close();var o=ls('pc-me',['Prayer Streak','My Daily Rule']);if(o.indexOf('About Sursum')<0)o.push('About Sursum');sv('pc-me',o);show(4);setTimeout(function(){var g=[].filter.call(document.querySelectorAll('.gh'),function(x){return x.textContent.indexOf('About')>-1})[0];if(g)g.scrollIntoView({block:'start'})},60)};inn.appendChild(ab);
+ document.body.appendChild(ov);trUI()}
+// ===== Wire everything into the app =====
+var _rosary=rosary,_prayers=prayers,_hours=hours,_devo=devo,_me=me,_shareCard=shareCard;
+
+function rosOptions(){
+ var st=app.querySelector('.row.stick');if(!st)return;
+ var rest=[],n=st.nextElementSibling;while(n){rest.push(n);n=n.nextElementSibling}
+ var keep=rest.filter(function(e){return e.tagName=='BUTTON'&&e.textContent=='Back to the Rosary'}),move=rest.filter(function(e){return keep.indexOf(e)<0});
+ if(!move.length)return;
+ var d=el('details','opts');if(ls('pc-opts',false))d.open=true;
+ var sm=el('summary');sm.appendChild(el('span',0,'Options'));if(!CHM){sm.appendChild(document.createTextNode(' \u00b7 '));sm.appendChild(el('span',0,set))}d.appendChild(sm);
+ move.forEach(function(e){d.appendChild(e)});d.addEventListener('toggle',function(){sv('pc-opts',d.open)});
+ st.parentNode.insertBefore(d,st.nextSibling);
+ if(AUTO){var sb=el('button','b g','Stop praying along');sb.style.cssText='width:100%;margin-top:10px';sb.onclick=function(){AUTO=false;stopSay();SI=null;rosary()};st.parentNode.insertBefore(sb,d)}
+ if(!CHM){var sub=app.querySelector('.sub');if(sub)sub.insertBefore(el('span','seadot'),sub.firstChild)}}
+function todayCard(){
+ var sub=app.querySelector('.sub');if(!sub)return;var n=new Date(),c=el('div','card todaycard');
+ var tg=el('div','tag',n.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'}));tg.style.textAlign='left';c.appendChild(tg);
+ function item(l,t,fn){var b=el('button','trow');b.appendChild(el('span','tlbl',l));b.appendChild(el('span','ttxt',t));b.appendChild(el('i'));b.onclick=fn;c.appendChild(b)}
+ var f=feast();item('Saint of the Day',f?f.replace(/ \(a Sunday in some countries\)/g,''):'No feast today. Meet a saint',function(){openDevo('Saint of the Day')});
+ var doy=Math.floor((n-new Date(n.getFullYear(),0,0))/864e5),v=VOD[doy%VOD.length],vt=v[1].length>80?v[1].slice(0,v[1].lastIndexOf(' ',78))+'\u2026':v[1];
+ item('Verse of the Day','\u201c'+vt+'\u201d  '+v[0],function(){openDevo('Verse of the Day')});
+ ['advent','lent','cons'].forEach(function(k){var t=jToday(k);if(t>=0&&!(k=='cons'&&consDay()>33))item(jName(k),'Day '+(t+1)+': '+jEntry(k,t).t,function(){jRender(k,t)})});
+ var cd=ls('pc-cdone',[]);if(cd.length&&cd.length<7)item('Curious? 7 Days','Day '+(Math.min(6,ls('pc-cday',0))+1)+': '+CUR[Math.min(6,ls('pc-cday',0))][0],function(){openDevo('Curious? 7 Days')});
+ sub.parentNode.insertBefore(c,sub.nextSibling)}
+rosary=function(){_rosary();rosExtras();rosOptions();trUI();navTr()};
+prayers=function(){_prayers();trUI();navTr()};
+hours=function(){_hours();trUI();navTr()};
+devo=function(){_devo();todayCard();trUI();navTr()};
+me=function(){_me();trUI();navTr()};
+shareCard=function(k){_shareCard(k);trUI()};
+(function(){
+ if(/curious/.test(location.hash)){sv('pc-welcomed',true);openDevo('Curious? 7 Days')}
+ else{[rosary,prayers,hours,devo,me][tab]();welcome()}
+ window.addEventListener('hashchange',function(){if(/curious/.test(location.hash)){var w=document.querySelector('.welcome');if(w){sv('pc-welcomed',true);w.remove()}openDevo('Curious? 7 Days')}});
+})();
+
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
 </body></html>

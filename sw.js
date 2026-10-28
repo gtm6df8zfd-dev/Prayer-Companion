@@ -1,6 +1,6 @@
-// Prayer Companion service worker.
+// Sursum service worker.
 // IMPORTANT: when you change any file, change the number below (v1 -> v2) so phones pick up the update.
-const CACHE = 'prayer-companion-v2';
+const CACHE = 'prayer-companion-v4';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
