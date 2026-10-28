@@ -338,13 +338,13 @@ function devo(){
  var cb=el('div','row');cb.style.flexDirection='column';
  [['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
  var OPD=ls('pc-dv',['Guided Prayers']);
- var DG=[['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church','Responses at Mass']]],used=[];
+ var DG=[['Verse of the Day',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
  DG.forEach(function(g){if(g[1])used=used.concat(g[1])});
  DG.push(['More',DV.filter(function(r){return used.indexOf(r[0])<0}).map(function(r){return r[0]})]);
  DG.forEach(function(g){
   var op=OPD.indexOf(g[0])>-1,gh=el('button','gh'+(op?' open':''));gh.appendChild(el('span',0,g[0]));gh.appendChild(el('i'));
   gh.onclick=function(){var x=OPD.indexOf(g[0]);if(x>-1)OPD.splice(x,1);else OPD.push(g[0]);sv('pc-dv',OPD);devo()};app.appendChild(gh);if(!op)return;
-  if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();
+  if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();else if(g[0]=='Coming Up')comingUp();else if(g[0]=='Verse of the Day')verseCard();
   else DV.forEach(function(r){if(g[1].indexOf(r[0])>-1){var d=el('details','card');d.appendChild(el('summary',0,r[0]));d.appendChild(el('p',0,r[1]));app.appendChild(d)}})});
 }
 P.augustine=['St. Augustine: Late Have I Loved You',`Late have I loved you, O Beauty so ancient and so new; late have I loved you! You were within me, but I was outside, and there I searched for you. You called, you cried, you broke through my deafness. You were with me, but I was not with you. Now I breathe you in and I pant for you; I have tasted you, and I hunger and thirst for more. You touched me, and I burned for your peace. You have made us for yourself, O Lord, and our hearts are restless until they rest in you.`];
@@ -508,6 +508,7 @@ function me(){
  it.forEach(function(s,i){var r=el('div','item');r.appendChild(el('span',0,s));var x=el('button','fav','Remove');x.style.marginTop='0';x.onclick=function(){it.splice(i,1);sv('pc-int',it);me()};r.appendChild(x);c.appendChild(r)});
  var inp=el('input','inp');inp.placeholder='Add a person or intention';c.appendChild(inp);
  btn(c,'Add',function(){if(inp.value.trim()){it.push(inp.value.trim());sv('pc-int',it);me()}});
+ journalUI(card('Prayer Journal'),btn);
  ruleUI(card('My Daily Rule'),btn);
  backupUI(card('Backup and Restore'),btn);
  voiceUI(card('Voice for Read Aloud'),btn);
@@ -1789,6 +1790,210 @@ G['Paul, Taxiarchs & Hierarchs']=['e_paul','e_tax','e_mich','e_gab','e_hier','e_
  FS.push('St. Paul the Apostle|missionaries, evangelists, writers, tentmakers|e_paul','St. Basil the Great|the poor, hospitals, education, monks|e_basil','St. Gregory the Theologian|theologians, preachers, orators|e_greg','St. John Chrysostom|preachers, public speakers, Scripture readers|e_chrys')})();
 (function(){var o=['Daily & Basic','Creeds','For Every Need','Short Daily Prayers','Marian','Saints & Angels','Paul, Taxiarchs & Hierarchs','Prayers to the Saints (short)','Litanies','Mass & Sacraments','Canticles','For the Departed','St. Bridget: Fifteen Prayers'],n={};o.forEach(function(k){if(G[k])n[k]=G[k]});Object.keys(G).forEach(function(k){if(!n[k])n[k]=G[k]});G=n})();
 G['Saints & Angels']=G['Saints & Angels'].concat(G['Paul, Taxiarchs & Hierarchs']);delete G['Paul, Taxiarchs & Hierarchs'];
+DV.push(
+['Welcome',`You do not need to believe everything yet, or know the right words. Prayer is simply talking and listening to God. You can start with one honest sentence, such as: God, if you are there, help me.
+
+This app is a companion for people at every stage, whether you have prayed all your life or are just curious. Nothing here is a test, and nobody is keeping score.`],
+['How to Pray in Five Minutes',`1. Get quiet for a moment. Put your phone on silent and take three slow breaths.
+2. Make the Sign of the Cross: In the name of the Father, and of the Son, and of the Holy Spirit.
+3. Talk to God honestly, in your own words. Say thank you for something, say sorry for something, and ask for something.
+4. Pray the Our Father slowly (you can find it in the Prayers tab).
+5. Sit in silence for a minute. You do not have to feel anything.
+6. Finish with the Sign of the Cross.
+
+Try this once a day for a week and see what changes.`],
+['What Catholics Believe, in Short',`Catholics believe that:
+
+- There is one God, who is a communion of three Persons: Father, Son, and Holy Spirit.
+- God made everything out of love, and made each person for friendship with him.
+- Sin, in us and in the world, broke that friendship, and God did not leave us alone.
+- Jesus Christ is God made man. He taught, healed, died on the cross, and rose from the dead to forgive sins and open the way to eternal life.
+- Jesus founded the Church, and gave it the Bible, the sacraments, and teachers to carry on his work.
+- God comes to us through the seven sacraments, above all the Eucharist, where Catholics believe Jesus is truly present.
+- We are called to love God and our neighbor, especially the poor and suffering.
+- Death is not the end: Christians hope in the resurrection of the body and life everlasting.
+
+The Apostles' Creed (in the Prayers tab) puts these beliefs in a few lines.`],
+['Your First Rosary',`The Rosary is a prayer made of short, repeated prayers, while you think about the life of Jesus. It is prayed with a string of beads, but you can also just use the Rosary tab in this app.
+
+How it works:
+- It has five “decades.” Each decade is one Our Father, ten Hail Marys, and one Glory Be.
+- While praying each decade, you picture one scene from the life of Jesus and Mary, such as the Nativity or the Crucifixion.
+- The repeating words are like a quiet background, so your mind is free to think about the scene.
+
+To try it: open the Rosary tab and tap Next to move through each prayer. One decade is a good start; it takes about two minutes. You do not need to be Catholic to pray it, and you do not need to feel anything special.`],
+['Questions People Often Ask',`Do I have to be Catholic to pray these prayers?
+No. Anyone can pray them. Prayer is open to everyone.
+
+Is it okay to have doubts?
+Yes. Many saints struggled with doubt. Questions are a normal part of faith, and the Church has centuries of answers worth exploring.
+
+What if I feel nothing when I pray?
+That is common. Prayer is not mainly about feelings; it is about showing up, the way you keep in touch with a friend.
+
+Why do Catholics pray to Mary and the saints?
+Catholics ask them to pray for us, the same way you would ask a friend or family member to pray for you. Worship belongs to God alone.
+
+Who can I talk to?
+A local parish priest or parish office is glad to answer questions, with no pressure. Many parishes also run a gentle introductory course (often called RCIA) for people who are curious.`],
+['Next Steps',`A few simple ways to take the next step:
+
+1. Keep a small daily prayer going, even two minutes.
+2. Read a Gospel slowly, starting with Mark (the shortest) or Luke.
+3. Visit a Catholic church for Mass. Visitors are welcome, and the Mass guide in this app explains what to expect.
+4. Ask a priest or a Catholic friend your questions.
+5. Write down your thoughts in the Prayer Journal (Me tab).
+
+There is no hurry. Take it one step at a time.`],
+['What Happens at Mass',`Mass has two main parts, with an opening before them and a closing after.
+
+Introductory Rites: The priest enters with the servers. Everyone makes the Sign of the Cross and asks for God's mercy.
+
+Liturgy of the Word: Readings from Scripture: usually an Old Testament reading, a psalm, a letter from the New Testament, and the Gospel. The priest or deacon gives a homily, a short talk. Then everyone says the Creed and prays for the needs of the world.
+
+Liturgy of the Eucharist: Gifts of bread and wine are brought forward. The priest prays the Eucharistic Prayer, and Catholics believe the bread and wine become the Body and Blood of Christ. Everyone prays the Our Father and exchanges a sign of peace.
+
+Communion: Catholics who are prepared receive Communion.
+
+Concluding Rites: A blessing and a dismissal: Go forth, the Mass is ended. Mass usually lasts about an hour.`],
+['When to Sit, Stand, and Kneel',`Customs vary a little by country and parish, so simply watch what others do. In general:
+
+Stand: when the priest enters and leaves; for the Gospel; for the Creed and the prayers of the faithful; and for the Our Father.
+
+Sit: for the readings before the Gospel, for the homily, and while the gifts are brought forward.
+
+Kneel: during the Eucharistic Prayer (many places begin after the Holy, Holy, Holy), and in many places after the Lamb of God, until Communion. Anyone who cannot kneel may sit.
+
+Nobody expects you to do any of this perfectly.`],
+['If You Are Visiting',`Everyone is welcome at Mass, whether Catholic or not.
+
+- Arrive a few minutes early and sit wherever you like.
+- Dress neatly. There is no strict dress code, but many people dress modestly.
+- You do not have to say the responses or make any gestures. Stand, sit, and listen as you are comfortable.
+- A collection is taken up during the offertory. Giving is voluntary, and visitors are not expected to give.
+- Silence before and after Mass is normal. People are often praying.
+- Turn your phone off or to silent.`],
+['Communion',`The Eucharist is the center of Catholic worship. Catholics believe that Jesus is truly present in the consecrated bread and wine.
+
+Because of this, the Church asks that Catholics who receive be in a state of grace (they go to Confession first if they are aware of a serious sin) and fast for one hour beforehand from food and drink (water and medicine are fine).
+
+If you are not Catholic, or are not able to receive, you are still welcome to join the Communion line. Many parishes invite you to cross your arms over your chest, and the priest will usually give a short blessing instead. You may also stay in your seat and pray. No one will judge you either way.`]);
+var CATQ=`Who made you?|God made me.
+Why did God make you?|God made me to know him, to love him, and to serve him in this world, and to be happy with him forever in the next.
+To whose image and likeness did God make you?|God made me to his image and likeness. This likeness is chiefly in my soul.
+Why is your soul like God?|My soul is like God because it is a spirit that will never die, and because it has understanding and free will.
+What must you do to save your soul?|I must worship God by faith, hope, and charity; that is, I must believe in him, hope in him, and love him with my whole heart.
+Is there only one God?|Yes. There is only one God.
+How many Persons are there in God?|In God there are three Divine Persons: the Father, the Son, and the Holy Spirit. This is called the Blessed Trinity.
+Who is Jesus Christ?|Jesus Christ is God the Son, who became man for us. He is true God and true man.
+Why did God the Son become man?|To redeem us from sin and to open heaven to us.
+What is the Church?|The Church is the community of all the baptized who profess the same faith, share the same sacraments, and are guided by their lawful pastors under the Pope.
+What are the four marks of the Church?|The Church is one, holy, catholic, and apostolic.
+What is a sacrament?|A sacrament is an outward sign instituted by Christ to give grace.
+How many sacraments are there?|Seven: Baptism, Confirmation, the Holy Eucharist, Penance, the Anointing of the Sick, Holy Orders, and Matrimony.
+What is Baptism?|Baptism is the sacrament that cleanses us from original sin, makes us Christians, children of God, and members of the Church.
+What is the Holy Eucharist?|The Holy Eucharist is the sacrament that contains the Body and Blood, Soul and Divinity of Jesus Christ under the appearances of bread and wine.
+What is prayer?|Prayer is the raising of our minds and hearts to God.
+What is sin?|Sin is any willful thought, word, deed, or omission contrary to the law of God.
+How many kinds of sin are there?|Two: original sin and actual sin.
+What is mortal sin?|Mortal sin is a grave offense against God, done knowingly and freely, that breaks our friendship with God and deprives us of his grace.
+What is venial sin?|Venial sin is a lesser offense against God that weakens, but does not break, our friendship with him.
+What are the Ten Commandments?|1. I am the Lord your God: you shall not have strange gods before me.~2. You shall not take the name of the Lord your God in vain.~3. Remember to keep holy the Lord's Day.~4. Honor your father and your mother.~5. You shall not kill.~6. You shall not commit adultery.~7. You shall not steal.~8. You shall not bear false witness against your neighbor.~9. You shall not covet your neighbor's wife.~10. You shall not covet your neighbor's goods.
+What are the theological virtues?|Faith, hope, and charity (love).`.split('\n').map(function(l){return l.split('|')});
+var CATT=['About These Questions'].concat(CATQ.map(function(q){return q[0]}));
+DV.push(['About These Questions',`These questions follow the Baltimore Catechism, a classic American Catholic catechism that is now in the public domain. The wording is lightly adapted. For the Church's full, current teaching, see the Catechism of the Catholic Church.`]);
+CATQ.forEach(function(q){DV.push([q[0],q[1].replace(/~/g,'\n')])});
+var VOD=`John 3:16|For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.
+Psalm 23:1|The LORD is my shepherd; I shall not want.
+Psalm 46:1|God is our refuge and strength, a very present help in trouble.
+Philippians 4:13|I can do all things through Christ which strengtheneth me.
+Romans 8:28|And we know that all things work together for good to them that love God, to them who are the called according to his purpose.
+Isaiah 41:10|Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.
+Matthew 11:28|Come unto me, all ye that labour and are heavy laden, and I will give you rest.
+Proverbs 3:5|Trust in the LORD with all thine heart; and lean not unto thine own understanding.
+Joshua 1:9|Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest.
+Psalm 27:1|The LORD is my light and my salvation; whom shall I fear? the LORD is the strength of my life; of whom shall I be afraid?
+1 Corinthians 13:13|And now abideth faith, hope, charity, these three; but the greatest of these is charity.
+John 14:27|Peace I leave with you, my peace I give unto you: not as the world giveth, give I unto you. Let not your heart be troubled, neither let it be afraid.
+Matthew 6:33|But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.
+Psalm 121:1-2|I will lift up mine eyes unto the hills, from whence cometh my help. My help cometh from the LORD, which made heaven and earth.
+Jeremiah 29:11|For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.
+Matthew 5:9|Blessed are the peacemakers: for they shall be called the children of God.
+John 15:12|This is my commandment, That ye love one another, as I have loved you.
+Psalm 34:8|O taste and see that the LORD is good: blessed is the man that trusteth in him.
+Romans 12:12|Rejoicing in hope; patient in tribulation; continuing instant in prayer.
+Luke 1:37|For with God nothing shall be impossible.
+Psalm 139:14|I will praise thee; for I am fearfully and wonderfully made: marvellous are thy works; and that my soul knoweth right well.
+Matthew 7:7|Ask, and it shall be given you; seek, and ye shall find; knock, and it shall be opened unto you.
+John 8:12|I am the light of the world: he that followeth me shall not walk in darkness, but shall have the light of life.
+2 Corinthians 12:9|My grace is sufficient for thee: for my strength is made perfect in weakness.
+Psalm 118:24|This is the day which the LORD hath made; we will rejoice and be glad in it.
+Hebrews 11:1|Now faith is the substance of things hoped for, the evidence of things not seen.
+1 John 4:19|We love him, because he first loved us.
+Isaiah 40:31|But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint.
+Philippians 4:4|Rejoice in the Lord alway: and again I say, Rejoice.
+Psalm 51:10|Create in me a clean heart, O God; and renew a right spirit within me.
+Matthew 28:20|And, lo, I am with you alway, even unto the end of the world.
+John 10:11|I am the good shepherd: the good shepherd giveth his life for the sheep.
+Micah 6:8|What doth the LORD require of thee, but to do justly, and to love mercy, and to walk humbly with thy God?
+Psalm 103:8|The LORD is merciful and gracious, slow to anger, and plenteous in mercy.
+1 Peter 5:7|Casting all your care upon him; for he careth for you.
+Ephesians 2:8|For by grace are ye saved through faith; and that not of yourselves: it is the gift of God.
+James 1:5|If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.
+Colossians 3:23|And whatsoever ye do, do it heartily, as to the Lord, and not unto men.
+Revelation 21:4|And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain.
+Isaiah 43:1|Fear not: for I have redeemed thee, I have called thee by thy name; thou art mine.
+John 6:35|I am the bread of life: he that cometh to me shall never hunger; and he that believeth on me shall never thirst.
+Luke 6:36|Be ye therefore merciful, as your Father also is merciful.
+Psalm 37:4|Delight thyself also in the LORD; and he shall give thee the desires of thine heart.
+Matthew 22:37|Thou shalt love the Lord thy God with all thy heart, and with all thy soul, and with all thy mind.
+Lamentations 3:22-23|It is of the LORD's mercies that we are not consumed, because his compassions fail not. They are new every morning: great is thy faithfulness.
+1 Thessalonians 5:16-18|Rejoice evermore. Pray without ceasing. In every thing give thanks: for this is the will of God in Christ Jesus concerning you.
+Romans 5:8|But God commendeth his love toward us, in that, while we were yet sinners, Christ died for us.
+John 11:25|I am the resurrection, and the life: he that believeth in me, though he were dead, yet shall he live.
+Matthew 19:26|With men this is impossible; but with God all things are possible.`.split('\n').map(function(l){return l.split('|')});
+function verseCard(){
+ var n=new Date(),doy=Math.floor((n-new Date(n.getFullYear(),0,0))/864e5),v=VOD[doy%VOD.length];P.vod=[v[0],v[1]];
+ var c=el('div','card');c.appendChild(el('div','tag','Verse of the day'));
+ c.appendChild(el('p','lat','\u201c'+v[1]+'\u201d'));c.appendChild(el('p','tr',v[0]+' (King James Version)'));
+ c.appendChild(shareBtn('vod'));app.appendChild(c)}
+function startPrompt(){
+ if(ls('pc-hs',false))return;
+ var row=el('div','row'),a=el('button','b g sm','New to the faith? Start here'),h=el('button','b g sm','Hide');
+ a.onclick=function(){sv('pc-hs',true);var o=ls('pc-dv',['Guided Prayers']);if(o.indexOf('Start Here')<0)o.push('Start Here');sv('pc-dv',o);show(3)};
+ h.onclick=function(){sv('pc-hs',true);rosary()};h.style.flex='0 0 30%';
+ row.appendChild(a);row.appendChild(h);app.appendChild(row)}
+function journalUI(c,btn){
+ var jn=ls('pc-jn',[]),flt=ls('pc-jf','all');
+ var ta=el('textarea','inp');ta.rows=3;ta.placeholder='Write a prayer, a thought, or something you are thankful for';c.appendChild(ta);
+ btn(c,'Save entry',function(){var t=ta.value.trim();if(!t)return;jn.unshift({d:today(),t:t,a:false});sv('pc-jn',jn);me()});
+ var row=el('div');row.style.marginTop='12px';
+ [['all','All'],['ans','Answered']].forEach(function(o){var b=el('button','fav',o[1]+(flt==o[0]?' (showing)':''));b.style.marginRight='8px';b.onclick=function(){sv('pc-jf',o[0]);me()};row.appendChild(b)});c.appendChild(row);
+ var shown=jn.filter(function(e){return flt=='all'||e.a});
+ if(!shown.length)c.appendChild(el('p','tr',flt=='all'?'No entries yet.':'No answered prayers yet. Mark an entry as answered when you see God at work.'));
+ shown.forEach(function(e){var i=jn.indexOf(e),r=el('div','item');r.style.flexDirection='column';r.style.alignItems='stretch';
+  var h=el('div','tag',e.d+(e.a?'  \u00b7  answered':''));h.style.textAlign='left';r.appendChild(h);r.appendChild(el('p',0,e.t));
+  var br=el('div'),a=el('button','fav',e.a?'Mark as not answered':'Mark as answered'),d=el('button','fav','Delete');d.style.marginLeft='8px';
+  a.onclick=function(){e.a=!e.a;sv('pc-jn',jn);me()};d.onclick=function(){jn.splice(i,1);sv('pc-jn',jn);me()};
+  br.appendChild(a);br.appendChild(d);r.appendChild(br);c.appendChild(r)});
+}
+function easterOf(y){var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),t=h+l-7*m+114;return new Date(y,Math.floor(t/31)-1,t%31+1)}
+function feastOn(d){
+ var Y=d.getFullYear(),E=easterOf(Y),x=Math.round((d-E)/864e5),o=[];
+ var MV={'-46':'Ash Wednesday','-7':'Palm Sunday','-2':'Good Friday','0':'Easter Sunday','39':'The Ascension (a Sunday in some countries)','49':'Pentecost Sunday','56':'Trinity Sunday','60':'Corpus Christi (a Sunday in some countries)','68':'The Sacred Heart of Jesus'};
+ if(MV[x])o.push(MV[x]);
+ var av=new Date(Y,11,25);av.setDate(25-((av.getDay()||7)+21));if(fmt(d)==fmt(av))o.push('First Sunday of Advent');
+ var ck=new Date(av);ck.setDate(av.getDate()-7);if(fmt(d)==fmt(ck))o.push('Christ the King');
+ var c=CAL[('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)];if(c)o.push(c);
+ return o.join(' / ')}
+function comingUp(){
+ var c=el('div','card'),n=new Date(),cnt=0;
+ c.appendChild(el('p','tr','The next feast days and seasons from the General Roman Calendar. Dates and ranks vary by country.'));
+ for(var i=0;i<60&&cnt<14;i++){var d=new Date(n.getFullYear(),n.getMonth(),n.getDate()+i),f=feastOn(d);if(!f)continue;cnt++;
+  var r=el('div','item'),dt=el('small',0,d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}));dt.style.color='var(--mute)';dt.style.whiteSpace='nowrap';dt.style.marginLeft='10px';
+  r.appendChild(el('span',0,f));r.appendChild(dt);c.appendChild(r)}
+ if(!cnt)c.appendChild(el('p','tr','Nothing listed in the next two months.'));
+ app.appendChild(c)}
 function build(){
  steps=[];
  function add(k,note,bead){steps.push({k:k,note:note,bead:bead})}
