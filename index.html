@@ -391,7 +391,7 @@ function devo(){
  app.textContent='';app.appendChild(el('h1',0,'Devotions'));
  app.appendChild(el('p','sub','Longer practices and guides.'));
  var cb=el('div','row guided');cb.style.flexDirection='column';
- [['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
+ [['rmorning','Morning Prayers'],['rmidday','Midday: The Angelus'],['revening','Evening Prayers'],['rnight','Night Prayers'],['rchild','Bedtime with Children'],['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
  var OPD=ls('pc-dv',['Guided Prayers']);
  var DG=[['Verse of the Day',null],['Saint of the Day',null],['Journeys',null],['Curious? 7 Days',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
  DG.forEach(function(g){if(g[1])used=used.concat(g[1])});
@@ -965,7 +965,7 @@ function ruleUI(c,btn){
   items.forEach(function(x){var r=x[0],i=x[1],row=el('div','item'),on=dn.indexOf(i)>-1;
    var b=el('button','fav',(on?'✓ ':'')+r.n);b.style.marginTop='0';b.style.flex='1';b.style.textAlign='left';
    b.onclick=function(){if(on)dn.splice(dn.indexOf(i),1);else dn.push(i);rd[t]=dn;sv('pc-rd',rd);me()};row.appendChild(b);
-   if(r.k){var ob=el('button','fav','Open');ob.style.marginTop='0';ob.onclick=function(){if(r.k=='rosary')show(0);else if(r.k=='dm')show(3);else if(r.k=='hours')show(2);else{qs=P[r.k][0];show(1)}};row.appendChild(ob)}
+   if(r.k){var ob=el('button','fav',r.k.indexOf('r:')==0?'Pray':'Open');ob.style.marginTop='0';ob.onclick=function(){openRule(r.k)};row.appendChild(ob)}
    var rm=el('button','fav','Remove');rm.style.marginTop='0';rm.onclick=function(){rule.splice(i,1);sv('pc-rule',rule);sv('pc-rd',{});me()};row.appendChild(rm);c.appendChild(row)})});
  var s1=el('select','inp'),s2=el('select','inp');
  RT.forEach(function(x){var o=el('option',0,x);o.value=x;s1.appendChild(o)});
@@ -2327,7 +2327,7 @@ function beadRing(){
 
 // ===== Rosary page extras =====
 function rosExtras(){
- if(CHM)return;
+ if(CHM){app.querySelectorAll('a.note').forEach(function(x){if(x.textContent.indexOf('Mass readings')==0)x.remove()});return}
  var fdP=null,rl=null;
  app.querySelectorAll('.note').forEach(function(n){if(n.tagName=='P'&&n.textContent.indexOf('Today: ')==0)fdP=n;if(n.tagName=='A'&&n.textContent.indexOf('Mass readings')==0)rl=n});
  if(rl){var line=el('div','todayline');
@@ -2741,7 +2741,7 @@ function aboutUI(c){
  secT(c,'Where the texts come from');para('Traditional prayers are given in common English wording, with Latin in its traditional forms. Scripture quotations are from the King James Version and the Douay-Rheims Bible, both in the public domain. The Faroese prayers were supplied by the app\'s creator from Faroese prayer texts.');
  para('Many texts were written or translated with the help of Claude, an AI assistant: the saint lives, the journey reflections, the guides, many short prayers, and the Faroese menus. They have not yet been checked by a priest. For anything official, use an approved prayer book or ask a priest.','tr');
  secT(c,'Please note');para('This is a personal project, not an official publication of the Catholic Church.');
- var v=el('p','tr','Version 3 · October 2026');v.style.marginTop='14px';c.appendChild(v)}
+ var v=el('p','tr','Version 5 · October 2026');v.style.marginTop='14px';c.appendChild(v)}
 function welcome(force){
  if(!force&&ls('pc-welcomed',false))return;
  var ov=el('div','welcome'),inn=el('div','inner');ov.appendChild(inn);
@@ -2752,6 +2752,454 @@ function welcome(force){
  [['b','Curious about faith? Start here',function(){openDevo('Curious? 7 Days')}],['b g','Pray the Rosary',function(){show(0)}],['b g','Just look around',function(){show(1)}]].forEach(function(o){var b=el('button',o[0],o[1]);b.onclick=function(){close();o[2]()};inn.appendChild(b)});
  var ab=el('button','lk','About this app');ab.onclick=function(){close();var o=ls('pc-me',['Prayer Streak','My Daily Rule']);if(o.indexOf('About Sursum')<0)o.push('About Sursum');sv('pc-me',o);show(4);setTimeout(function(){var g=[].filter.call(document.querySelectorAll('.gh'),function(x){return x.textContent.indexOf('About')>-1})[0];if(g)g.scrollIntoView({block:'start'})},60)};inn.appendChild(ab);
  document.body.appendChild(ov);trUI()}
+// ===== New prayers, batch 1 (written for this app) =====
+Object.assign(P,{
+nd_job:['When Looking for Work',`Lord, you know my needs before I ask. Guide me to good work where I can use my gifts and provide for those who depend on me. Give me patience in the waiting, courage when I am turned down, and trust that you have not forgotten me. St. Joseph, worker, pray for me. Amen.`],
+nd_home:['Blessing a New Home',`Lord, bless this home and all who live here. Let it be a place of peace, welcome, and forgiveness. Keep it safe from harm, and may everyone who enters find kindness here. Mary and Joseph, who made a home for Jesus, pray for us. Amen.`],
+nd_wedding:['For a Couple Getting Married',`Lord, you blessed the wedding at Cana. Bless this couple as they give themselves to one another. Grow their love through every season, keep them faithful and patient, and make their home a sign of your love. Amen.`],
+nd_birthday:['On a Birthday',`Thank you, Lord, for the gift of life and for another year. Thank you for every person who has loved me. Forgive what I have done wrong this year, and walk with me in the year ahead. Amen.`],
+nd_surgery:['Before Surgery or Treatment',`Lord Jesus, healer of body and soul, I place myself in your hands. Guide the doctors and nurses, give me calm and courage, and bring me safely through. Whatever happens, let me rest in your love. Amen.`],
+nd_lonely:['When I Feel Alone',`Jesus, you know what it is to be alone. When I feel forgotten, remind me that you are with me. Bring good people into my life, and help me to reach out to others who are lonely too. Amen.`],
+nd_low:['When I Feel Low',`Lord, everything feels heavy right now. I do not have many words, but I bring you my heart as it is. Hold me, give me light for the next small step, and help me to let others help me. Amen.\n\nIf you are struggling, please talk to someone you trust, your doctor, or a priest. You do not have to carry this alone.`],
+nd_addiction:['For Freedom from Addiction',`Lord, you came to set captives free. Give me, or the one I pray for, strength for today, honesty to ask for help, and hope when we fall. Surround us with people who will walk with us. One day at a time, lead us to freedom. Amen.`],
+nd_anger:['In a Moment of Anger',`Lord, my heart is stirred up. Slow my words and calm my thoughts. Show me what is true in my anger and what I need to let go. Teach me to speak with justice and with love. Amen.`],
+nd_doubt:['In Times of Doubt',`Lord, I believe; help my unbelief. When I cannot see you or feel you, keep me honest and keep me searching. Thank you that you do not turn away from questions. Amen.`],
+nd_friend:['For a Friend Who Does Not Believe',`Lord Jesus, you know and love my friend far more than I do. Open their heart to your goodness, in your time and in your way. Help me to be a true friend: patient, honest, and kind, never pushing, always praying. Amen.`],
+nd_share:['Before Talking About My Faith',`Holy Spirit, give me the right words, or the grace to stay quiet and listen. Let me speak with gentleness and respect, and let my life say more than my words. Amen.`],
+nd_sea:['For Those at Sea',`Mary, Star of the Sea, watch over all who work and travel on the water: fishermen, sailors, and all at sea tonight. Calm the storms, guide them through fog and darkness, and bring them safely home. St. Andrew, fisherman, pray for them. Amen.`],
+nd_faroe:['For the Faroe Islands',`Lord God, bless these islands and all who live here. Protect our families, our fishermen, and our young people. Give our leaders wisdom, and give us all hearts that are open to you. St. Olaf, pray for us. Mary, Star of the Sea, pray for us. Amen.`],
+nd_priests:['For Priests',`Lord Jesus, bless our priests. Keep them close to you in prayer, faithful and joyful in their calling, and strong when they are tired. Thank you for the sacraments they bring us. Mary, Mother of priests, pray for them. Amen.`],
+nd_persecuted:['For Persecuted Christians',`Lord, strengthen all who suffer for your name. Give them courage, protect their families, and comfort the grieving. Change the hearts of those who persecute them, and let us never forget them. Amen.`],
+nd_creation:['For Care of Creation',`Creator God, thank you for the sea, the mountains, the birds, and every living thing. Teach us to care for your world with gratitude, and to share its gifts fairly with all people. Amen.`],
+nd_drive:['Before Driving',`Lord, be with me on the road. Keep me alert and patient, and protect me and everyone I meet along the way. St. Christopher, pray for us. Amen.`],
+nd_scripture:['Before Reading the Bible',`Holy Spirit, open my mind and my heart as I read your word. Let me hear what you want to say to me today, and give me the grace to live it. Amen.`],
+fam_family:['For My Family (blessing)',`Lord, thank you for my family, with all our gifts and all our faults. Bless each one by name. Keep us close to you and to one another, help us to forgive quickly, and make our home a place of peace. Holy Family of Nazareth, pray for us. Amen.`],
+fam_spouse:['For My Husband or Wife',`Lord, thank you for the one you have given me. Bless them today in body and soul. Help me to love them faithfully and patiently, to listen well, and to choose them again every day. Amen.`],
+fam_children:['For My Children',`Loving Father, I entrust my children to you. Protect them, guide them, and keep them close to you all their lives. Give me wisdom and patience as a parent, and help them grow in faith, kindness, and courage. Amen.`],
+fam_parents:['For My Parents',`Lord, bless my parents. Thank you for the life they gave me and for all their sacrifices. Forgive our hurts, heal what needs healing, and give them peace and health. Amen.`],
+fam_bless:['Blessing a Child at Bedtime',`(Trace a small cross on the child's forehead.)\n\nMay God bless you and keep you. May Jesus be your friend, Mary your mother, and your guardian angel watch over you while you sleep. In the name of the Father, and of the Son, and of the Holy Spirit. Amen.`],
+fam_grand:['For My Grandchildren',`Lord, bless my grandchildren. Keep them safe, let them know they are loved, and let them come to know you. Help me to be a good example and a quiet, faithful prayer in their lives. Sts. Joachim and Anne, pray for us. Amen.`],
+mn_wake:['On Waking',`Good morning, Lord. Thank you for this new day. I give it to you: my work, my words, my rest, and the people I will meet. Stay with me, and help me to notice you today. Amen.`],
+mn_night:['Before Sleep (for children)',`Dear Jesus, thank you for today. Thank you for my family and friends. I am sorry for anything I did wrong. Please watch over everyone I love tonight, and keep me safe while I sleep. Amen.`],
+mn_jmj:['Jesus, Mary, and Joseph (night prayer)',`Jesus, Mary, and Joseph, I give you my heart and my soul.\nJesus, Mary, and Joseph, assist me in my last agony.\nJesus, Mary, and Joseph, may I breathe forth my soul in peace with you.`],
+s_jude:['St. Jude',`Saint Jude, faithful apostle and friend of Jesus, you are honored as the helper in hopeless cases. Pray for me in this need, and help me to trust God even when everything seems lost. Amen.`],
+s_rita:['St. Rita',`Saint Rita, you knew sorrow in marriage, loss, and long waiting, and you stayed faithful. Pray for me in this impossible situation, and help me to forgive and to hope. Amen.`],
+s_monica:['St. Monica',`Saint Monica, you prayed for years for your son Augustine and never gave up. Pray for those I love who are far from God, and give me your patience and your hope. Amen.`],
+s_dymphna:['St. Dymphna',`Saint Dymphna, patron of all who struggle in mind and spirit, pray for those who suffer from anxiety, depression, or mental illness. Ask God to give them peace, good care, and people who understand. Amen.`],
+s_peregrine:['St. Peregrine',`Saint Peregrine, healed by Christ from a grave illness, pray for all who live with cancer and other serious illness. Give them strength, hope, and good care, and comfort their families. Amen.`],
+s_christopher:['St. Christopher',`Saint Christopher, who by tradition carried the Christ Child across the river, protect all who travel. Keep us safe on the road, at sea, and in the air, and bring us home. Amen.`],
+s_raphael:['St. Raphael the Archangel',`Saint Raphael, you guided Tobias on his journey and brought healing to his father. Guide me on my way, heal what is wounded in me and in those I love, and lead me to the people God wants in my life. Amen.`],
+s_gerard:['St. Gerard Majella',`Saint Gerard, patron of mothers, pray for all expectant mothers and their babies. Protect them through pregnancy and birth, and comfort those who long for a child or have lost one. Amen.`],
+s_cupertino:['St. Joseph of Cupertino',`Saint Joseph of Cupertino, who struggled with studies and trusted God completely, help me in my exams. Give me a calm mind, a good memory, and peace about the results. Amen.`],
+s_olaf:['St. Olaf',`Saint Olaf, king and witness to Christ in the North, pray for Norway and the Faroe Islands, and for all the peoples of the North. Help us to hold fast to the faith and to live it with courage. Amen.`],
+s_bridget:['St. Bridget of Sweden',`Saint Bridget, wife, mother, widow, and patron of Europe, you loved Christ in his Passion. Pray for our families and for Europe, and teach us to keep Jesus' suffering and love always in our hearts. Amen.`],
+s_jp2:['St. John Paul II',`Saint John Paul II, you told the world, Be not afraid. Pray for young people, for families, and for all who suffer. Help me to open the doors of my life to Christ. Amen.`],
+s_kolbe:['St. Maximilian Kolbe',`Saint Maximilian, you gave your life in place of another prisoner at Auschwitz. Pray for prisoners and for all who struggle with addiction, and teach me to love without counting the cost. Amen.`],
+s_clare:['St. Clare of Assisi',`Saint Clare, you gave up riches to follow Christ in poverty and prayer. Help me to let go of what I do not need, and to find my joy in God. Amen.`],
+s_vincent:['St. Vincent de Paul',`Saint Vincent de Paul, servant of the poor, open my eyes to those in need around me, and give me a generous, practical love. Amen.`],
+s_gianna:['St. Gianna Beretta Molla',`Saint Gianna, doctor, wife, and mother, you loved life to the end. Pray for mothers, for doctors and nurses, and for every child waiting to be born. Amen.`],
+s_bernadette:['St. Bernadette',`Saint Bernadette, Mary chose you, a poor and humble girl, at Lourdes. Pray for the sick and for all who feel small or overlooked, and help me to trust as you did. Amen.`],
+s_cecilia:['St. Cecilia',`Saint Cecilia, patron of musicians, who sang to God in your heart, bless all who make music. Let our songs and our lives be praise to God. Amen.`],
+s_joan:['St. Joan of Arc',`Saint Joan, you followed God's call with courage, even when you were mocked and abandoned. Give me courage to do what is right and to stay faithful under pressure. Amen.`],
+s_francisx:['St. Francis Xavier',`Saint Francis Xavier, tireless missionary, you carried the Gospel across the world. Pray for missionaries everywhere, and give me a heart eager to share the good news with love. Amen.`]
+});
+G['Morning & Night']=['mn_wake','mn_night','mn_jmj'];
+G['Family']=['fam_family','fam_spouse','fam_children','fam_parents','fam_grand','fam_bless'];
+G['For Every Need']=G['For Every Need'].concat(['nd_job','nd_home','nd_wedding','nd_birthday','nd_surgery','nd_lonely','nd_low','nd_addiction','nd_anger','nd_doubt','nd_friend','nd_share','nd_sea','nd_faroe','nd_priests','nd_persecuted','nd_creation','nd_drive','nd_scripture']);
+G['Prayers to the Saints (short)']=G['Prayers to the Saints (short)'].concat(['s_jude','s_rita','s_monica','s_dymphna','s_peregrine','s_christopher','s_raphael','s_gerard','s_cupertino','s_olaf','s_bridget','s_jp2','s_kolbe','s_clare','s_vincent','s_gianna','s_bernadette','s_cecilia','s_joan','s_francisx']);
+(function(){
+ var KM={'St. Jude':'s_jude','St. Rita of Cascia':'s_rita','St. Monica':'s_monica','St. Dymphna':'s_dymphna','St. Peregrine':'s_peregrine','St. Christopher':'s_christopher','St. Raphael the Archangel':'s_raphael','St. Gerard Majella':'s_gerard','St. Joseph of Cupertino':'s_cupertino','St. Bridget of Sweden':'s_bridget','St. John Paul II':'s_jp2','St. Maximilian Kolbe':'s_kolbe','St. Vincent de Paul':'s_vincent','St. Gianna Beretta Molla':'s_gianna','St. Bernadette':'s_bernadette','St. Cecilia':'s_cecilia','St. Joan of Arc':'s_joan'};
+ FS=FS.map(function(l){var p=l.split('|');if(!p[2]&&KM[p[0]])p[2]=KM[p[0]];return p.join('|')});
+ FS.push('St. Olaf of Norway|Norway, Ólavsøka, the North|s_olaf','St. Clare of Assisi|television, eye disease, simplicity|s_clare','St. Francis Xavier|missions, missionaries|s_francisx');
+ var SK={'05-22':'s_rita','08-27':'s_monica','07-29':'s_olaf','10-28':'s_jude','07-23':'s_bridget','08-14':'s_kolbe','08-11':'s_clare','09-27':'s_vincent','11-22':'s_cecilia','10-22':'s_jp2','12-03':'s_francisx'};
+ Object.keys(SK).forEach(function(k){if(SB[k]&&!SB[k][2])SB[k][2]=SK[k]});
+ if(SB['07-23'])SB['07-23'][2]='s_bridget';
+})();
+function reorderG(){var o=['Daily & Basic','Morning & Night','Creeds','For Every Need','Family','Short Daily Prayers','Jesus & the Eucharist','Holy Spirit & Praise','Marian','Saints & Angels','Prayers to the Saints (short)','Litanies','Mass & Sacraments','Canticles','For the Departed','St. Bridget: Fifteen Prayers'],n={};o.forEach(function(k){if(G[k])n[k]=G[k]});Object.keys(G).forEach(function(k){if(!n[k])n[k]=G[k]});G=n}
+reorderG();
+Object.assign(FOUI,{'Morning & Night':'Morgun og kvøld','Family':'Familjan','Jesus & the Eucharist':'Jesus og altarsakramentið','Holy Spirit & Praise':'Heilagi Andin og lovsongur'});
+(function(){var e=DV.filter(function(r){return r[0]=='Faroese menu words to check'})[0];if(e)e[1]=`The menus are a draft Faroese translation made by Claude. Please have a fluent speaker check them and send corrections.\n\n`+Object.keys(FOUI).map(function(k){return k+'  →  '+FOUI[k]}).join('\n')})();
+
+// ===== Batch 2a: Jesus & the Eucharist =====
+Object.assign(P,{
+eu_spcomm:['Act of Spiritual Communion (St. Alphonsus Liguori)',`My Jesus, I believe that you are present in the Most Holy Sacrament. I love you above all things, and I desire to receive you into my soul. Since I cannot at this moment receive you sacramentally, come at least spiritually into my heart. I embrace you as if you were already there, and unite myself wholly to you. Never permit me to be separated from you. Amen.`],
+eu_adoramus:['We Adore You (St. Francis of Assisi)',`We adore you, Lord Jesus Christ, here and in all your churches throughout the world, and we bless you, because by your holy cross you have redeemed the world.`],
+eu_pardon:['The Pardon Prayer (Fatima)',`My God, I believe, I adore, I hope, and I love you. I ask pardon for those who do not believe, do not adore, do not hope, and do not love you.`],
+eu_angel:["The Angel's Prayer (Fatima)",`Most Holy Trinity, Father, Son, and Holy Spirit, I adore you profoundly. I offer you the most precious Body, Blood, Soul, and Divinity of Jesus Christ, present in all the tabernacles of the world, in reparation for the outrages, sacrileges, and indifference by which he is offended. By the infinite merits of his Most Sacred Heart and the Immaculate Heart of Mary, I beg of you the conversion of poor sinners.`],
+eu_tantum:['Tantum Ergo',`Down in adoration falling,
+Lo! the sacred Host we hail;
+Lo! o'er ancient forms departing,
+Newer rites of grace prevail;
+Faith for all defects supplying,
+Where the feeble senses fail.
+
+To the everlasting Father,
+And the Son who reigns on high,
+With the Holy Ghost proceeding
+Forth from each eternally,
+Be salvation, honour, blessing,
+Might and endless majesty. Amen.`],
+eu_salutaris:['O Salutaris Hostia',`O saving Victim, opening wide
+The gate of heaven to all below,
+Our foes press on from every side;
+Your aid supply, your strength bestow.
+
+To your great name be endless praise,
+Immortal Godhead, One in Three;
+O grant us endless length of days
+In our true native land with thee. Amen.`],
+dm_blood:['O Blood and Water (St. Faustina)',`O Blood and Water, which gushed forth from the Heart of Jesus as a fount of mercy for us, I trust in you.`],
+sh_aspir:['Short Aspirations',`Short prayers to say at any moment of the day:
+
+Jesus, I trust in you.
+Sacred Heart of Jesus, I place all my trust in you.
+My Lord and my God.
+Lord, I believe; help my unbelief.
+Jesus, meek and humble of heart, make my heart like yours.
+My Jesus, mercy.
+Come, Holy Spirit.
+Mary, help me.
+O Mary, conceived without sin, pray for us who have recourse to you.
+Jesus, Mary, and Joseph, I love you; save souls.
+Blessed be God.
+Come, Lord Jesus.`]
+});
+Object.assign(L,{
+eu_tantum:`Tantum ergo Sacraméntum
+venerémur cérnui:
+et antíquum documéntum
+novo cedat rítui:
+præstet fides suppleméntum
+sénsuum deféctui.
+
+Genitóri, Genitóque
+laus et iubilátio,
+salus, honor, virtus quoque
+sit et benedíctio:
+procedénti ab utróque
+compar sit laudátio. Amen.`,
+eu_salutaris:`O salutáris Hóstia,
+quæ cæli pandis óstium:
+bella premunt hostília,
+da robur, fer auxílium.
+
+Uni trinóque Dómino
+sit sempitérna glória,
+qui vitam sine término
+nobis donet in pátria. Amen.`
+});
+G['Jesus & the Eucharist']=['eu_spcomm','eu_adoramus','eu_pardon','eu_angel','eu_tantum','eu_salutaris','dm_blood','sh_aspir'];
+reorderG();
+
+// ===== Batch 2b: Parts of the Mass (traditional wording) =====
+Object.assign(P,{
+ms_confiteor:['Confiteor (traditional form)',`I confess to almighty God, to blessed Mary ever Virgin, to blessed Michael the Archangel, to blessed John the Baptist, to the holy Apostles Peter and Paul, and to all the Saints, that I have sinned exceedingly in thought, word, and deed: through my fault, through my fault, through my most grievous fault. Therefore I beseech blessed Mary ever Virgin, blessed Michael the Archangel, blessed John the Baptist, the holy Apostles Peter and Paul, and all the Saints, to pray to the Lord our God for me.`],
+ms_kyrie:['Kyrie',`Lord, have mercy. (three times)
+Christ, have mercy. (three times)
+Lord, have mercy. (three times)`],
+ms_gloria:['Gloria (traditional wording)',`Glory be to God on high, and on earth peace to men of good will. We praise thee. We bless thee. We adore thee. We glorify thee. We give thee thanks for thy great glory. O Lord God, heavenly King, God the Father almighty. O Lord Jesus Christ, the only-begotten Son. O Lord God, Lamb of God, Son of the Father, who takest away the sins of the world, have mercy on us. Who takest away the sins of the world, receive our prayer. Who sittest at the right hand of the Father, have mercy on us. For thou alone art holy. Thou alone art the Lord. Thou alone, O Jesus Christ, art most high, together with the Holy Ghost, in the glory of God the Father. Amen.`],
+ms_sanctus:['Sanctus',`Holy, holy, holy, Lord God of hosts. Heaven and earth are full of thy glory. Hosanna in the highest. Blessed is he who comes in the name of the Lord. Hosanna in the highest.`],
+ms_agnus:['Agnus Dei',`Lamb of God, who takest away the sins of the world, have mercy on us.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+Lamb of God, who takest away the sins of the world, grant us peace.`]
+});
+Object.assign(L,{
+ms_confiteor:`Confíteor Deo omnipoténti, beátæ Maríæ semper Vírgini, beáto Michaéli Archángelo, beáto Ioánni Baptístæ, sanctis Apóstolis Petro et Paulo, ómnibus Sanctis, quia peccávi nimis cogitatióne, verbo et ópere: mea culpa, mea culpa, mea máxima culpa. Ideo precor beátam Maríam semper Vírginem, beátum Michaélem Archángelum, beátum Ioánnem Baptístam, sanctos Apóstolos Petrum et Paulum, omnes Sanctos, oráre pro me ad Dóminum Deum nostrum.`,
+ms_kyrie:`Kýrie, eléison. Kýrie, eléison. Kýrie, eléison.
+Christe, eléison. Christe, eléison. Christe, eléison.
+Kýrie, eléison. Kýrie, eléison. Kýrie, eléison.`,
+ms_gloria:`Glória in excélsis Deo et in terra pax homínibus bonæ voluntátis. Laudámus te, benedícimus te, adorámus te, glorificámus te, grátias ágimus tibi propter magnam glóriam tuam, Dómine Deus, Rex cæléstis, Deus Pater omnípotens. Dómine Fili unigénite, Iesu Christe, Dómine Deus, Agnus Dei, Fílius Patris, qui tollis peccáta mundi, miserére nobis; qui tollis peccáta mundi, súscipe deprecatiónem nostram. Qui sedes ad déxteram Patris, miserére nobis. Quóniam tu solus Sanctus, tu solus Dóminus, tu solus Altíssimus, Iesu Christe, cum Sancto Spíritu: in glória Dei Patris. Amen.`,
+ms_sanctus:`Sanctus, Sanctus, Sanctus Dóminus Deus Sábaoth. Pleni sunt cæli et terra glória tua. Hosánna in excélsis. Benedíctus qui venit in nómine Dómini. Hosánna in excélsis.`,
+ms_agnus:`Agnus Dei, qui tollis peccáta mundi: miserére nobis.
+Agnus Dei, qui tollis peccáta mundi: miserére nobis.
+Agnus Dei, qui tollis peccáta mundi: dona nobis pacem.`
+});
+G['Mass & Sacraments']=['ms_confiteor','ms_kyrie','ms_gloria','ms_sanctus','ms_agnus'].concat(G['Mass & Sacraments']);
+
+// ===== Batch 2c: Holy Spirit, praise, Marian, saints =====
+Object.assign(P,{
+hs_breathe:['Breathe in Me, O Holy Spirit (attributed to St. Augustine)',`Breathe in me, O Holy Spirit, that my thoughts may all be holy.
+Act in me, O Holy Spirit, that my work, too, may be holy.
+Draw my heart, O Holy Spirit, that I love but what is holy.
+Strengthen me, O Holy Spirit, to defend all that is holy.
+Guard me, then, O Holy Spirit, that I always may be holy. Amen.`],
+pr_richard:['Day by Day (St. Richard of Chichester)',`Thanks be to you, my Lord Jesus Christ, for all the benefits you have given me, for all the pains and insults you have borne for me. O most merciful Redeemer, Friend and Brother, may I know you more clearly, love you more dearly, and follow you more nearly, day by day. Amen.`],
+mar_odomina:['Consecration to Mary (O Domina mea)',`My Queen and my Mother, I give myself entirely to you; and to show my devotion to you, I consecrate to you this day my eyes, my ears, my mouth, my heart, my whole being without reserve. Wherefore, good Mother, as I am your own, keep me, guard me, as your property and possession. Amen.`],
+mar_3hm:['Three Hail Marys (devotion)',`A simple devotion for purity and for the grace of a holy life. Each morning and evening, pray:
+
+Mary, by your pure and Immaculate Conception, make my body pure and my soul holy.
+
+Then pray three Hail Marys, asking Mary to obtain for you a pure heart and faithfulness to God.`],
+aq_grant:['Grant Me, O Lord (St. Thomas Aquinas)',`Grant me, O Lord my God, a mind to know you, a heart to seek you, wisdom to find you, conduct pleasing to you, faithful perseverance in waiting for you, and a hope of finally embracing you. Amen.`],
+ig_generous:['Prayer for Generosity (attributed to St. Ignatius)',`Lord, teach me to be generous. Teach me to serve you as you deserve; to give and not to count the cost, to fight and not to heed the wounds, to toil and not to seek for rest, to labor and not to ask for reward, save that of knowing that I am doing your will. Amen.`],
+te_nobody:['Christ Has No Body But Yours (attributed to St. Teresa of Avila)',`Christ has no body now on earth but yours, no hands but yours, no feet but yours. Yours are the eyes through which he looks with compassion on this world. Yours are the feet with which he walks to do good. Yours are the hands with which he blesses all the world. Yours are the hands, yours are the feet, yours are the eyes, you are his body. Christ has no body now on earth but yours.`],
+fs_peace:['Do Not Look Forward in Fear (St. Francis de Sales)',`Do not look forward to what might happen tomorrow; the same everlasting Father who cares for you today will take care of you tomorrow and every day. Either he will shield you from suffering, or he will give you unfailing strength to bear it. Be at peace, then, and put aside all anxious thoughts and imaginations.`],
+cf_abandon:['Prayer of Abandonment (St. Charles de Foucauld)',`Father, I abandon myself into your hands; do with me what you will. Whatever you may do, I thank you. I am ready for all, I accept all. Let only your will be done in me, and in all your creatures. I wish no more than this, O Lord. Into your hands I commend my soul; I offer it to you with all the love of my heart, for I love you, Lord, and so need to give myself, to surrender myself into your hands without reserve, and with boundless confidence, for you are my Father.`],
+bn_crux:['St. Benedict Medal Prayer',`May the holy cross be my light; let not the dragon be my guide.
+Begone, Satan! Never tempt me with your vanities.
+What you offer me is evil; drink the poison yourself.`],
+mn_watch:['Watch, O Lord (attributed to St. Augustine)',`Watch, O Lord, with those who wake, or watch, or weep tonight, and give your angels and saints charge over those who sleep. Tend your sick ones, O Lord Christ. Rest your weary ones. Bless your dying ones. Soothe your suffering ones. Pity your afflicted ones. Shield your joyous ones. And all for your love's sake. Amen.`],
+dep_gertrude:['For the Souls in Purgatory (St. Gertrude)',`Eternal Father, I offer you the Most Precious Blood of your Divine Son, Jesus, in union with the Masses said throughout the world today, for all the holy souls in purgatory, for sinners everywhere, for sinners in the universal Church, those in my own home and within my family. Amen.`],
+dep_loved:['For a Loved One Who Has Died',`Lord, I entrust to you the one I love who has died. Thank you for the gift of their life. Forgive their sins, welcome them into your peace, and let perpetual light shine upon them. Comfort all who miss them, and bring us together again in your kingdom. Amen.`]
+});
+Object.assign(L,{
+mar_odomina:`O Dómina mea! O Mater mea! Tibi me totum óffero, atque, ut me tibi probem devótum, cónsecro tibi hódie óculos meos, aures meas, os meum, cor meum, plane me totum. Quóniam ítaque tuus sum, o bona Mater, serva me, defénde me, ut rem ac possessiónem tuam. Amen.`,
+bn_crux:`Crux sacra sit mihi lux, non draco sit mihi dux.
+Vade retro, Sátana, numquam suáde mihi vana.
+Sunt mala quæ libas, ipse venéna bibas.`
+});
+G['Holy Spirit & Praise']=['come','hs_breathe','pr_richard'];
+G['Marian']=G['Marian'].concat(['mar_odomina','mar_3hm']);
+G['Saints & Angels']=G['Saints & Angels'].concat(['aq_grant','ig_generous','te_nobody','fs_peace','cf_abandon','bn_crux']);
+G['Morning & Night'].splice(2,0,'mn_watch');
+G['For the Departed']=G['For the Departed'].concat(['dep_gertrude','dep_loved','ps130']);
+(function(){if(SB['01-28']&&!SB['01-28'][2])SB['01-28'][2]='aq_grant';
+ FS=FS.map(function(l){var p=l.split('|');if(!p[2]&&p[0]=='St. Thomas Aquinas')p[2]='aq_grant';if(!p[2]&&p[0]=='St. Faustina')p[2]='dm_blood';if(!p[2]&&p[0]=='St. Benedict')p[2]='bn_crux';return p.join('|')})})();
+reorderG();
+
+G['Daily & Basic']=G['Daily & Basic'].filter(function(k){return k!='come'});
+// ===== Litany of the Holy Name (text supplied by the user) =====
+(function(){
+ var inv=['Jesus, Son of the living God','Jesus, splendor of the Father','Jesus, brightness of eternal light','Jesus, King of glory','Jesus, sun of justice','Jesus, Son of the Virgin Mary','Jesus, most amiable','Jesus, most admirable','Jesus, the mighty God','Jesus, Father of the world to come','Jesus, angel of great counsel','Jesus, most powerful','Jesus, most patient','Jesus, most obedient','Jesus, meek and humble of heart','Jesus, lover of chastity','Jesus, lover of us','Jesus, God of peace','Jesus, author of life','Jesus, example of virtues','Jesus, zealous lover of souls','Jesus, our God','Jesus, our refuge','Jesus, father of the poor','Jesus, treasure of the faithful','Jesus, good Shepherd','Jesus, true light','Jesus, eternal wisdom','Jesus, infinite goodness','Jesus, our way and our life','Jesus, joy of Angels','Jesus, King of the Patriarchs','Jesus, Master of the Apostles','Jesus, teacher of the Evangelists','Jesus, strength of Martyrs','Jesus, light of Confessors','Jesus, purity of Virgins','Jesus, crown of Saints'];
+ var dl=['From all evil','From all sin','From Your wrath','From the snares of the devil','From the spirit of fornication','From everlasting death','From the neglect of Your inspirations','By the mystery of Your holy Incarnation','By Your Nativity','By Your Infancy','By Your most divine Life','By Your labors','By Your agony and passion','By Your cross and dereliction','By Your sufferings','By Your death and burial','By Your Resurrection','By Your Ascension','By Your institution of the most Holy Eucharist','By Your joys','By Your glory'];
+ var lamb='Lamb of God, who takest away the sins of the world';
+ P.lit_name=['Litany of the Holy Name of Jesus',
+ 'V. Lord, have mercy on us.\nR. Christ, have mercy on us.\nV. Lord, have mercy on us. Jesus, hear us.\nR. Jesus, graciously hear us.\n\n'+
+ 'To each line below, respond: Have mercy on us.\n\nGod the Father of Heaven\nGod the Son, Redeemer of the world\nGod the Holy Spirit\nHoly Trinity, one God\n'+inv.join('\n')+
+ '\n\nV. Be merciful. R. Spare us, O Jesus.\nV. Be merciful. R. Graciously hear us, O Jesus.\n\nTo each line below, respond: Deliver us, O Jesus.\n\n'+dl.join('\n')+
+ '\n\nV. '+lamb+',\nR. spare us, O Jesus.\nV. '+lamb+',\nR. graciously hear us, O Jesus.\nV. '+lamb+',\nR. have mercy on us, O Jesus.\n\nV. Jesus, hear us.\nR. Jesus, graciously hear us.\n\nLet us pray.\n\n'+
+ 'O Lord Jesus Christ, You have said, "Ask and you shall receive, seek, and you shall find, knock, and it shall be opened to you." Grant, we beg of You, to us who ask it, the gift of Your most divine love, that we may ever love You with our whole heart, in word and deed, and never cease praising You.\n\n'+
+ 'Give us, O Lord, as much a lasting fear as a lasting love of Your Holy Name, for You, who live and are King for ever and ever, never fail to govern those whom You have solidly established in Your love. R. Amen.'];
+})();
+
+// ===== Litany of Humility (text supplied by the user) =====
+(function(){
+ var a=['From the desire of being esteemed','From the desire of being loved','From the desire of being extolled','From the desire of being honored','From the desire of being praised','From the desire of being preferred to others','From the desire of being consulted','From the desire of being approved','From the fear of being humiliated','From the fear of being despised','From the fear of suffering rebukes','From the fear of being calumniated','From the fear of being forgotten','From the fear of being ridiculed','From the fear of being wronged','From the fear of being suspected'];
+ var b=['That others may be loved more than I','That others may be esteemed more than I','That, in the opinion of the world, others may increase and I may decrease','That others may be chosen and I set aside','That others may be praised and I go unnoticed','That others may be preferred to me in everything','That others may become holier than I, provided that I may become as holy as I should'];
+ P.lit_humility=['Litany of Humility',
+ 'O Jesus, meek and humble of heart,\nHear me.\n\nTo each line below, respond: Deliver me, O Jesus.\n\n'+a.join(',\n')+
+ ',\n\nTo each line below, respond: Jesus, grant me the grace to desire it.\n\n'+b.join(',\n')+','];
+ G['Litanies']=['lit_name','lit_humility'].concat(G['Litanies']);
+})();
+
+// ===== Te Deum (Latin supplied by the user; English translated for the app) =====
+P.tedeum=['Te Deum',`We praise you, O God; we acknowledge you to be the Lord.
+All the earth worships you, the eternal Father.
+To you all the angels, to you the heavens and all the powers,
+to you the Cherubim and Seraphim cry out without ceasing:
+Holy, holy, holy, Lord God of hosts.
+Heaven and earth are full of the majesty of your glory.
+The glorious choir of the Apostles praises you,
+the noble company of the Prophets praises you,
+the white-robed army of Martyrs praises you.
+Throughout the world the holy Church acknowledges you:
+the Father of infinite majesty,
+your true and only Son, worthy of all worship,
+and the Holy Spirit, the Advocate.
+You, O Christ, are the King of glory.
+You are the everlasting Son of the Father.
+When you took on our nature to set us free, you did not shrink from the Virgin's womb.
+You overcame the sting of death and opened the kingdom of heaven to all believers.
+You are seated at the right hand of God, in the glory of the Father.
+We believe that you will come to be our judge.
+We pray you, then, help your servants, whom you have redeemed with your precious blood.
+Number them with your saints in glory everlasting.
+
+V. Save your people, Lord, and bless your inheritance.
+R. Govern them, and lift them up for ever.
+V. Day by day we bless you.
+R. And we praise your name for ever and ever.
+V. Keep us today, Lord, from all sin.
+R. Have mercy on us, Lord, have mercy on us.
+V. Let your mercy be upon us, Lord, as we have hoped in you.
+R. In you, Lord, I have hoped: let me never be put to shame.`];
+L.tedeum=`Te Deum laudamus: te Dominum confitemur.
+Te aeternum Patrem omnis terra veneratur.
+Tibi omnes Angeli; tibi Caeli et universae Potestates;
+Tibi Cherubim et Seraphim incessabili voce proclamant:
+Sanctus, Sanctus, Sanctus, Dominus Deus Sabaoth.
+Pleni sunt caeli et terra maiestatis gloriae tuae.
+Te gloriosus Apostolorum chorus,
+Te Prophetarum laudabilis numerus,
+Te Martyrum candidatus laudat exercitus.
+Te per orbem terrarum sancta confitetur Ecclesia,
+Patrem immensae maiestatis:
+Venerandum tuum verum et unicum Filium;
+Sanctum quoque Paraclitum Spiritum.
+Tu Rex gloriae, Christe.
+Tu Patris sempiternus es Filius.
+Tu ad liberandum suscepturus hominem, non horruisti Virginis uterum.
+Tu, devicto mortis aculeo, aperuisti credentibus regna caelorum.
+Tu ad dexteram Dei sedes, in gloria Patris.
+Iudex crederis esse venturus.
+Te ergo quaesumus, tuis famulis subveni: quos pretioso sanguine redemisti.
+Aeterna fac cum sanctis tuis in gloria numerari.
+
+V. Salvum fac populum tuum, Domine, et benedic hereditati tuae.
+R. Et rege eos, et extolle illos usque in aeternum.
+V. Per singulos dies benedicimus te.
+R. Et laudamus nomen tuum in saeculum, et in saeculum saeculi.
+V. Dignare, Domine, die isto sine peccato nos custodire.
+R. Miserere nostri, Domine, miserere nostri.
+V. Fiat misericordia tua, Domine, super nos, quemadmodum speravimus in te.
+R. In te, Domine, speravi: non confundar in aeternum.`;
+G['Holy Spirit & Praise'].push('tedeum');
+
+// ===== Veni, Sancte Spiritus (Latin supplied by the user; English translated for the app) =====
+P.vss=['Veni, Sancte Spiritus (Golden Sequence)',`Come, Holy Spirit,
+and send from heaven
+the ray of your light.
+
+Come, father of the poor,
+come, giver of gifts,
+come, light of hearts.
+
+Best of comforters,
+sweet guest of the soul,
+sweet refreshment.
+
+In labor, rest;
+in heat, cool relief;
+in weeping, comfort.
+
+O most blessed light,
+fill the inmost hearts
+of your faithful.
+
+Without your divine power
+there is nothing in us,
+nothing that is not harmful.
+
+Wash what is soiled,
+water what is dry,
+heal what is wounded.
+
+Bend what is rigid,
+warm what is cold,
+guide what has gone astray.
+
+Give to your faithful,
+who trust in you,
+the sacred sevenfold gifts.
+
+Give the reward of virtue,
+give a saving end,
+give everlasting joy.
+Amen. Alleluia.`];
+L.vss=`Veni, Sancte Spiritus,
+et emitte caelitus
+lucis tuae radium.
+
+Veni, pater pauperum,
+veni, dator munerum
+veni, lumen cordium.
+
+Consolator optime,
+dulcis hospes animae,
+dulce refrigerium.
+
+In labore requies,
+in aestu temperies
+in fletu solatium.
+
+O lux beatissima,
+reple cordis intima
+tuorum fidelium.
+
+Sine tuo numine,
+nihil est in homine,
+nihil est innoxium.
+
+Lava quod est sordidum,
+riga quod est aridum,
+sana quod est saucium.
+
+Flecte quod est rigidum,
+fove quod est frigidum,
+rege quod est devium.
+
+Da tuis fidelibus,
+in te confidentibus,
+sacrum septenarium.
+
+Da virtutis meritum,
+da salutis exitum,
+da perenne gaudium,
+Amen, Alleluia.`;
+G['Holy Spirit & Praise'].splice(1,0,'vss');
+
+// ===== Adoro Te Devote (Latin supplied by the user; English translated for the app) =====
+P.adoro=['Adoro Te Devote (St. Thomas Aquinas)',`I devoutly adore you, hidden God, truly hidden beneath these forms. My whole heart submits to you, for in contemplating you it fails completely.
+
+Sight, touch, and taste are deceived in you, but hearing alone is safely believed. I believe whatever the Son of God has said: nothing is truer than this word of Truth.
+
+On the cross only your divinity was hidden, but here your humanity is hidden too. Yet believing and confessing both, I ask for what the repentant thief asked.
+
+I do not see your wounds as Thomas did, yet I confess you to be my God. Make me believe in you ever more, hope in you, and love you.
+
+O memorial of the Lord's death, living bread that gives life to man, grant my soul to live on you, and always to taste your sweetness.
+
+Loving Pelican, Lord Jesus, cleanse me, unclean, in your blood, one drop of which can save the whole world from all its sin.
+
+Jesus, whom I now see veiled, I pray that what I so thirst for may come to pass: that seeing your face unveiled, I may be blessed in the vision of your glory. Amen.`];
+L.adoro=`Adoro te devote, latens Deitas, quae sub his figuris vere latitas: tibi se cor meum totum subiicit, quia te contemplans totum deficit.
+
+Visus, tactus, gustus in te fallitur, sed auditu solo tuto creditur; credo quidquid dixit Dei Filius: nil hoc verbo Veritatis verius.
+
+In cruce latebat sola Deitas, at hic latet simul et humanitas; ambo tamen credens atque confitens, peto quod petivit latro paenitens.
+
+Plagas, sicut Thomas, non intueor; Deum tamen meum te confiteor; fac me tibi semper magis credere, in te spem habere, te diligere.
+
+O memoriale mortis Domini! panis vivus, vitam praestans homini! praesta meae menti de te vivere et te illi semper dulce sapere.
+
+Pie pellicane, Iesu Domine, me immundum munda tuo sanguine; cuius una stilla salvum facere totum mundum quit ab omni scelere.
+
+Iesu, quem velatum nunc aspicio, oro fiat illud quod tam sitio; ut te revelata cernens facie, visu sim beatus tuae gloriae. Amen.`;
+G['Jesus & the Eucharist'].splice(4,0,'adoro');
+
+// ===== Guided routines and ready-made daily rules =====
+var ROUT={
+rmorning:['Morning Prayers',[['sign','Begin'],['mn_wake','Greet the day'],['offering','Offer your day'],['our','Our Father'],['hail','Hail Mary'],['glory','Glory Be'],['angel','Your guardian angel'],['sign','Go in peace']]],
+rmidday:['Midday: The Angelus',[['sign','Begin'],['ANG','The Angelus'],['glory','Glory Be'],['sign','Conclude']]],
+revening:['Evening Prayers',[['sign','Begin'],['m_eve','Thank God for the day'],['our','Our Father'],['hail','Hail Mary'],['memorare','The Memorare'],['eternal','For the faithful departed'],['sign','Conclude']]],
+rnight:['Night Prayers',[['sign','Begin'],['exam','Look back over the day',120],['contrition','Act of Contrition'],['mn_watch','Pray for others'],['angel','Your guardian angel'],['mn_jmj','Into God\'s hands'],['queen','Hail, Holy Queen'],['sign','Good night']]],
+rchild:['Bedtime with Children',[['sign','Begin'],['mn_night','Thank you, Jesus'],['our','Our Father'],['hail','Hail Mary'],['angel','Guardian angel'],['fam_bless','A blessing'],['sign','Good night']]]
+};
+var _chapR=chap;
+chap=function(kind){
+ if(!ROUT[kind])return _chapR(kind);
+ var r=ROUT[kind],a=[];CHM=r[0];CHL='Step ';
+ r[1].forEach(function(x,ix){var k=x[0];if(k=='ANG')k=SEA[0]=='Easter season'?'regina':'angelus';var o={k:k,note:x[1]+' · '+(ix+1)+' of '+r[1].length};if(x[2])o.secs=x[2];a.push(o)});
+ steps=a;i=0;show(0)};
+function openRule(k){
+ if(!k)return;
+ if(k.indexOf('r:')==0)return chap(k.slice(2));
+ if(k=='rosary'){CHM=null;CHL='';build();i=0;return show(0)}
+ if(k=='dm')return chap('mercy');
+ if(k=='hours')return show(2);
+ if(P[k]){qs=P[k][0];show(1)}}
+RS=RS.filter(function(x){return x[1]!='dm'}).concat([['Morning prayers (guided)','r:rmorning'],['Midday: Angelus (guided)','r:rmidday'],['Evening prayers (guided)','r:revening'],['Night prayers (guided)','r:rnight'],['Bedtime with children (guided)','r:rchild'],['Morning Prayer (Lauds)','r:hmor'],['Evening Prayer (Vespers)','r:hev'],['Night Prayer (Compline)','r:hnight'],['Daily Examen','r:examen'],['Divine Mercy Chaplet','r:mercy'],['Grace before meals','grace'],['Hail, Holy Queen','queen']]);
+var PRESETS=[
+['Simple Start','About 10 minutes a day. A good place to begin.',[['Morning','Morning prayers (guided)','r:rmorning'],['Night','Night prayers (guided)','r:rnight']]],
+['A Classic Catholic Day','Morning offering, the Angelus at noon, the Rosary, and night prayers.',[['Morning','Morning prayers (guided)','r:rmorning'],['Midday','Midday: Angelus (guided)','r:rmidday'],['Evening','The Rosary','rosary'],['Night','Night prayers (guided)','r:rnight']]],
+['Liturgy of the Hours','Pray with the whole Church: Morning, Evening, and Night Prayer.',[['Morning','Morning Prayer (Lauds)','r:hmor'],['Evening','Evening Prayer (Vespers)','r:hev'],['Night','Night Prayer (Compline)','r:hnight']]],
+['With Mary','A Marian day, ending with the Salve Regina.',[['Morning','Morning Offering','offering'],['Midday','Midday: Angelus (guided)','r:rmidday'],['Evening','The Rosary','rosary'],['Night','Hail, Holy Queen','queen']]],
+['Divine Mercy','Trust in God\'s mercy, with the chaplet at the hour of mercy.',[['Morning','Morning prayers (guided)','r:rmorning'],['Midday','Divine Mercy Chaplet (3 pm)','r:mercy'],['Night','Daily Examen','r:examen']]],
+['Family','Short prayers to share at home with children.',[['Morning','Morning Offering','offering'],['Midday','Grace before meals','grace'],['Evening','The Rosary (even one decade)','rosary'],['Night','Bedtime with children (guided)','r:rchild']]]];
+var _ruleUI=ruleUI;
+ruleUI=function(c,btn){
+ _ruleUI(c,btn);
+ var rule=ls('pc-rule',[]);
+ var box=el('div');var h=el('div','setsec','Ready-made routines');h.style.marginTop='20px';box.appendChild(h);
+ box.appendChild(el('p','tr',rule.length?'Replace your rule with one of these:':'Pick one to start, then change it as you like:'));
+ PRESETS.forEach(function(p){var b=el('button','trow'),tx=el('span','ttxt');b.appendChild(tx);
+  tx.appendChild(el('b',0,p[0]));tx.appendChild(el('br'));var d=el('span',0,p[1]);d.style.cssText='font-size:.88rem;color:var(--mute)';tx.appendChild(d);b.appendChild(el('i'));
+  b.onclick=function(){if(rule.length&&!b.dataset.k){b.dataset.k=1;d.textContent='Tap again to replace your current rule';return}
+   sv('pc-rule',p[2].map(function(x){return {t:x[0],n:x[1],k:x[2]}}));sv('pc-rd',{});me()};box.appendChild(b)});
+ if(!rule.length){var first=c.querySelector('p');if(first&&first.nextSibling)c.insertBefore(box,first.nextSibling);else c.appendChild(box);var hh=el('div','setsec','Or build your own');hh.style.marginTop='20px';c.insertBefore(hh,box.nextSibling)}
+ else c.appendChild(box)};
+Object.assign(FOUI,{'Morning Prayers':'Morgunbønir','Evening Prayers':'Kvøldbønir','Night Prayers':'Náttarbønir','Bedtime with Children':'Kvøldbøn við børnum','Midday: The Angelus':'Middagur: Angelus','Pray':'Bið'});
+
 // ===== Wire everything into the app =====
 var _rosary=rosary,_prayers=prayers,_hours=hours,_devo=devo,_me=me,_shareCard=shareCard;
 
