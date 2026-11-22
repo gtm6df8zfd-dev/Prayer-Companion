@@ -393,14 +393,14 @@ function devo(){
  var cb=el('div','row guided');cb.style.flexDirection='column';
  [['rmorning','Morning Prayers'],['rmidday','Midday: The Angelus'],['revening','Evening Prayers'],['rnight','Night Prayers'],['rchild','Bedtime with Children'],['mercy','Pray the Divine Mercy Chaplet'],['stations','Pray the Stations of the Cross'],['sorrows','Pray the Seven Sorrows Chaplet'],['examen','Daily Examen'],['lectio','Lectio Divina'],['adoration','Holy Hour of Adoration'],['michael','Pray the Chaplet of St. Michael']].forEach(function(o){var b=el('button','b',o[1]);b.onclick=function(){chap(o[0])};cb.appendChild(b)});
  var OPD=ls('pc-dv',['Guided Prayers']);
- var DG=[['Verse of the Day',null],['Saint of the Day',null],['Journeys',null],['Curious? 7 Days',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
+ var DG=[['Verse of the Day',null],['Saint of the Day',null],['Journeys',null],['Curious? 7 Days',null],['Start Here',['Welcome','How to Pray in Five Minutes','What Catholics Believe, in Short','Your First Rosary','Questions People Often Ask','Next Steps']],['Guided Prayers',null],['Patron Saint Finder',null],['Practices',['A Simple Daily Rhythm','Stations of the Cross','Divine Mercy Chaplet']],['The Mass',['What Happens at Mass','When to Sit, Stand, and Kneel','If You Are Visiting','Communion','Responses at Mass']],['Catechism Q&A',CATT],['Confession',['Going to Confession','Examination of Conscience']],['Fasting & Penance',FASTT],['Learn the Faith',['Works of Mercy','The Beatitudes','Gifts & Fruits of the Holy Spirit','Virtues & Sacraments','Precepts of the Church']],['Coming Up',null]],used=[];
  DG.forEach(function(g){if(g[1])used=used.concat(g[1])});
  DG.push(['More',DV.filter(function(r){return used.indexOf(r[0])<0}).map(function(r){return r[0]})]);
  DG.forEach(function(g){
   var op=OPD.indexOf(g[0])>-1,gh=el('button','gh'+(op?' open':''));gh.dataset.g=g[0];gh.appendChild(el('span',0,g[0]));gh.appendChild(el('i'));
   gh.onclick=function(){var x=OPD.indexOf(g[0]);if(x>-1)OPD.splice(x,1);else OPD.push(g[0]);sv('pc-dv',OPD);devo()};app.appendChild(gh);if(!op)return;
   if(g[0]=='Guided Prayers')app.appendChild(cb);else if(g[0]=='Patron Saint Finder')finderUI();else if(g[0]=='Coming Up')comingUp();else if(g[0]=='Verse of the Day')verseCard();else if(g[0]=='Saint of the Day')saintCard();else if(g[0]=='Journeys')journeysUI();else if(g[0]=='Curious? 7 Days')curiousUI();
-  else DV.forEach(function(r){if(g[1].indexOf(r[0])>-1){var d=el('details','card');d.appendChild(el('summary',0,r[0]));d.appendChild(el('p',0,r[1]));app.appendChild(d)}})});
+  else{if(g[0]=='Fasting & Penance')fastAhead();DV.forEach(function(r){if(g[1].indexOf(r[0])>-1){var d=el('details','card');d.appendChild(el('summary',0,r[0]));d.appendChild(el('p',0,r[1]));app.appendChild(d)}})}});
 }
 P.augustine=['St. Augustine: Late Have I Loved You',`Late have I loved you, O Beauty so ancient and so new; late have I loved you! You were within me, but I was outside, and there I searched for you. You called, you cried, you broke through my deafness. You were with me, but I was not with you. Now I breathe you in and I pant for you; I have tasted you, and I hunger and thirst for more. You touched me, and I burned for your peace. You have made us for yourself, O Lord, and our hearts are restless until they rest in you.`];
 P.loreto=['Litany of Loreto',`Lord, have mercy. Christ, have mercy. Lord, have mercy.
@@ -906,7 +906,7 @@ function chap(kind){
   add('ssclose','Closing');add('sign','Conclude')}
  else if(kind=='hmor'||kind=='hmid'||kind=='hev'||kind=='hnight'){
   var nw=new Date(),dw=nw.getDay(),doy=Math.floor((nw-new Date(nw.getFullYear(),0,0))/864e5);
-  function shr(o){var v=VOD[(doy+o)%VOD.length];P.shr=['Short Reading',v[1]+'\n\n'+v[0]+' (King James Version)']}
+  function shr(o){var v=VOD[(doy+o)%VOD.length];P.shr=['Short Reading',v[1]+'\n\n'+v[0]+' (Douay-Rheims)']}
   var it=ls('pc-int',[]);
   P.inter=['Intercessions','Pray for the needs of the Church, the world, and the people you love. Speak to God in your own words, and end each petition with: Lord, hear our prayer.'+(it.length?'\n\nYour intentions:\n- '+it.join('\n- '):'')];
   var MORN=[148,63,100,51,117,150,23],MID=[117,121,23,117,121,23,117],EVE=[110,121,141,130,23,117,100];
@@ -2022,7 +2022,7 @@ Matthew 19:26|With men this is impossible; but with God all things are possible.
 function verseCard(){
  var n=new Date(),doy=Math.floor((n-new Date(n.getFullYear(),0,0))/864e5),v=VOD[doy%VOD.length];P.vod=[v[0],v[1]];
  var c=el('div','card');c.appendChild(el('div','tag','Verse of the day'));
- c.appendChild(el('p','lat','\u201c'+v[1]+'\u201d'));c.appendChild(el('p','tr',v[0]+' (King James Version)'));
+ c.appendChild(el('p','lat','\u201c'+v[1]+'\u201d'));c.appendChild(el('p','tr',v[0]+' (Douay-Rheims)'));
  c.appendChild(shareBtn('vod'));app.appendChild(c)}
 function startPrompt(){
  if(ls('pc-hs',false))return;
@@ -2084,7 +2084,7 @@ vc:['Hymn: Veni Creator Spiritus',`Come, Holy Ghost, our souls inspire,\nAnd lig
 phos:['Evening Hymn: Hail, Gladdening Light',`Hail, gladdening Light, of his pure glory poured,\nWho is the immortal Father, heavenly, blest,\nHoliest of Holies, Jesus Christ our Lord!\nNow we are come to the sun's hour of rest;\nThe lights of evening round us shine;\nWe hymn the Father, Son, and Holy Spirit divine.\nWorthiest art thou at all times to be sung\nWith undefiled tongue,\nSon of our God, giver of life, alone:\nTherefore in all the world thy glories, Lord, they own.`],
 teluc:['Night Hymn: Te lucis ante terminum',`Before the ending of the day,\nCreator of the world, we pray\nThat thou, with wonted favour, wouldst\nBe our protector and our guard.\nFrom all ill dreams defend our eyes,\nFrom nightly fears and fantasies;\nTread underfoot our ghostly foe,\nThat no pollution we may know.\nO Father, that we ask be done\nThrough Jesus Christ, thine only Son;\nWho, with the Holy Ghost and thee,\nDoth live and reign eternally. Amen.`],
 exam:['Examination of Conscience',`Take a quiet moment to look back over your day. Thank God for what was good, and notice where you fell short of love. Then ask for his mercy and pray the Act of Contrition.`],
-shr_n:['Short Reading (1 Peter 5:8-9)',`Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour: whom resist stedfast in the faith.\n\n1 Peter 5:8-9 (King James Version)`],
+shr_n:['Short Reading (1 Peter 5:8-9)',`Be sober and watch: because your adversary the devil, as a roaring lion, goeth about seeking whom he may devour. Whom resist ye, strong in faith.\n\n1 Peter 5:8-9 (Douay-Rheims)`],
 conc_m:['Concluding Prayer',`Direct, we beseech thee, O Lord, our actions by thy holy inspirations, and carry them on by thy gracious assistance; that every prayer and work of ours may begin always from thee, and by thee be happily ended. Through Christ our Lord. Amen.`],
 conc_d:['Concluding Prayer',`Lord, stay with me through the rest of this day. Bless my work, keep me from sin, and help me to do all for your glory. Amen.`],
 conc_e:['Concluding Prayer',`Lighten our darkness, we beseech thee, O Lord; and by thy great mercy defend us from all perils and dangers of this night; for the love of thy only Son, our Saviour, Jesus Christ. Amen.`],
@@ -2738,10 +2738,10 @@ function aboutUI(c){
  para('Sursum takes its name from Sursum corda, "Lift up your hearts," the words that open the great prayer of every Mass.');
  para('It is a free Catholic prayer app: the Rosary, traditional prayers in English, Latin and Faroese, the Liturgy of the Hours, devotions, and gentle guides for anyone curious about faith.');
  secT(c,'Privacy');para('There are no accounts, ads, or tracking. Your favorites, intentions, journal and progress are saved only on this device and are never sent anywhere. The app loads its fonts from Google Fonts, and links such as Today\'s readings open other websites.');
- secT(c,'Where the texts come from');para('Traditional prayers are given in common English wording, with Latin in its traditional forms. Scripture quotations are from the King James Version and the Douay-Rheims Bible, both in the public domain. The Faroese prayers were supplied by the app\'s creator from Faroese prayer texts.');
+ secT(c,'Where the texts come from');para('Traditional prayers are given in common English wording, with Latin in its traditional forms. Scripture quotations are from the Douay-Rheims Bible (Challoner revision), a Catholic translation in the public domain. Psalms follow its numbering, with the more familiar modern number in brackets, for example Psalm 22 (23). The Faroese prayers were supplied by the app\'s creator from Faroese prayer texts.');
  para('Many texts were written or translated with the help of Claude, an AI assistant: the saint lives, the journey reflections, the guides, many short prayers, and the Faroese menus. They have not yet been checked by a priest. For anything official, use an approved prayer book or ask a priest.','tr');
  secT(c,'Please note');para('This is a personal project, not an official publication of the Catholic Church.');
- var v=el('p','tr','Version 5 · October 2026');v.style.marginTop='14px';c.appendChild(v)}
+ var v=el('p','tr','Version 7 · November 2026');v.style.marginTop='14px';c.appendChild(v)}
 function welcome(force){
  if(!force&&ls('pc-welcomed',false))return;
  var ov=el('div','welcome'),inn=el('div','inner');ov.appendChild(inn);
@@ -3199,6 +3199,325 @@ ruleUI=function(c,btn){
  if(!rule.length){var first=c.querySelector('p');if(first&&first.nextSibling)c.insertBefore(box,first.nextSibling);else c.appendChild(box);var hh=el('div','setsec','Or build your own');hh.style.marginTop='20px';c.insertBefore(hh,box.nextSibling)}
  else c.appendChild(box)};
 Object.assign(FOUI,{'Morning Prayers':'Morgunbønir','Evening Prayers':'Kvøldbønir','Night Prayers':'Náttarbønir','Bedtime with Children':'Kvøldbøn við børnum','Midday: The Angelus':'Middagur: Angelus','Pray':'Bið'});
+
+// ===== Douay-Rheims: Verse of the Day =====
+VOD=`John 3:16|For God so loved the world, as to give his only begotten Son; that whosoever believeth in him, may not perish, but may have life everlasting.
+Psalm 22:1 (23:1)|The Lord ruleth me: and I shall want nothing.
+Psalm 45:2 (46:1)|Our God is our refuge and strength: a helper in troubles, which have found us exceedingly.
+Philippians 4:13|I can do all things in him who strengtheneth me.
+Romans 8:28|And we know that to them that love God, all things work together unto good, to such as, according to his purpose, are called to be saints.
+Isaiah 41:10|Fear not, for I am with thee: turn not aside, for I am thy God: I have strengthened thee, and have helped thee, and the right hand of my just one hath upheld thee.
+Matthew 11:28|Come to me, all you that labour, and are burdened, and I will refresh you.
+Proverbs 3:5|Have confidence in the Lord with all thy heart, and lean not upon thy own prudence.
+Joshua 1:9|Take courage, and be strong. Fear not and be not dismayed: because the Lord thy God is with thee in all things whatsoever thou shalt go to.
+Psalm 26:1 (27:1)|The Lord is my light and my salvation, whom shall I fear? The Lord is the protector of my life: of whom shall I be afraid?
+1 Corinthians 13:13|And now there remain faith, hope, and charity, these three: but the greatest of these is charity.
+John 14:27|Peace I leave with you, my peace I give unto you: not as the world giveth, do I give unto you. Let not your heart be troubled, nor let it be afraid.
+Matthew 6:33|Seek ye therefore first the kingdom of God, and his justice, and all these things shall be added unto you.
+Psalm 120:1-2 (121:1-2)|I have lifted up my eyes to the mountains, from whence help shall come to me. My help is from the Lord, who made heaven and earth.
+Jeremiah 29:11|For I know the thoughts that I think towards you, saith the Lord, thoughts of peace, and not of affliction, to give you an end and patience.
+Matthew 5:9|Blessed are the peacemakers: for they shall be called the children of God.
+John 15:12|This is my commandment, that you love one another, as I have loved you.
+Psalm 33:9 (34:8)|O taste, and see that the Lord is sweet: blessed is the man that hopeth in him.
+Romans 12:12|Rejoicing in hope. Patient in tribulation. Instant in prayer.
+Luke 1:37|Because no word shall be impossible with God.
+Psalm 138:14 (139:14)|I will praise thee, for thou art fearfully magnified: wonderful are thy works, and my soul knoweth right well.
+Matthew 7:7|Ask, and it shall be given you: seek, and you shall find: knock, and it shall be opened to you.
+John 8:12|I am the light of the world: he that followeth me, walketh not in darkness, but shall have the light of life.
+2 Corinthians 12:9|My grace is sufficient for thee; for power is made perfect in infirmity.
+Psalm 117:24 (118:24)|This is the day which the Lord hath made: let us be glad and rejoice therein.
+Hebrews 11:1|Now faith is the substance of things to be hoped for, the evidence of things that appear not.
+1 John 4:19|Let us therefore love God, because God first hath loved us.
+Isaiah 40:31|But they that hope in the Lord shall renew their strength, they shall take wings as eagles, they shall run and not be weary, they shall walk and not faint.
+Philippians 4:4|Rejoice in the Lord always; again, I say, rejoice.
+Sirach 2:6|Believe God, and he will recover thee: and direct thy way, and trust in him.
+Matthew 28:20|And behold I am with you all days, even to the consummation of the world.
+John 10:11|I am the good shepherd. The good shepherd giveth his life for his sheep.
+Micah 6:8|I will shew thee, O man, what is good, and what the Lord requireth of thee: Verily to do judgment, and to love mercy, and to walk solicitous with thy God.
+Psalm 102:8 (103:8)|The Lord is compassionate and merciful: longsuffering and plenteous in mercy.
+1 Peter 5:7|Casting all your care upon him, for he hath care of you.
+Ephesians 2:8|For by grace you are saved through faith, and that not of yourselves, for it is the gift of God.
+James 1:5|But if any of you want wisdom, let him ask of God, who giveth to all men abundantly, and upbraideth not; and it shall be given him.
+Colossians 3:23|Whatsoever you do, do it from the heart, as to the Lord, and not to men.
+Revelation 21:4|And God shall wipe away all tears from their eyes: and death shall be no more, nor mourning, nor crying, nor sorrow shall be any more, for the former things are passed away.
+Isaiah 43:1|Fear not, for I have redeemed thee, and called thee by thy name: thou art mine.
+John 6:35|I am the bread of life: he that cometh to me shall not hunger: and he that believeth in me shall never thirst.
+Luke 6:36|Be ye therefore merciful, as your Father also is merciful.
+Psalm 36:4 (37:4)|Delight in the Lord, and he will give thee the requests of thy heart.
+Matthew 22:37|Thou shalt love the Lord thy God with thy whole heart, and with thy whole soul, and with thy whole mind.
+Lamentations 3:22-23|The mercies of the Lord that we are not consumed: because his commiserations have not failed. They are new every morning, great is thy faithfulness.
+1 Thessalonians 5:16-18|Always rejoice. Pray without ceasing. In all things give thanks; for this is the will of God in Christ Jesus concerning you all.
+Romans 5:8|But God commendeth his charity towards us; because when as yet we were sinners, according to the time, Christ died for us.
+John 11:25|I am the resurrection and the life: he that believeth in me, although he be dead, shall live.
+Matthew 19:26|With men this is impossible: but with God all things are possible.
+Wisdom 3:1|But the souls of the just are in the hand of God, and the torment of death shall not touch them.`.split('\n').map(function(l){return l.split('|')});
+
+// ===== Douay-Rheims psalms, part 1 =====
+psl(95,'Psalm 94 (95), Venite, selected verses',`Come let us praise the Lord with joy: let us joyfully sing to God our saviour.
+Let us come before his presence with thanksgiving; and make a joyful noise to him with psalms.
+For the Lord is a great God, and a great King above all gods.
+For in his hand are all the ends of the earth: and the heights of the mountains are his.
+For the sea is his, and he made it: and his hands formed the dry land.
+Come let us adore and fall down: and weep before the Lord that made us.
+For he is the Lord our God: and we are the people of his pasture and the sheep of his hand.
+To day if you shall hear his voice, harden not your hearts.`);
+psl(100,'Psalm 99 (100), Jubilate',`Sing joyfully to God, all the earth: serve ye the Lord with gladness.
+Come in before his presence with exceeding great joy.
+Know ye that the Lord he is God: he made us, and not we ourselves.
+We are his people and the sheep of his pasture.
+Go ye into his gates with praise, into his courts with hymns: and give glory to him.
+Praise ye his name: for the Lord is sweet, his mercy endureth for ever, and his truth to generation and generation.`);
+psl(117,'Psalm 116 (117), Laudate',`O praise the Lord, all ye nations: praise him, all ye people.
+For his mercy is confirmed upon us: and the truth of the Lord remaineth for ever.`);
+psl(150,'Psalm 150',`Praise ye the Lord in his holy places: praise ye him in the firmament of his power.
+Praise ye him for his mighty acts: praise ye him according to the multitude of his greatness.
+Praise him with sound of trumpet: praise him with psaltery and harp.
+Praise him with timbrel and choir: praise him with strings and organs.
+Praise him on high sounding cymbals: praise him on cymbals of joy:
+let every spirit praise the Lord. Alleluia.`);
+psl(148,'Psalm 148, selected verses',`Praise ye the Lord from the heavens: praise ye him in the high places.
+Praise ye him, all his angels: praise ye him, all his hosts.
+Praise ye him, O sun and moon: praise him, all ye stars and light.
+Praise him, ye heavens of heavens: and let all the waters that are above the heavens praise the name of the Lord.
+For he spoke, and they were made: he commanded, and they were created.
+Praise the Lord from the earth, ye dragons, and all ye deeps:
+fire, hail, snow, ice, stormy winds which fulfil his word:
+mountains and all hills, fruitful trees and all cedars:
+beasts and all cattle: serpents and feathered fowls:
+kings of the earth and all people: princes and all judges of the earth:
+young men and maidens: let the old with the younger, praise the name of the Lord:
+for his name alone is exalted.`);
+psl(63,'Psalm 62 (63), selected verses',`O God, my God, to thee do I watch at break of day.
+For thee my soul hath thirsted; for thee my flesh, O how many ways!
+In a desert land, and where there is no way, and no water: so in the sanctuary have I come before thee, to see thy power and thy glory.
+For thy mercy is better than lives: thee my lips shall praise.
+Thus will I bless thee all my life long: and in thy name I will lift up my hands.
+Let my soul be filled as with marrow and fatness: and my mouth shall praise thee with joyful lips.
+If I have remembered thee upon my bed, I will meditate on thee in the morning:
+because thou hast been my helper. And I will rejoice under the covert of thy wings:
+my soul hath stuck close to thee: thy right hand hath received me.`);
+psl(23,'Psalm 22 (23)',`The Lord ruleth me: and I shall want nothing.
+He hath set me in a place of pasture. He hath brought me up, on the water of refreshment:
+he hath converted my soul. He hath led me on the paths of justice, for his own name's sake.
+For though I should walk in the midst of the shadow of death, I will fear no evils, for thou art with me.
+Thy rod and thy staff, they have comforted me.
+Thou hast prepared a table before me against them that afflict me.
+Thou hast anointed my head with oil; and my chalice which inebriateth me, how goodly is it!
+And thy mercy will follow me all the days of my life.
+And that I may dwell in the house of the Lord unto length of days.`);
+
+// ===== Douay-Rheims psalms, part 2 =====
+psl(51,'Psalm 50 (51), Miserere, selected verses',`Have mercy on me, O God, according to thy great mercy.
+And according to the multitude of thy tender mercies blot out my iniquity.
+Wash me yet more from my iniquity, and cleanse me from my sin.
+For I know my iniquity, and my sin is always before me.
+To thee only have I sinned, and have done evil before thee.
+Thou shalt sprinkle me with hyssop, and I shall be cleansed: thou shalt wash me, and I shall be made whiter than snow.
+Turn away thy face from my sins, and blot out all my iniquities.
+Create a clean heart in me, O God: and renew a right spirit within my bowels.
+Cast me not away from thy face; and take not thy holy spirit from me.
+Restore unto me the joy of thy salvation, and strengthen me with a perfect spirit.
+O Lord, thou wilt open my lips: and my mouth shall declare thy praise.
+A sacrifice to God is an afflicted spirit: a contrite and humbled heart, O God, thou wilt not despise.`);
+psl(121,'Psalm 120 (121)',`I have lifted up my eyes to the mountains, from whence help shall come to me.
+My help is from the Lord, who made heaven and earth.
+May he not suffer thy foot to be moved: neither let him slumber that keepeth thee.
+Behold he shall neither slumber nor sleep, that keepeth Israel.
+The Lord is thy keeper, the Lord is thy protection upon thy right hand.
+The sun shall not burn thee by day: nor the moon by night.
+The Lord keepeth thee from all evil: may the Lord keep thy soul.
+May the Lord keep thy coming in and thy going out; from henceforth now and for ever.`);
+psl(130,'Psalm 129 (130), De profundis',`Out of the depths I have cried to thee, O Lord: Lord, hear my voice.
+Let thy ears be attentive to the voice of my supplication.
+If thou, O Lord, wilt mark iniquities: Lord, who shall stand it.
+For with thee there is merciful forgiveness: and by reason of thy law, I have waited for thee, O Lord.
+My soul hath relied on his word: my soul hath hoped in the Lord.
+From the morning watch even until night, let Israel hope in the Lord.
+Because with the Lord there is mercy: and with him plentiful redemption.
+And he shall redeem Israel from all his iniquities.`);
+psl(141,'Psalm 140 (141), verses 1-4',`I have cried to thee, O Lord, hear me: hearken to my voice, when I cry to thee.
+Let my prayer be directed as incense in thy sight; the lifting up of my hands, as evening sacrifice.
+Set a watch, O Lord, before my mouth: and a door round about my lips.
+Incline not my heart to evil words; to make excuses in sins.`);
+psl(110,'Psalm 109 (110), verses 1-4',`The Lord said to my Lord: Sit thou at my right hand:
+Until I make thy enemies thy footstool.
+The Lord will send forth the sceptre of thy power out of Sion: rule thou in the midst of thy enemies.
+With thee is the principality in the day of thy strength: in the brightness of the saints:
+from the womb before the day star I begot thee.
+The Lord hath sworn, and he will not repent: Thou art a priest for ever according to the order of Melchisedech.`);
+psl(4,'Psalm 4, selected verses',`When I called upon him, the God of my justice heard me: when I was in distress, thou hast enlarged me.
+Have mercy on me: and hear my prayer.
+Know ye also that the Lord hath made his holy one wonderful: the Lord will hear me when I shall cry unto him.
+Be ye angry, and sin not: the things you say in your hearts, be sorry for them upon your beds.
+Offer up the sacrifice of justice, and trust in the Lord.
+The light of thy countenance, O Lord, is signed upon us: thou hast given gladness in my heart.
+In peace in the selfsame I will sleep, and I will rest:
+For thou, O Lord, singularly hast settled me in hope.`);
+psl(91,'Psalm 90 (91), selected verses',`He that dwelleth in the aid of the most High, shall abide under the protection of the God of Jacob.
+He shall say to the Lord: Thou art my protector, and my refuge: my God, in him will I trust.
+For he hath delivered me from the snare of the hunters: and from the sharp word.
+He will overshadow thee with his shoulders: and under his wings thou shalt trust.
+His truth shall compass thee with a shield: thou shalt not be afraid of the terror of the night.
+Of the arrow that flieth in the day, of the business that walketh about in the dark: of invasion, or of the noonday devil.
+For he hath given his angels charge over thee; to keep thee in all thy ways.
+In their hands they shall bear thee up: lest thou dash thy foot against a stone.
+Because he hoped in me I will deliver him: I will protect him because he hath known my name.
+He shall cry to me, and I will hear him: I am with him in tribulation, I will deliver him, and I will glorify him.
+I will fill him with length of days; and I will shew him my salvation.`);
+psl(134,'Psalm 133 (134)',`Behold now bless ye the Lord, all ye servants of the Lord:
+Who stand in the house of the Lord, in the courts of the house of our God.
+In the nights lift up your hands to the holy places, and bless ye the Lord.
+May the Lord out of Sion bless thee, he that made heaven and earth.`);
+P.shr_n=['Short Reading (1 Peter 5:8-9)',`Be sober and watch: because your adversary the devil, as a roaring lion, goeth about seeking whom he may devour. Whom resist ye, strong in faith.\n\n1 Peter 5:8-9 (Douay-Rheims)`];
+
+// ===== Fasting & Penance guide (written for the app) =====
+var FASTG=[
+['Why Catholics Fast',`Fasting is one of the three classic Christian practices, together with prayer and almsgiving (Matthew 6:1-18). Jesus fasted forty days in the desert, and he expected his followers to fast: "When you fast..." (Matthew 6:16).
+
+Fasting is not a diet and not a punishment. It is a way of saying with the body what we say in prayer: God matters more than my comfort. It makes room in us for God, it strengthens us against temptation, it joins us to Christ's suffering, and it opens our hearts to the hungry.
+
+The prophet Isaiah warns that the fast God wants is not just going hungry, but freeing the oppressed and sharing bread with the hungry (Isaiah 58:6-7). So the Church always joins fasting to prayer and to generosity.`],
+['The Rules at a Glance',`The Church's universal law (Code of Canon Law, canons 1249-1253):
+
+FAST AND ABSTINENCE
+Ash Wednesday and Good Friday.
+
+ABSTINENCE FROM MEAT
+Every Friday of the year, especially the Fridays of Lent, unless a solemnity falls on that Friday.
+
+WHO
+Abstinence binds from age 14.
+Fasting binds from age 18 until the start of your 60th year (age 59).
+
+BEFORE COMMUNION
+Fast for one hour from food and drink. Water and medicine do not break it.
+
+Bishops' conferences may adapt some of these rules for their country, especially Fridays outside Lent. The Faroe Islands belong to the Catholic Diocese of Copenhagen; your parish can tell you how the rules are applied here.`],
+['What Fasting Means',`On a fast day, the common norm taught by many bishops is: one full meal, and if needed two smaller meals that together are not as much as the full meal. No snacks between meals.
+
+Drinks such as water, coffee, tea, and juice are allowed.
+
+The point is not to measure food anxiously, but to feel a real hunger that you offer to God. If you are unsure, keep it simple and do a little more than feels comfortable, not less.`],
+['What Abstinence Means',`Abstinence means not eating meat: the flesh of mammals and birds, such as beef, pork, lamb, and chicken.
+
+Fish and other seafood, eggs, milk, cheese, and butter are allowed.
+
+Abstinence is not about eating something expensive instead. A lobster dinner keeps the letter of the law but misses its spirit. Choose something simple.`],
+['Fridays',`Every Friday is a day of penance in honor of Christ's death on a Friday.
+
+The universal rule is abstinence from meat. Outside Lent, some bishops' conferences allow Catholics to choose another penance instead, such as extra prayer, a work of charity, or giving up something else. Inside Lent, abstinence on Fridays applies everywhere.
+
+When a solemnity falls on a Friday, such as Christmas, St. Joseph, the Annunciation, the Friday of Easter week, or the Sacred Heart, there is no Friday penance that day. Celebrate.
+
+Christians have kept Fridays like this since the first century: the Didache, one of the earliest Christian writings, already mentions fasting on Wednesdays and Fridays.`],
+['Who Is Excused',`The Church's law is meant to help, not harm. You are excused from fasting, and often from abstinence, if keeping it would damage your health or prevent you from doing your duties. This includes:
+
+- people who are sick, or recovering from illness or surgery
+- pregnant and nursing mothers
+- people who need regular meals because of medication or conditions such as diabetes
+- the elderly and frail
+- people doing very heavy physical work who need food to do it safely
+- anyone for whom fasting would be dangerous for their mental or physical health
+
+If you are excused, you are not doing anything wrong. Choose another penance instead: extra prayer, a work of mercy, or giving to the poor. If you are not sure, ask a priest.`],
+['If Fasting Is Not Safe for You',`If you have, or have had, an eating disorder, or if going without food affects you badly in body or mind, please do not fast from food. That is not a lack of faith; it is wisdom, and the Church does not ask it of you.
+
+Fast in a different way instead: from your phone, from complaining, from a habit you want to break. Give time or money to someone in need. Spend ten quiet minutes with God each day.
+
+Talk with your doctor and a priest you trust. God wants your whole self to be well.`],
+['The Eucharistic Fast',`Before receiving Holy Communion, Catholics fast for one hour from all food and drink, except water and medicine.
+
+The hour is counted until the moment you receive Communion, not until Mass begins.
+
+The elderly, the sick, and those who care for them may receive Communion even if they have eaten within the hour.
+
+This short fast is a small sign of reverence and hunger for the Bread of Life.`],
+['Going Further: Traditional Fasts',`Beyond the minimum, many Catholics choose voluntary fasts:
+
+- Advent: once a season of fasting, much like Lent. Some still give something up from late November until Christmas.
+- Ember Days: old seasonal days of fasting and prayer, on the Wednesday, Friday, and Saturday of four weeks of the year.
+- Holy Saturday: the Church encourages continuing the Good Friday fast until the Easter Vigil.
+- Vigils: fasting on the day before a great feast, such as Christmas Eve or the eve of Pentecost.
+- Wednesdays and Fridays: an ancient practice from the first Christians.
+- Before a big decision, or when praying hard for someone.
+
+Voluntary fasts are not binding. Take them up freely, with a spiritual director or confessor if they are serious.
+
+Eastern Catholics follow the fasting traditions of their own Church, which are often stricter and different from these.`],
+['Fasting From More Than Food',`Fasting can reach every part of life. Some ideas:
+
+- your phone or social media for set hours
+- television, streaming, or games
+- music in the car, to make room for silence or prayer
+- complaining, criticizing, or gossip
+- sweets, alcohol, or coffee
+- buying things you do not need
+- the snooze button, to get up for prayer
+
+St. Leo the Great wrote that what we deny ourselves should be given to the poor. Whatever you fast from, try to turn it into time for God or a gift for someone else.`],
+['How to Fast Well',`1. Start with prayer. Tell God why you are fasting and what you are asking for.
+2. Start small. A meal skipped well is better than a heroic fast you resent.
+3. Keep it hidden. Jesus asks us to fast without showing it off (Matthew 6:16-18).
+4. Turn hunger into prayer. Each time you feel hungry, say a short prayer, such as "Jesus, I trust in you."
+5. Give it away. Give the money you saved, or the time, to someone in need.
+6. Stay kind. If fasting makes you short-tempered, eat something and be gentle. Love comes first.
+7. If you fail, simply begin again. God looks at the heart.`],
+['A Prayer When Fasting',`Lord Jesus, you fasted forty days in the desert for love of us. I offer you this small hunger. Let it make room in me for you, free me from what holds me back, and open my heart to those who are hungry today. Give me joy in this sacrifice, and let it bear fruit in love. Amen.`]];
+FASTG.forEach(function(r){DV.push(r)});
+var FASTT=FASTG.map(function(r){return r[0]});
+P.fastpr=['A Prayer When Fasting',FASTG[FASTG.length-1][1]];
+G['For Every Need'].push('fastpr');
+
+// ===== What is today: season, color, obligation, penance =====
+var COLORS={green:['Green','#2f7a45'],violet:['Violet','#6a4a9a'],white:['White','#e8e2d0'],red:['Red','#b0242f'],rose:['Rose','#d98aa0']};
+var SOLF=['01-01','03-19','03-25','06-24','06-29','08-15','11-01','12-08','12-25'];
+var OBLF=['01-01','01-06','03-19','06-29','08-15','11-01','12-08','12-25'];
+var REDK=['01-21','02-03','02-05','03-07','04-25','05-03','05-14','06-22','06-29','07-03','07-25','07-29','08-09','08-10','08-14','08-24','09-14','09-21','10-18','10-28','11-25','11-30','12-13','12-26','12-28'];
+var OVERK=['01-01','01-06','02-02','02-22','03-19','03-25','06-24','06-29','08-06','08-15','09-14','11-01','11-02','11-09','11-30','12-08','12-12','12-26','12-27','12-28'];
+function dayInfo(dd){
+ var d=d0(dd),Y=d.getFullYear(),E=easterOf(Y),x=dayDiff(d,E),k=mmdd(d),dow=d.getDay(),av=advStart(Y);
+ var season,col;
+ if(d>=new Date(Y,11,25)||(d.getMonth()==0&&d.getDate()<=12)){season='Christmas season';col='white'}
+ else if(d>=av){season='Advent';col='violet'}
+ else if(x>=-46&&x<0){season=x>=-7?'Holy Week':'Lent';col='violet'}
+ else if(x>=0&&x<=49){season='Easter season';col='white'}
+ else{season='Ordinary Time';col='green'}
+ var sb=SB[k],isSol=SOLF.indexOf(k)>-1||x==39||x==60||x==68||x==56||(x>=0&&x<=7);
+ if(sb){var penit=season=='Lent'||season=='Holy Week'||season=='Advent';
+  if((dow!=0&&!penit)||OVERK.indexOf(k)>-1){col=REDK.indexOf(k)>-1?'red':k=='11-02'?'violet':'white'}}
+ if(x==-7||x==-2||x==49)col='red';if(x==-3||x==56||x==60||x==68)col='white';
+ if(dayDiff(d,addD(av,14))==0||x==-21)col='rose';
+ var ck=addD(av,-7);if(dayDiff(d,ck)==0)col='white';
+ var obl=null;if(dow==0)obl='Sunday: Mass is an obligation.';else if(OBLF.indexOf(k)>-1||x==39||x==60)obl='Holy day of obligation in the universal Church. Some countries move or dispense it; check your parish.';
+ var pen=null,fast=false;
+ if(x==-46||x==-2){pen=(x==-46?'Ash Wednesday':'Good Friday')+': a day of fasting and abstinence.';fast=true}
+ else if(x==-1)pen='Holy Saturday: the Church encourages continuing the Good Friday fast until the Easter Vigil (voluntary).';
+ else if(dow==5){if(isSol||(x>=0&&x<=7))pen='Friday, but a solemnity: no Friday penance today.';
+  else if(season=='Lent'||season=='Holy Week')pen='Lenten Friday: abstain from meat.';
+  else pen='Friday: a day of penance. Abstain from meat, or do another penance where your bishops allow it.';fast=true}
+ return {season:season,col:col,obl:obl,pen:pen,fast:fast}}
+function colorDot(col){var s=el('span','seadot');s.style.background=COLORS[col][1];s.style.boxShadow='0 0 0 1px rgba(0,0,0,.25)';return s}
+var _todayCardF=todayCard;
+todayCard=function(){
+ _todayCardF();var c=app.querySelector('.todaycard');if(!c)return;var tg=c.querySelector('.tag'),info=dayInfo(new Date());
+ var box=el('div');box.style.margin='4px 0 6px';
+ var l1=el('p');l1.style.cssText='margin:6px 0;font-size:.98rem';l1.appendChild(colorDot(info.col));l1.appendChild(document.createTextNode(info.season+' · '+COLORS[info.col][0]+' vestments'));box.appendChild(l1);
+ if(info.obl){var l2=el('p',0,info.obl);l2.style.cssText='margin:6px 0;font-size:.95rem';box.appendChild(l2)}
+ if(info.pen){var b=el('button','trow');b.appendChild(el('span','tlbl','Penance'));b.appendChild(el('span','ttxt',info.pen));b.appendChild(el('i'));b.onclick=function(){openDevo('Fasting & Penance')};box.appendChild(b)}
+ tg.parentNode.insertBefore(box,tg.nextSibling)};
+function fastAhead(){
+ var c=el('div','card'),T=d0(new Date()),list=[];
+ c.appendChild(el('p','tr','The days of fasting and abstinence for the coming year. Every Friday is also a day of penance.'));
+ for(var y=T.getFullYear();y<=T.getFullYear()+1;y++){var E=easterOf(y);
+  [[addD(E,-46),'Ash Wednesday','Fast and abstinence'],[addD(E,-2),'Good Friday','Fast and abstinence'],[addD(E,-1),'Holy Saturday','Fast encouraged (voluntary)']].forEach(function(r){if(r[0]>=T)list.push(r)});
+  var f=addD(E,-44);for(var n=0;n<6;n++){var fr=addD(f,n*7);if(fr>=T&&!dayInfo(fr).pen.match(/solemnity/))list.push([fr,'Friday of Lent','Abstinence'])}}
+ list.sort(function(a,b){return a[0]-b[0]});list.slice(0,10).forEach(function(r){var row=el('div','item'),sp=el('span');sp.appendChild(el('b',0,r[1]));sp.appendChild(el('br'));var m=el('span',0,r[2]);m.style.cssText='font-size:.88rem;color:var(--mute)';sp.appendChild(m);row.appendChild(sp);
+  var dt=el('small',0,fmtM(r[0]));dt.style.cssText='color:var(--mute);white-space:nowrap;margin-left:10px';row.appendChild(dt);c.appendChild(row)});
+ app.appendChild(c)}
+var _rosExtrasF=rosExtras;
+rosExtras=function(){_rosExtrasF();if(CHM)return;var info=dayInfo(new Date()),line=app.querySelector('.todayline');if(!line||!info.fast)return;
+ line.appendChild(el('span','sep','·'));var b=el('button','tl',(/fasting/.test(info.pen)?'Fast day':/no Friday/.test(info.pen)?'Solemnity':'Friday penance')+' ›');b.onclick=function(){openDevo('Fasting & Penance')};line.appendChild(b)};
+Object.assign(FOUI,{'Fasting & Penance':'Fasta og bót','Penance':'Bót'});
 
 // ===== Wire everything into the app =====
 var _rosary=rosary,_prayers=prayers,_hours=hours,_devo=devo,_me=me,_shareCard=shareCard;
